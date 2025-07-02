@@ -13,6 +13,7 @@ import { setInterceptorToken } from '@/fetching/client/config';
 import { useContextStore } from '@/context/store';
 import useApplication from '@/hook/useApplication';
 import useScaleLayout from '@/hook/useScaleLayout';
+import useResponsive from '@/hook/useResponsive';
 
 const LayoutClient = (props: any) => {
   const { isMounted } = useMounted();
@@ -26,6 +27,7 @@ const LayoutClient = (props: any) => {
   const [isLoadingOnLoad, setIsLoadingOnLoad] = useState(true);
   useScaleLayout();
   const { getProfile } = useApplication();
+  const { width } = useResponsive();
 
   /* render layout */
   useEffect(() => {
@@ -67,6 +69,18 @@ const LayoutClient = (props: any) => {
     /* Profile */
     getProfileOnLoad();
   }, [isMounted]);
+
+  if (width < 1024) {
+    return (
+      <div className='bg-[url("/images/loading/bg.png")] bg-cover bg-center bg-no-repeat'>
+        <div className='flex h-screen w-full items-center justify-center'>
+          <div className='text-[24px] font-[400] text-[#F4E4CA]'>
+            <h1>Only support for desktop</h1>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div id='layout-client-container' className='overflow-hidden'>
