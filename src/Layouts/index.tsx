@@ -75,7 +75,7 @@ const LayoutClient = (props: any) => {
     return (
       <div className='bg-[url("/images/loading/bg.jpg")] bg-cover bg-center bg-no-repeat'>
         <div className='flex h-screen w-full items-center justify-center'>
-          <div className='text-[24px] font-[400] text-[#F4E4CA]'>
+          <div className='text-[24px] font-[400] text-[#F4E4CA] mt-[-15rem]'>
             <h1>Only support for desktop</h1>
           </div>
         </div>
