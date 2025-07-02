@@ -28,6 +28,7 @@
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "19.1.8",
+    "postcss-pxtorem": "^6.1.0",
     "@types/react-dom": "19.1.6",
     "eslint": "^8",
     "eslint-config-next": "15.3.4",

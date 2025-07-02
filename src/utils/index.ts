@@ -29,3 +29,7 @@ export const formatTimeUnit = (timeUnit: any) => {
 
 export const delay = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
+
+export const customUnitFn = (px: any, baseFontSize = 16) => {
+  return `${px / baseFontSize}rem`;
+};

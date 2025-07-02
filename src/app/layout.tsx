@@ -43,7 +43,7 @@ const InterFont = Inter({
 });
 
 const groteskFont = localFont({
-  src: '../assets/fonts/grotesk.otf',
+  src: '../../public/fonts/grotesk.otf',
   variable: '--font-grotesk',
 });
 
@@ -59,7 +59,7 @@ export default async function RootLayout({
         {/* <link rel='apple-touch-icon' href={INFO.APP.DOMAIN} /> */}
       </head>
       <body
-        className={`${InterFont.variable} ${groteskFont.variable} font-grotesk overflow-hidden`}
+        className={`${InterFont.variable} ${groteskFont.variable} overflow-hidden font-grotesk`}
       >
         <ContextStoreProvider>
           <Suspense fallback={<Loading />}>

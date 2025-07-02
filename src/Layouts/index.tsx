@@ -26,6 +26,7 @@ const LayoutClient = (props: any) => {
   const { isPending: isPendingGlobal } = useContextStore();
   const [isLoadingOnLoad, setIsLoadingOnLoad] = useState(true);
   // useScaleLayout();
+
   const { getProfile } = useApplication();
   const { width } = useResponsive();
 

@@ -11,9 +11,21 @@
       #edb44d 98.47%
     );
   }
-  body {
-    @apply bg-layer-primary;
+  /* scale-layout by chumby: enable pxToRem postCss + rem in CustomUnit + rem in icon, antd, next image... */
+  html {
+    font-size: calc(16 * 100vw / 1920);
   }
+  @media only screen and (max-width: 1023px) {
+    /* html {
+      font-size: calc(16 * 100vw / 768);
+    } */
+    html {
+      font-size: unset;
+    }
+  }
+  /* body {
+    @apply bg-layer-primary;
+  } */
 }
 
 @layer components {
