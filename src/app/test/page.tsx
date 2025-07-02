@@ -5,13 +5,13 @@ import { Canvas, useThree } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
 
 const Image = () => {
-  const texture = useTexture('/images/loading/bg.png');
+  const texture = useTexture('/images/loading/bg-text.jpg');
   const { viewport } = useThree();
 
   return (
     <mesh position-z={-4}>
       <planeGeometry args={[viewport.width, viewport.height, 20, 20]} />
-      <meshBasicMaterial map={texture} color='#d5cfc9' />
+      <meshBasicMaterial map={texture} />
     </mesh>
   );
 };

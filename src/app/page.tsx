@@ -63,7 +63,7 @@ const Welcome = () => {
   return (
     <div
       className={
-        'fixed inset-0 z-[9999] flex items-center justify-center bg-layer-primary bg-[url("/images/loading/bg.png")] bg-cover bg-center bg-no-repeat px-[47px] text-primary'
+        'fixed inset-0 z-[9999] flex items-center justify-center bg-layer-primary bg-[url("/images/loading/bg.jpg")] bg-cover bg-center bg-no-repeat px-[47px] text-primary'
       }
     >
       {welcomeState === WELCOME_STATE.LOADING && (
