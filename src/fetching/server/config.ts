@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 
 export async function saveHttpOnlyCookie(request: any) {
   const { key, value } = request;
-  cookies().set({
+  (await cookies()).set({
     name: key,
     value,
     httpOnly: true,
@@ -15,7 +15,7 @@ export async function saveHttpOnlyCookie(request: any) {
 }
 
 export const getHttpOnlyCookieFromServer = async (key: string) => {
-  return cookies().get(key)?.value;
+  return (await cookies()).get(key)?.value;
 };
 
 export const revalidateNextData = async (tagName: string) => {
