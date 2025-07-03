@@ -34,16 +34,16 @@ const Header = () => {
     const item = refs.current[index];
     if (!item) return;
     const [normal, hover] = item.children;
-    gsap.to(normal, { y: '-100%', duration: 0.15, ease: 'power2.inOut' });
-    gsap.to(hover, { y: '-100%', duration: 0.15, ease: 'power2.inOut' });
+    gsap.to(normal, { y: '-100%', duration: 0.2, ease: 'power2.inOut' });
+    gsap.to(hover, { y: '-100%', duration: 0.2, ease: 'power2.inOut' });
   };
 
   const handleMouseLeave = (index: number) => {
     const item = refs.current[index];
     if (!item) return;
     const [normal, hover] = item.children;
-    gsap.to(normal, { y: '0%', duration: 0.15, ease: 'power2.inOut' });
-    gsap.to(hover, { y: '0%', duration: 0.15, ease: 'power2.inOut' });
+    gsap.to(normal, { y: '0%', duration: 0.2, ease: 'power2.inOut' });
+    gsap.to(hover, { y: '0%', duration: 0.2, ease: 'power2.inOut' });
   };
 
   return (
