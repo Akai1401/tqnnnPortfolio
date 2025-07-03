@@ -28,3 +28,26 @@
   width: 100% !important;
   height: 100% !important;
 } */
+
+/* Hiệu ứng vertical text flip cho menu item */
+.menu-item-inner {
+  display: inline-block;
+  position: relative;
+  height: 1em;
+  overflow: hidden;
+  vertical-align: middle;
+}
+.menu-item-text {
+  display: block;
+  transition: none;
+  will-change: transform;
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+.menu-item-text--default {
+  top: 0;
+}
+.menu-item-text--hover {
+  top: 100%;
+}

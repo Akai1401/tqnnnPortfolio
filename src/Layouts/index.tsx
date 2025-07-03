@@ -14,6 +14,7 @@ import { useContextStore } from '@/context/store';
 import useApplication from '@/hook/useApplication';
 import useScaleLayout from '@/hook/useScaleLayout';
 import useResponsive from '@/hook/useResponsive';
+import { PAGE_STATE } from '@/constant';
 
 const LayoutClient = (props: any) => {
   const { isMounted } = useMounted();
@@ -25,6 +26,8 @@ const LayoutClient = (props: any) => {
   );
   const { isPending: isPendingGlobal } = useContextStore();
   const [isLoadingOnLoad, setIsLoadingOnLoad] = useState(true);
+  const setShowHeader = useStore((state: any) => state.setShowHeader);
+  const welcomeState = useStore((state: any) => state.welcomeState);
   // useScaleLayout();
 
   const { getProfile } = useApplication();
@@ -55,6 +58,16 @@ const LayoutClient = (props: any) => {
       setIsLoadingOnLoad(false);
     }
   };
+
+  useEffect(() => {
+    if (
+      pathName !== '/' ||
+      (pathName === '/' && welcomeState === PAGE_STATE.HERO)
+    ) {
+      setShowHeader(true);
+      return;
+    }
+  }, [pathName, welcomeState]);
 
   useEffect(() => {
     if (!isMounted) return;

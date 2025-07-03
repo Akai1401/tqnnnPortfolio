@@ -14,6 +14,7 @@ import { customUnitFn } from '@/utils';
 import useStore from '@/store';
 import HeroSection from '@/components/HeroSection';
 import { PAGE_STATE } from '@/constant';
+import { useSearchParams } from 'next/navigation';
 
 // Register ScrollToPlugin
 gsap.registerPlugin(ScrollToPlugin);
@@ -82,20 +83,24 @@ const TextInCanvas = () => {
 
 const Welcome = () => {
   const [progress, setProgress] = useState(0);
-  const [pageState, setPageState] = useState(PAGE_STATE.LOADING);
   const h1Refs = React.useRef<(HTMLHeadingElement | null)[]>([]);
   const buttonRef = React.useRef<any>(null);
   const { width, height } = useResponsive();
   const setClientWidth = useStore((state: any) => state.setClientWidth);
   const setClientHeight = useStore((state: any) => state.setClientHeight);
+  const welcomeState = useStore((state: any) => state.welcomeState);
+  const setWelcomeState = useStore((state: any) => state.setWelcomeState);
 
   useEffect(() => {
-    setProgress(100);
     document.body.style.overflow = 'hidden';
+    if (welcomeState === PAGE_STATE.HERO) {
+      return;
+    }
+    setProgress(100);
     setTimeout(() => {
-      setPageState(PAGE_STATE.WELCOME);
+      setWelcomeState(PAGE_STATE.WELCOME);
     }, 2500);
-  }, [progress]);
+  }, [progress, welcomeState]);
 
   useEffect(() => {
     setClientWidth(width);
@@ -103,7 +108,7 @@ const Welcome = () => {
   }, [width, height]);
 
   useEffect(() => {
-    if (pageState === PAGE_STATE.WELCOME) {
+    if (welcomeState === PAGE_STATE.WELCOME) {
       // Animate các h1 lần lượt từ dưới lên
       // gsap.fromTo(
       //   h1Refs.current,
@@ -129,66 +134,109 @@ const Welcome = () => {
         }
       );
     }
-  }, [pageState]);
+  }, [welcomeState]);
+
+  const handleClickEnter = () => {
+    // Scroll to hero section with GSAP animation
+    const heroSection = document.getElementById('hero-section');
+    if (heroSection) {
+      // Fade out welcome screen elements
+      gsap.to('.welcome-canvas', {
+        opacity: 0,
+        duration: 1.5,
+        ease: 'power2.inOut',
+      });
+
+      gsap.to(buttonRef.current, {
+        opacity: 0,
+        y: -20,
+        duration: 0.5,
+        ease: 'power2.inOut',
+      });
+
+      // Scroll to hero section
+      gsap.to(window, {
+        duration: 1.5,
+        scrollTo: {
+          y: heroSection,
+          offsetY: 0,
+        },
+        ease: 'power2.inOut',
+        onComplete: () => {
+          setWelcomeState(PAGE_STATE.HERO);
+          // // Fade in hero section content
+          // gsap.fromTo(heroSection.querySelector('h1'),
+          //   { y: 50, opacity: 0 },
+          //   { y: 0, opacity: 1, duration: 1, ease: "power2.out" }
+          // );
+          // gsap.fromTo(heroSection.querySelector('p'),
+          //   { y: 30, opacity: 0 },
+          //   { y: 0, opacity: 1, duration: 1, delay: 0.3, ease: "power2.out" }
+          // );
+        },
+      });
+    }
+  };
 
   return (
     <>
-      <div
-        className={
-          'relative flex h-screen w-full flex-col items-center justify-center bg-[url("/images/loading/bg.jpg")] bg-cover bg-center bg-no-repeat px-[47px] text-primary'
-        }
-      >
-        {pageState === PAGE_STATE.LOADING && (
-          <div className='relative h-[1px] w-full bg-[#6E675B]'>
-            <div
-              style={{
-                width: progress + '%',
-              }}
-              className='absolute left-0 top-0 h-[1px] bg-[#F4E4CA] transition-all duration-[2s] ease-in'
-            >
-              <CustomImage
-                src='/images/loading/tqn.webp'
-                alt='progress'
-                width={92.27}
-                height={111}
-                className='absolute right-[-3rem] top-[-4rem]'
-              />
-            </div>
-          </div>
-        )}
-        {pageState === PAGE_STATE.WELCOME && (
-          <>
-            <Canvas
-              orthographic
-              className='welcome-canvas'
-              style={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                // width: `calc(100% + ${(1920 / width) * 100}px)`,
-                // height: '100vh',
-                // zoom: 1,
-              }}
-            >
-              <ImageInCanvas />
-              <TextInCanvas />
-              <EffectComposer>
-                <Fluid
-                  radius={0.03}
-                  curl={10}
-                  swirl={5}
-                  distortion={1}
-                  force={2}
-                  pressure={0.94}
-                  densityDissipation={0.98}
-                  velocityDissipation={0.99}
-                  intensity={0.3}
-                  rainbow={false}
-                  blend={0}
+      {welcomeState !== PAGE_STATE.HERO && (
+        <div
+          className={
+            'relative flex h-screen w-full flex-col items-center justify-center bg-[url("/images/loading/bg.jpg")] bg-cover bg-center bg-no-repeat px-[47px] text-primary'
+          }
+        >
+          {welcomeState === PAGE_STATE.LOADING && (
+            <div className='relative h-[1px] w-full bg-[#6E675B]'>
+              <div
+                style={{
+                  width: progress + '%',
+                }}
+                className='absolute left-0 top-0 h-[1px] bg-[#F4E4CA] transition-all duration-[2s] ease-in'
+              >
+                <CustomImage
+                  src='/images/loading/tqn.webp'
+                  alt='progress'
+                  width={92.27}
+                  height={111}
+                  className='absolute right-[-3rem] top-[-4rem]'
                 />
-              </EffectComposer>
-            </Canvas>
-            {/* <div className='flex w-full items-center justify-between'>
+              </div>
+            </div>
+          )}
+          {welcomeState === PAGE_STATE.WELCOME && (
+            <>
+              <Canvas
+                orthographic
+                className='welcome-canvas'
+                style={{
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  // width: `calc(100% + ${(1920 / width) * 100}px)`,
+                  // height: '100vh',
+                  // zoom: 1,
+                }}
+              >
+                <ImageInCanvas />
+                <TextInCanvas />
+                <EffectComposer>
+                  <Fluid
+                    radius={0.03}
+                    curl={10}
+                    swirl={5}
+                    distortion={1}
+                    force={2}
+                    pressure={0.94}
+                    densityDissipation={0.98}
+                    velocityDissipation={0.99}
+                    intensity={0.3}
+                    rainbow={false}
+                    blend={0}
+                  />
+                </EffectComposer>
+              </Canvas>
+              {/* <div className='flex w-full items-center justify-between'>
           {WELCOME_TEXT.map((text, index) => (
             <h1
               key={index}
@@ -201,77 +249,38 @@ const Welcome = () => {
             </h1>
           ))}
         </div> */}
-          </>
-        )}
-        <div className='absolute bottom-[3rem] flex w-full flex-col items-center'>
-          {pageState === PAGE_STATE.WELCOME && (
-            <div
-              ref={buttonRef}
-              style={{
-                marginBottom: 48 + 'px',
-              }}
-              className='opacity-0'
-            >
-              <div className='group relative transition-all duration-300 active:scale-95'>
-                <div className='absolute left-0 top-0 h-full w-0 bg-[#BD2F00] transition-all duration-300 group-hover:w-full'></div>
-                <button
-                  onClick={() => {
-                    // Scroll to hero section with GSAP animation
-                    const heroSection = document.getElementById('hero-section');
-                    if (heroSection) {
-                      // Fade out welcome screen elements
-                      gsap.to('.welcome-canvas', {
-                        opacity: 0,
-                        duration: 1.5,
-                        ease: 'power2.inOut',
-                      });
-
-                      gsap.to(buttonRef.current, {
-                        opacity: 0,
-                        y: -20,
-                        duration: 0.5,
-                        ease: 'power2.inOut',
-                      });
-
-                      // Scroll to hero section
-                      gsap.to(window, {
-                        duration: 1.5,
-                        scrollTo: {
-                          y: heroSection,
-                          offsetY: 0,
-                        },
-                        ease: 'power2.inOut',
-                        onComplete: () => {
-                          setPageState(PAGE_STATE.HERO);
-                          // // Fade in hero section content
-                          // gsap.fromTo(heroSection.querySelector('h1'),
-                          //   { y: 50, opacity: 0 },
-                          //   { y: 0, opacity: 1, duration: 1, ease: "power2.out" }
-                          // );
-                          // gsap.fromTo(heroSection.querySelector('p'),
-                          //   { y: 30, opacity: 0 },
-                          //   { y: 0, opacity: 1, duration: 1, delay: 0.3, ease: "power2.out" }
-                          // );
-                        },
-                      });
-                    }
-                  }}
-                  className='relative mx-[14px] py-[4px] text-[48px] font-[400] text-[#928979] transition-all group-hover:text-[#F4E4CA]'
-                >
-                  Click to enter
-                </button>
+            </>
+          )}
+          <div className='absolute bottom-[3rem] flex w-full flex-col items-center'>
+            {welcomeState === PAGE_STATE.WELCOME && (
+              <div
+                ref={buttonRef}
+                style={{
+                  marginBottom: 48 + 'px',
+                }}
+                className='opacity-0'
+              >
+                <div className='group relative transition-all duration-300 active:scale-95'>
+                  <div className='absolute left-0 top-0 h-full w-0 bg-[#BD2F00] transition-all duration-300 group-hover:w-full'></div>
+                  <button
+                    onClick={handleClickEnter}
+                    className='relative mx-[14px] py-[4px] text-[48px] font-[400] text-[#928979] transition-all group-hover:text-[#F4E4CA]'
+                  >
+                    Click to enter
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
-          {pageState === PAGE_STATE.LOADING && (
-            <h4 className='text-center text-[16px] font-[400] text-[#837A6D]'>
-              ALL RIGHTS RESERVED. © 2025 TQNG MARUKO
-            </h4>
-          )}
+            )}
+            {welcomeState === PAGE_STATE.LOADING && (
+              <h4 className='text-center text-[16px] font-[400] text-[#837A6D]'>
+                ALL RIGHTS RESERVED. © 2025 TQNG MARUKO
+              </h4>
+            )}
+          </div>
         </div>
-      </div>
-      {pageState !== PAGE_STATE.LOADING && (
-        <HeroSection pageState={pageState} />
+      )}
+      {welcomeState !== PAGE_STATE.LOADING && (
+        <HeroSection pageState={welcomeState} />
       )}
     </>
   );

@@ -1,3 +1,4 @@
+import { PAGE_STATE } from '@/constant';
 import { create } from 'zustand';
 
 const useStore = create((set: any) => {
@@ -17,6 +18,10 @@ const useStore = create((set: any) => {
     setClientWidth: initSetState('clientWidth'),
     clientHeight: undefined,
     setClientHeight: initSetState('clientHeight'),
+    showHeader: false,
+    setShowHeader: initSetState('showHeader'),
+    welcomeState: PAGE_STATE.LOADING,
+    setWelcomeState: initSetState('welcomeState'),
   };
 });
 
