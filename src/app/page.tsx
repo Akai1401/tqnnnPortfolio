@@ -17,7 +17,7 @@ import HeroSection from '@/components/HeroSection';
 // Register ScrollToPlugin
 gsap.registerPlugin(ScrollToPlugin);
 
-enum PAGE_STATE {
+export enum PAGE_STATE {
   LOADING,
   WELCOME,
   HERO,
@@ -227,7 +227,7 @@ const Welcome = () => {
                       // Fade out welcome screen elements
                       gsap.to('.welcome-canvas', {
                         opacity: 0,
-                        duration: 2,
+                        duration: 1.5,
                         ease: 'power2.inOut',
                       });
 
@@ -240,7 +240,7 @@ const Welcome = () => {
 
                       // Scroll to hero section
                       gsap.to(window, {
-                        duration: 2,
+                        duration: 1.5,
                         scrollTo: {
                           y: heroSection,
                           offsetY: 0,
@@ -275,7 +275,9 @@ const Welcome = () => {
           )}
         </div>
       </div>
-      {pageState !== PAGE_STATE.LOADING && <HeroSection />}
+      {pageState !== PAGE_STATE.LOADING && (
+        <HeroSection pageState={pageState} />
+      )}
     </>
   );
 };
