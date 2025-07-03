@@ -13,15 +13,10 @@ import useResponsive from '@/hook/useResponsive';
 import { customUnitFn } from '@/utils';
 import useStore from '@/store';
 import HeroSection from '@/components/HeroSection';
+import { PAGE_STATE } from '@/constant';
 
 // Register ScrollToPlugin
 gsap.registerPlugin(ScrollToPlugin);
-
-export enum PAGE_STATE {
-  LOADING,
-  WELCOME,
-  HERO,
-}
 
 const WELCOME_TEXT = [
   'CREATIVE DEVELOPMENT',

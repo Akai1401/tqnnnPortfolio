@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import gsap from 'gsap';
-import { PAGE_STATE } from '@/app/page';
+import { PAGE_STATE } from '@/constant';
 
 const HeroSection = ({ pageState }: { pageState: PAGE_STATE }) => {
   const h1Refs = React.useRef<(HTMLHeadingElement | null)[]>([]);
