@@ -23,9 +23,9 @@
       font-size: unset;
     }
   }
-  /* body {
+  body {
     @apply bg-layer-primary;
-  } */
+  }
 }
 
 @layer components {
@@ -91,7 +91,8 @@
 
   /* custom scroll bar */
   ::-webkit-scrollbar {
-    width: 5px;
+    width: 0px;
+    height: 0px;
   }
 
   ::-webkit-scrollbar-track {

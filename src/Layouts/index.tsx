@@ -75,7 +75,7 @@ const LayoutClient = (props: any) => {
     return (
       <div className='bg-[url("/images/loading/bg.jpg")] bg-cover bg-center bg-no-repeat'>
         <div className='flex h-screen w-full items-center justify-center'>
-          <div className='text-[24px] font-[400] text-[#F4E4CA] mt-[-15rem]'>
+          <div className='mt-[-15rem] text-[24px] font-[400] text-[#F4E4CA]'>
             <h1>Only support for desktop</h1>
           </div>
         </div>
@@ -84,7 +84,7 @@ const LayoutClient = (props: any) => {
   }
 
   return (
-    <div id='layout-client-container' className='overflow-hidden'>
+    <div>
       {/* {!isMounted && <Loading />} */}
       {isPendingGlobal && (
         <div className='fixed inset-0 z-[9999] bg-black opacity-60' />

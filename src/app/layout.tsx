@@ -59,7 +59,7 @@ export default async function RootLayout({
         {/* <link rel='apple-touch-icon' href={INFO.APP.DOMAIN} /> */}
       </head>
       <body
-        className={`${InterFont.variable} ${groteskFont.variable} overflow-hidden font-grotesk`}
+        className={`${InterFont.variable} ${groteskFont.variable} font-grotesk`}
       >
         <ContextStoreProvider>
           <Suspense fallback={<Loading />}>
