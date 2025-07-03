@@ -1,37 +1,30 @@
 'use client';
 
-import React, { Suspense, useEffect, useState, useTransition } from 'react';
+import React, { useEffect, useRef, useState, useTransition } from 'react';
 import useMounted from '@/hook/useMounted';
 import { usePathname, useRouter } from 'next/navigation';
-import { delay } from '@/utils';
 import LayoutNothing from './LayoutNothing';
 import LayoutPrimary from './LayoutPrimary';
-import Script from 'next/script';
 import useStore from '@/store';
-import { getCookie } from '@/utils/cookie';
-import { setInterceptorToken } from '@/fetching/client/config';
-import { useContextStore } from '@/context/store';
-import useApplication from '@/hook/useApplication';
-import useScaleLayout from '@/hook/useScaleLayout';
 import useResponsive from '@/hook/useResponsive';
-import { PAGE_STATE } from '@/constant';
 
 const LayoutClient = (props: any) => {
   const { isMounted } = useMounted();
-  const setUserData = useStore((state) => state.setUserData);
-  const userData = useStore((state: any) => state.userData);
   const pathName = usePathname();
   const [currentLayout, setCurrentLayout] = useState(
     <LayoutPrimary>{props?.children}</LayoutPrimary>
   );
-  const { isPending: isPendingGlobal } = useContextStore();
-  const [isLoadingOnLoad, setIsLoadingOnLoad] = useState(true);
-  const setShowHeader = useStore((state: any) => state.setShowHeader);
-  const welcomeState = useStore((state: any) => state.welcomeState);
+
   // useScaleLayout();
 
-  const { getProfile } = useApplication();
-  const { width } = useResponsive();
+  const { width, height } = useResponsive();
+  const setClientWidth = useStore((state: any) => state.setClientWidth);
+  const setClientHeight = useStore((state: any) => state.setClientHeight);
+
+  useEffect(() => {
+    setClientWidth(width);
+    setClientHeight(height);
+  }, [width, height]);
 
   /* render layout */
   useEffect(() => {
@@ -41,33 +34,6 @@ const LayoutClient = (props: any) => {
       setCurrentLayout(<LayoutPrimary>{props?.children}</LayoutPrimary>);
     }
   }, [pathName]);
-
-  const getProfileOnLoad = async () => {
-    try {
-      const token = getCookie('access_token');
-      setInterceptorToken(token!);
-      await getProfile();
-    } catch (err: any) {
-      console.log(err);
-      if (err?.message === 'Network Error') {
-        // show maintain page
-      }
-      setInterceptorToken(undefined);
-      setUserData(undefined);
-    } finally {
-      setIsLoadingOnLoad(false);
-    }
-  };
-
-  useEffect(() => {
-    if (
-      pathName !== '/' ||
-      (pathName === '/' && welcomeState === PAGE_STATE.HERO)
-    ) {
-      setShowHeader(true);
-      return;
-    }
-  }, [pathName, welcomeState]);
 
   useEffect(() => {
     if (!isMounted) return;
@@ -80,8 +46,6 @@ const LayoutClient = (props: any) => {
       console.error = () => {};
     }
     // ----------------- broke -----------------
-    /* Profile */
-    getProfileOnLoad();
   }, [isMounted]);
 
   if (width < 1024) {
@@ -96,23 +60,7 @@ const LayoutClient = (props: any) => {
     );
   }
 
-  return (
-    <div>
-      {/* {!isMounted && <Loading />} */}
-      {isPendingGlobal && (
-        <div className='fixed inset-0 z-[9999] bg-black opacity-60' />
-      )}
-      {currentLayout}
-
-      {/* other script */}
-      {/* <Script
-        id='json-ld'
-        type='application/ld+json'
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        strategy='lazyOnload'
-      /> */}
-    </div>
-  );
+  return <div>{currentLayout}</div>;
 };
 
 export default LayoutClient;

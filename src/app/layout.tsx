@@ -62,9 +62,9 @@ export default async function RootLayout({
         className={`${InterFont.variable} ${groteskFont.variable} font-grotesk`}
       >
         <ContextStoreProvider>
-          <Suspense fallback={<Loading />}>
-            <LayoutClient>{children}</LayoutClient>
-          </Suspense>
+          {/* <Suspense fallback={<Loading />}> */}
+          <LayoutClient>{children}</LayoutClient>
+          {/* </Suspense> */}
         </ContextStoreProvider>
         {/* analytics */}
         {/* <GoogleAnalytics gaId='G-722Q2GE1J3' /> */}

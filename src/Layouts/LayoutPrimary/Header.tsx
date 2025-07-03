@@ -3,12 +3,24 @@
 import IconMenu from '@/assets/icons/IconMenu';
 import CustomImage from '@/components/custom/CustomImage';
 import { INFO } from '@/constant/info';
-import { useRouter } from 'next/navigation';
-import React, { useRef } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
+import useCustomRouter from '@/hook/useCustomRouter';
 
 const Header = () => {
-  const router = useRouter();
+  const customRouter = useCustomRouter();
+  const [showDetail, setShowDetail] = useState(false);
+  const path = usePathname();
+
+  useEffect(() => {
+    if (path !== '/') {
+      setShowDetail(true);
+    } else {
+      setShowDetail(false);
+    }
+  }, [path]);
+
   const MENU_ITEMS = [
     { label: 'About', href: '/about' },
     { label: 'Works', href: '/works' },
@@ -22,35 +34,50 @@ const Header = () => {
     const item = refs.current[index];
     if (!item) return;
     const [normal, hover] = item.children;
-    gsap.to(normal, { y: '-100%', duration: 0.2, ease: 'power2.inOut' });
-    gsap.to(hover, { y: '-100%', duration: 0.2, ease: 'power2.inOut' });
+    gsap.to(normal, { y: '-100%', duration: 0.15, ease: 'power2.inOut' });
+    gsap.to(hover, { y: '-100%', duration: 0.15, ease: 'power2.inOut' });
   };
 
   const handleMouseLeave = (index: number) => {
     const item = refs.current[index];
     if (!item) return;
     const [normal, hover] = item.children;
-    gsap.to(normal, { y: '0%', duration: 0.2, ease: 'power2.inOut' });
-    gsap.to(hover, { y: '0%', duration: 0.2, ease: 'power2.inOut' });
+    gsap.to(normal, { y: '0%', duration: 0.15, ease: 'power2.inOut' });
+    gsap.to(hover, { y: '0%', duration: 0.15, ease: 'power2.inOut' });
   };
 
   return (
     <div className='fixed left-0 right-0 top-0 z-[9999] flex items-center justify-between px-[2rem] py-[1rem]'>
-      <CustomImage
-        src={INFO.APP.LOGO_URL}
-        alt='logo'
-        width={111}
-        height={48}
-        className='cursor-pointer transition-all active:scale-95'
-        onClick={() => {
-          router.push('/');
-        }}
-      />
+      <div className='flex items-center gap-[124px]'>
+        <CustomImage
+          src={INFO.APP.LOGO_URL}
+          alt='logo'
+          width={111}
+          height={48}
+          className='cursor-pointer transition-all active:scale-95'
+          onClick={() => {
+            customRouter.push('/');
+          }}
+        />
+        {showDetail && (
+          <div className='flex items-center gap-[43px] text-[16px] font-[400] text-[#F4E4CA]'>
+            <p>
+              / Base on. <br />
+              Hanoi, Vietnam
+            </p>
+            <p>
+              / 12:34 (GMT+7) <br />
+              35.6764° N, 139.6500° E
+            </p>
+          </div>
+        )}
+      </div>
+
       <div className='flex items-center gap-[2rem]'>
         {MENU_ITEMS.map((item, index) => (
           <div
             key={index}
-            onClick={() => router.push(item.href)}
+            onClick={() => customRouter.push(item.href)}
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={() => handleMouseLeave(index)}
             className='group flex cursor-pointer items-center text-[16px] font-[600] uppercase text-[#F4E4CA]'

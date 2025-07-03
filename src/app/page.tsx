@@ -1,289 +1,154 @@
 'use client';
 
-import CustomImage from '@/components/custom/CustomImage';
 import React, { useEffect, useState } from 'react';
 import gsap from 'gsap';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-import { useTexture } from '@react-three/drei';
-import { Canvas, useThree } from '@react-three/fiber';
-import { EffectComposer } from '@react-three/postprocessing';
-import { Fluid } from '@whatisjery/react-fluid-distortion';
-import { Text as DreiText } from '@react-three/drei';
-import useResponsive from '@/hook/useResponsive';
-import { customUnitFn } from '@/utils';
-import useStore from '@/store';
-import HeroSection from '@/components/HeroSection';
 import { PAGE_STATE } from '@/constant';
-import { useSearchParams } from 'next/navigation';
+import Marquee from 'react-fast-marquee';
+import IconWarning from '@/assets/icons/IconWarning';
+import IconArrow from '@/assets/icons/IconArrow';
+import { INFO } from '@/constant/info';
+import CustomImage from '@/components/custom/CustomImage';
+import useStore from '@/store';
 
-// Register ScrollToPlugin
-gsap.registerPlugin(ScrollToPlugin);
-
-const WELCOME_TEXT = [
-  'CREATIVE DEVELOPMENT',
-  'PORTFOLIO',
-  '2025 SHOWCASE',
-  'OF',
-  'THANH QUY NGUYEN',
-];
-
-const ImageInCanvas = () => {
-  const texture = useTexture('/images/loading/bg.jpg');
-  const { viewport } = useThree();
-
-  return (
-    <mesh position-z={-4}>
-      <planeGeometry args={[viewport.width, viewport.height, 20, 20]} />
-      <meshBasicMaterial map={texture} />
-    </mesh>
-  );
-};
-
-const TextInCanvas = () => {
-  const COUNT = WELCOME_TEXT.length;
-  const { viewport } = useThree();
-  const MARGIN_BOTTOM = 50;
-  const MARGIN_X = 320;
-  const SCALE_FACTOR = viewport.width / 1920;
-
-  return (
-    <group position={[0, 0, 0]}>
-      {WELCOME_TEXT.map((text, index) => {
-        const x =
-          -viewport.width / 2 +
-          (index * (viewport.width - MARGIN_X)) / (COUNT - 1) +
-          MARGIN_X / 2;
-        return (
-          <DreiText
-            key={index}
-            font={'/fonts/grotesk.otf'}
-            fontSize={20 * SCALE_FACTOR}
-            color='#F4E4CA'
-            anchorX='center'
-            anchorY='middle'
-            position={[x, 0, 0]}
-          >
-            {text}
-          </DreiText>
-        );
-      })}
-      <DreiText
-        font={'/fonts/grotesk.otf'}
-        fontSize={16 * SCALE_FACTOR}
-        color='#837A6D'
-        anchorX='center'
-        anchorY='middle'
-        position={[0, -viewport.height / 2 + MARGIN_BOTTOM, 0]}
-      >
-        ALL RIGHTS RESERVED. © 2025 TQNG MARUKO
-      </DreiText>
-    </group>
-  );
-};
-
-const Welcome = () => {
-  const [progress, setProgress] = useState(0);
+const HeroSection = () => {
   const h1Refs = React.useRef<(HTMLHeadingElement | null)[]>([]);
-  const buttonRef = React.useRef<any>(null);
-  const { width, height } = useResponsive();
-  const setClientWidth = useStore((state: any) => state.setClientWidth);
-  const setClientHeight = useStore((state: any) => state.setClientHeight);
-  const welcomeState = useStore((state: any) => state.welcomeState);
-  const setWelcomeState = useStore((state: any) => state.setWelcomeState);
+  const socialRefs = React.useRef<(HTMLAnchorElement | null)[]>([]);
+  const [hovered, setHovered] = useState<string | null>(null);
+  const pageState = useStore((state: any) => state.welcomeState);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
-    if (welcomeState === PAGE_STATE.HERO) {
-      return;
-    }
-    setProgress(100);
-    setTimeout(() => {
-      setWelcomeState(PAGE_STATE.WELCOME);
-    }, 2500);
-  }, [progress, welcomeState]);
+    // if (pageState !== PAGE_STATE.HERO) return;
+    // Animate các h1 lần lượt từ dưới lên
+    gsap.fromTo(
+      h1Refs.current,
+      { y: 60, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        stagger: 0.12,
+        duration: 0.7,
+        ease: 'power2.out',
+      }
+    );
+    // Animate social buttons
+    gsap.fromTo(
+      socialRefs.current,
+      { y: 30, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        stagger: 0.1,
+        duration: 0.6,
+        delay: 0.3,
+        ease: 'power2.out',
+      }
+    );
+  }, [pageState]);
 
-  useEffect(() => {
-    setClientWidth(width);
-    setClientHeight(height);
-  }, [width, height]);
-
-  useEffect(() => {
-    if (welcomeState === PAGE_STATE.WELCOME) {
-      // Animate các h1 lần lượt từ dưới lên
-      // gsap.fromTo(
-      //   h1Refs.current,
-      //   { y: 60, opacity: 0 },
-      //   {
-      //     y: 0,
-      //     opacity: 1,
-      //     stagger: 0.12,
-      //     duration: 0.7,
-      //     ease: 'power3.out',
-      //   }
-      // );
-      // Animate button
-      gsap.fromTo(
-        buttonRef.current,
-        { y: 40, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          delay: 0.7,
-          duration: 0.7,
-          ease: 'power3.out',
-        }
-      );
-    }
-  }, [welcomeState]);
-
-  const handleClickEnter = () => {
-    // Scroll to hero section with GSAP animation
-    const heroSection = document.getElementById('hero-section');
-    if (heroSection) {
-      // Fade out welcome screen elements
-      gsap.to('.welcome-canvas', {
-        opacity: 0,
-        duration: 1.5,
-        ease: 'power2.inOut',
-      });
-
-      gsap.to(buttonRef.current, {
-        opacity: 0,
-        y: -20,
-        duration: 0.5,
-        ease: 'power2.inOut',
-      });
-
-      // Scroll to hero section
-      gsap.to(window, {
-        duration: 1.5,
-        scrollTo: {
-          y: heroSection,
-          offsetY: 0,
-        },
-        ease: 'power2.inOut',
-        onComplete: () => {
-          setWelcomeState(PAGE_STATE.HERO);
-          // // Fade in hero section content
-          // gsap.fromTo(heroSection.querySelector('h1'),
-          //   { y: 50, opacity: 0 },
-          //   { y: 0, opacity: 1, duration: 1, ease: "power2.out" }
-          // );
-          // gsap.fromTo(heroSection.querySelector('p'),
-          //   { y: 30, opacity: 0 },
-          //   { y: 0, opacity: 1, duration: 1, delay: 0.3, ease: "power2.out" }
-          // );
-        },
-      });
-    }
-  };
+  const MARQUEE_LIST = [
+    {
+      id: 1,
+      text: 'by Thanh Quy Nguyen aka tqnggg',
+    },
+    {
+      id: 2,
+      text: 'thank you to my family for always supporting me on this path',
+    },
+    {
+      id: 3,
+      text: 'grateful to myself and all that shaped this journey',
+    },
+  ];
 
   return (
-    <>
-      {welcomeState !== PAGE_STATE.HERO && (
-        <div
-          className={
-            'relative flex h-screen w-full flex-col items-center justify-center bg-[url("/images/loading/bg.jpg")] bg-cover bg-center bg-no-repeat px-[47px] text-primary'
-          }
-        >
-          {welcomeState === PAGE_STATE.LOADING && (
-            <div className='relative h-[1px] w-full bg-[#6E675B]'>
-              <div
-                style={{
-                  width: progress + '%',
-                }}
-                className='absolute left-0 top-0 h-[1px] bg-[#F4E4CA] transition-all duration-[2s] ease-in'
-              >
-                <CustomImage
-                  src='/images/loading/tqn.webp'
-                  alt='progress'
-                  width={92.27}
-                  height={111}
-                  className='absolute right-[-3rem] top-[-4rem]'
-                />
-              </div>
-            </div>
-          )}
-          {welcomeState === PAGE_STATE.WELCOME && (
-            <>
-              <Canvas
-                orthographic
-                className='welcome-canvas'
-                style={{
-                  position: 'fixed',
-                  top: 0,
-                  left: 0,
-                  // width: `calc(100% + ${(1920 / width) * 100}px)`,
-                  // height: '100vh',
-                  // zoom: 1,
-                }}
-              >
-                <ImageInCanvas />
-                <TextInCanvas />
-                <EffectComposer>
-                  <Fluid
-                    radius={0.03}
-                    curl={10}
-                    swirl={5}
-                    distortion={1}
-                    force={2}
-                    pressure={0.94}
-                    densityDissipation={0.98}
-                    velocityDissipation={0.99}
-                    intensity={0.3}
-                    rainbow={false}
-                    blend={0}
-                  />
-                </EffectComposer>
-              </Canvas>
-              {/* <div className='flex w-full items-center justify-between'>
-          {WELCOME_TEXT.map((text, index) => (
-            <h1
-              key={index}
-              ref={(el) => {
-                h1Refs.current[index] = el;
-              }}
-              className='text-[20px] font-[400] text-[#F4E4CA] opacity-0'
-            >
-              {text}
-            </h1>
-          ))}
-        </div> */}
-            </>
-          )}
-          <div className='absolute bottom-[3rem] flex w-full flex-col items-center'>
-            {welcomeState === PAGE_STATE.WELCOME && (
-              <div
-                ref={buttonRef}
-                style={{
-                  marginBottom: 48 + 'px',
-                }}
-                className='opacity-0'
-              >
-                <div className='group relative transition-all duration-300 active:scale-95'>
-                  <div className='absolute left-0 top-0 h-full w-0 bg-[#BD2F00] transition-all duration-300 group-hover:w-full'></div>
-                  <button
-                    onClick={handleClickEnter}
-                    className='relative mx-[14px] py-[4px] text-[48px] font-[400] text-[#928979] transition-all group-hover:text-[#F4E4CA]'
-                  >
-                    Click to enter
-                  </button>
+    <div id='section' className='relative h-screen w-full'>
+      <div className='relative z-10 flex h-full w-full flex-col items-center justify-end'>
+        <CustomImage
+          src='/images/home/tqn.webp'
+          alt='error'
+          width={492}
+          height={700}
+          className='absolute right-0 top-0'
+        />
+        {pageState === PAGE_STATE.HERO && (
+          <>
+            <div className='relative mb-[1.5rem]'>
+              <div className='mb-[18px] flex items-center justify-between px-[38px]'>
+                <div className='flex items-center gap-[12px]'>
+                  {Object.keys(INFO.SOCIAL).map((key, index) => {
+                    const isActive = hovered ? hovered === key : index === 0; // Email mặc định active
+                    return (
+                      <a
+                        ref={(el) => {
+                          socialRefs.current[index] = el;
+                        }}
+                        href={INFO.SOCIAL[key as keyof typeof INFO.SOCIAL]}
+                        key={key}
+                        target='_blank'
+                        onMouseEnter={() => setHovered(key)}
+                        onMouseLeave={() => setHovered(null)}
+                        className={`group relative flex items-center gap-[10px] border px-[20px] py-[8px] text-[18px] font-[400] transition-colors duration-300 ${isActive ? 'border-[#F4E4CA] text-[#313131]' : 'border-[#F4E4CA] text-[#F4E4CA]'} `}
+                      >
+                        {/* Nền động */}
+                        <span
+                          className={`absolute left-0 top-0 z-0 h-full w-0 transition-all duration-300 ${isActive ? 'w-full bg-[#F4E4CA]' : ''} `}
+                          style={{ zIndex: 0 }}
+                        />
+                        <span className='relative z-10'>
+                          {key === 'EMAIL' && 'Email'}
+                          {key === 'LINKEDIN' && 'Linkedin'}
+                          {key === 'BEHANCE' && 'Behance'}
+                          {key === 'INSTAGRAM' && 'Instagram'}
+                        </span>
+                        <IconArrow
+                          className='relative z-10 transition-all duration-300 group-hover:rotate-45'
+                          fill={isActive ? '#313131' : '#F4E4CA'}
+                        />
+                      </a>
+                    );
+                  })}
                 </div>
+                <p className='text-[16px] font-[400] text-[#F4E4CA]'>
+                  ALL RIGHTS RESERVED <br /> © 2025 TQNG MARUKO
+                </p>
               </div>
-            )}
-            {welcomeState === PAGE_STATE.LOADING && (
-              <h4 className='text-center text-[16px] font-[400] text-[#837A6D]'>
-                ALL RIGHTS RESERVED. © 2025 TQNG MARUKO
-              </h4>
-            )}
-          </div>
-        </div>
-      )}
-      {welcomeState !== PAGE_STATE.LOADING && (
-        <HeroSection pageState={welcomeState} />
-      )}
-    </>
+              <h1
+                ref={(el) => {
+                  h1Refs.current[0] = el;
+                }}
+                className='px-[38px] text-[58px] font-[400] uppercase leading-[1.3] text-[#F4E4CA]'
+              >
+                &nbsp;
+                {`Hi, I'm Thanh Quy Nguyen - a 22 years old Vietnamese Product
+              Designer driven by creativity and innovation`}
+              </h1>
+            </div>
+          </>
+        )}
+        <Marquee speed={100} className='flex items-center bg-black py-[12px]'>
+          {MARQUEE_LIST.map((item) => (
+            <div
+              className='flex items-center text-[20px] font-[400] text-[#F4E4CA]'
+              key={item.id}
+            >
+              <IconWarning className='mx-[32px]' />
+              {item.text}
+            </div>
+          ))}
+          {MARQUEE_LIST.map((item) => (
+            <div
+              className='flex items-center text-[20px] font-[400] text-[#F4E4CA]'
+              key={item.id}
+            >
+              <IconWarning className='mx-[32px]' />
+              {item.text}
+            </div>
+          ))}
+        </Marquee>
+      </div>
+    </div>
   );
 };
 
-export default Welcome;
+export default HeroSection;
