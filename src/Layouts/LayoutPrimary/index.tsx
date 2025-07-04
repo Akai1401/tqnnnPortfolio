@@ -109,8 +109,7 @@ const LayoutPrimary = ({ children }: any) => {
   return (
     <div className=''>
       {welcomeState !== PAGE_STATE.HERO && <WelcomeSection />}
-      {(welcomeState === PAGE_STATE.WELCOME ||
-        welcomeState === PAGE_STATE.LOADING) && (
+      {welcomeState !== PAGE_STATE.HERO && (
         <Canvas
           orthographic
           className='welcome-canvas'

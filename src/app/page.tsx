@@ -19,20 +19,11 @@ const HeroSection = () => {
   const socialRefs = React.useRef<(HTMLAnchorElement | null)[]>([]);
   const itemRefs = React.useRef<(HTMLParagraphElement | null)[]>([]);
   const [hovered, setHovered] = useState<string | null>(null);
-  const pageState = useStore((state: any) => state.welcomeState);
   const welcomeState = useStore((state: any) => state.welcomeState);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
-    if (pageState === PAGE_STATE.WELCOME) {
-      gsap.to('.welcome-canvas', {
-        opacity: 1,
-        pointerEvents: 'auto',
-        duration: 0.8,
-        ease: 'power2.inOut',
-      });
-    }
-    if (pageState === PAGE_STATE.HERO) {
+    if (welcomeState === PAGE_STATE.HERO) {
       gsap.set('.hero-canvas', {
         y: -30,
       });
@@ -83,7 +74,7 @@ const HeroSection = () => {
         ease: 'power2.out',
       }
     );
-  }, [pageState]);
+  }, [welcomeState]);
 
   const MARQUEE_LIST = [
     {
@@ -118,7 +109,7 @@ const HeroSection = () => {
           height={700}
           className='absolute right-0 top-0'
         /> */}
-        {pageState === PAGE_STATE.HERO && (
+        {welcomeState === PAGE_STATE.HERO && (
           <>
             <div className='fixed right-[12.5rem] top-[20rem] flex rotate-[270deg] gap-[84px] overflow-hidden text-[16px] font-[400] text-[#F4E4CA]'>
               <p

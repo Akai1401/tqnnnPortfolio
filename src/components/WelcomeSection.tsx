@@ -28,6 +28,14 @@ const WelcomeSection = () => {
 
   useEffect(() => {
     if (welcomeState === PAGE_STATE.WELCOME) {
+      gsap.to('.welcome-canvas', {
+        opacity: 1,
+        pointerEvents: 'auto',
+        duration: 0.8,
+        ease: 'power2.inOut',
+      });
+    }
+    if (welcomeState === PAGE_STATE.WELCOME) {
       gsap.fromTo(
         buttonRef.current,
         { y: 40, opacity: 0 },
