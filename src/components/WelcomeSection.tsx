@@ -7,6 +7,11 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import useStore from '@/store';
 import { PAGE_STATE } from '@/constant';
 import useMounted from '@/hook/useMounted';
+import { Canvas } from '@react-three/fiber';
+import BgWelcomeInCanvas from './BgWelcomeInCanvas';
+import TextWelcomeInCanvas from './TextWelcomeInCanvas';
+import { EffectComposer } from '@react-three/postprocessing';
+import { Fluid } from '@whatisjery/react-fluid-distortion';
 
 // Register ScrollToPlugin
 gsap.registerPlugin(ScrollToPlugin);
@@ -23,7 +28,7 @@ const WelcomeSection = () => {
     setProgress(100);
     setTimeout(() => {
       setWelcomeState(PAGE_STATE.WELCOME);
-    }, 2500);
+    }, 3500);
   }, []);
 
   useEffect(() => {
@@ -85,6 +90,36 @@ const WelcomeSection = () => {
 
   return (
     <>
+      <Canvas
+        orthographic
+        className='welcome-canvas'
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          opacity: 0,
+          pointerEvents: 'none',
+          zIndex: -1,
+        }}
+      >
+        <BgWelcomeInCanvas />
+        <TextWelcomeInCanvas />
+        <EffectComposer>
+          <Fluid
+            radius={0.03}
+            curl={10}
+            swirl={5}
+            distortion={1}
+            force={2}
+            pressure={0.94}
+            densityDissipation={0.98}
+            velocityDissipation={0.99}
+            intensity={0.3}
+            rainbow={false}
+            blend={0}
+          />
+        </EffectComposer>
+      </Canvas>
       {welcomeState !== PAGE_STATE.HERO && (
         <div
           className={
@@ -97,7 +132,7 @@ const WelcomeSection = () => {
                 style={{
                   width: progress + '%',
                 }}
-                className='absolute left-0 top-0 h-[1px] bg-[#F4E4CA] transition-all duration-[2s] ease-in'
+                className='absolute left-0 top-0 h-[1px] bg-[#F4E4CA] transition-all duration-[3s] ease-in'
               >
                 <CustomImage
                   src='/images/loading/tqn.webp'
