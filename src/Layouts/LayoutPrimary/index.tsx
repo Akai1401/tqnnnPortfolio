@@ -11,6 +11,8 @@ import { EffectComposer } from '@react-three/postprocessing';
 import { Fluid } from '@whatisjery/react-fluid-distortion';
 import BackgroundInCanvas from '@/components/BackgroundInCanvas';
 import ImageInCanvas from '@/components/ImageInCanvas';
+import TextWelcomeInCanvas from '@/components/TextWelcomeInCanvas';
+import BgWelcomeInCanvas from '@/components/BgWelcomeInCanvas';
 
 const LayoutPrimary = ({ children }: any) => {
   const welcomeState = useStore((state: any) => state.welcomeState);
@@ -107,9 +109,41 @@ const LayoutPrimary = ({ children }: any) => {
   return (
     <div className=''>
       {welcomeState !== PAGE_STATE.HERO && <WelcomeSection />}
+      {(welcomeState === PAGE_STATE.WELCOME ||
+        welcomeState === PAGE_STATE.LOADING) && (
+        <Canvas
+          orthographic
+          className='welcome-canvas'
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            opacity: 0,
+            pointerEvents: 'none',
+            zIndex: -1,
+          }}
+        >
+          <BgWelcomeInCanvas />
+          <TextWelcomeInCanvas />
+          <EffectComposer>
+            <Fluid
+              radius={0.03}
+              curl={10}
+              swirl={5}
+              distortion={1}
+              force={2}
+              pressure={0.94}
+              densityDissipation={0.98}
+              velocityDissipation={0.99}
+              intensity={0.3}
+              rainbow={false}
+              blend={0}
+            />
+          </EffectComposer>
+        </Canvas>
+      )}
       {welcomeState !== PAGE_STATE.LOADING && (
         <>
-          {/* {isMounted && ( */}
           {pathname === '/' && (
             <Canvas
               className='hero-canvas'
@@ -144,11 +178,10 @@ const LayoutPrimary = ({ children }: any) => {
               </EffectComposer>
             </Canvas>
           )}
-          {/* )} */}
           <div id='layout-primary'>
             <div
               id='layout-primary-pathname'
-              className='fixed inset-0 z-[-1] flex items-center justify-center bg-[url("/images/home/bg.jpg")] bg-cover bg-center bg-no-repeat text-[48px] text-[#F4E4CA] opacity-0'
+              className='fixed inset-0 z-[-1] flex items-center justify-center bg-[url("/images/home/bg.png")] bg-cover bg-center bg-no-repeat text-[48px] text-[#F4E4CA] opacity-0'
             >
               <div
                 id='layout-primary-pathname-text-container'

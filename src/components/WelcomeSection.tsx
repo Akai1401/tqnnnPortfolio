@@ -4,80 +4,12 @@ import CustomImage from '@/components/custom/CustomImage';
 import React, { useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-import { useTexture } from '@react-three/drei';
-import { Canvas, useThree } from '@react-three/fiber';
-import { EffectComposer } from '@react-three/postprocessing';
-import { Fluid } from '@whatisjery/react-fluid-distortion';
-import { Text as DreiText } from '@react-three/drei';
-import useResponsive from '@/hook/useResponsive';
 import useStore from '@/store';
 import { PAGE_STATE } from '@/constant';
 import useMounted from '@/hook/useMounted';
 
 // Register ScrollToPlugin
 gsap.registerPlugin(ScrollToPlugin);
-
-const WELCOME_TEXT = [
-  'CREATIVE DEVELOPMENT',
-  'PORTFOLIO',
-  '2025 SHOWCASE',
-  'OF',
-  'THANH QUY NGUYEN',
-];
-
-const ImageInCanvas = () => {
-  const texture = useTexture('/images/loading/bg.jpg');
-  const { viewport } = useThree();
-
-  return (
-    <mesh position-z={-4}>
-      <planeGeometry args={[viewport.width, viewport.height, 20, 20]} />
-      <meshBasicMaterial map={texture} />
-    </mesh>
-  );
-};
-
-const TextInCanvas = () => {
-  const COUNT = WELCOME_TEXT.length;
-  const { viewport } = useThree();
-  const MARGIN_BOTTOM = 50;
-  const MARGIN_X = 320;
-  const SCALE_FACTOR = viewport.width / 1920;
-
-  return (
-    <group position={[0, 0, 0]}>
-      {WELCOME_TEXT.map((text, index) => {
-        const x =
-          -viewport.width / 2 +
-          (index * (viewport.width - MARGIN_X)) / (COUNT - 1) +
-          MARGIN_X / 2;
-        return (
-          <DreiText
-            key={index}
-            font={'/fonts/grotesk.otf'}
-            fontSize={20 * SCALE_FACTOR}
-            color='#F4E4CA'
-            anchorX='center'
-            anchorY='middle'
-            position={[x, 0, 0]}
-          >
-            {text}
-          </DreiText>
-        );
-      })}
-      <DreiText
-        font={'/fonts/grotesk.otf'}
-        fontSize={16 * SCALE_FACTOR}
-        color='#837A6D'
-        anchorX='center'
-        anchorY='middle'
-        position={[0, -viewport.height / 2 + MARGIN_BOTTOM, 0]}
-      >
-        ALL RIGHTS RESERVED. © 2025 TQNG MARUKO
-      </DreiText>
-    </group>
-  );
-};
 
 const WelcomeSection = () => {
   const [progress, setProgress] = useState(0);
@@ -148,7 +80,7 @@ const WelcomeSection = () => {
       {welcomeState !== PAGE_STATE.HERO && (
         <div
           className={
-            'relative flex h-screen w-full flex-col items-center justify-center bg-[url("/images/loading/bg.jpg")] bg-cover bg-center bg-no-repeat px-[47px] text-primary'
+            'relative flex h-screen w-full flex-col items-center justify-center bg-cover bg-center bg-no-repeat px-[47px] text-primary'
           }
         >
           {welcomeState === PAGE_STATE.LOADING && (
@@ -168,52 +100,6 @@ const WelcomeSection = () => {
                 />
               </div>
             </div>
-          )}
-          {welcomeState === PAGE_STATE.WELCOME && (
-            <>
-              {/* {isMounted && ( */}
-                <Canvas
-                  orthographic
-                  className='welcome-canvas'
-                  style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                  }}
-                >
-                  <ImageInCanvas />
-                  <TextInCanvas />
-                  <EffectComposer>
-                    <Fluid
-                      radius={0.03}
-                      curl={10}
-                      swirl={5}
-                      distortion={1}
-                      force={2}
-                      pressure={0.94}
-                      densityDissipation={0.98}
-                      velocityDissipation={0.99}
-                      intensity={0.3}
-                      rainbow={false}
-                      blend={0}
-                    />
-                  </EffectComposer>
-                </Canvas>
-              {/* )} */}
-              {/* <div className='flex w-full items-center justify-between'>
-          {WELCOME_TEXT.map((text, index) => (
-            <h1
-              key={index}
-              ref={(el) => {
-                h1Refs.current[index] = el;
-              }}
-              className='text-[20px] font-[400] text-[#F4E4CA] opacity-0'
-            >
-              {text}
-            </h1>
-          ))}
-        </div> */}
-            </>
           )}
           <div className='absolute bottom-[3rem] flex w-full flex-col items-center'>
             {welcomeState === PAGE_STATE.WELCOME && (

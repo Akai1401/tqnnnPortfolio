@@ -1,9 +1,8 @@
-import useResponsive from '@/hook/useResponsive';
 import { useTexture } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 
-const BackgroundInCanvas = () => {
-  const texture = useTexture('/images/home/bg.png');
+const BgWelcomeInCanvas = () => {
+  const texture = useTexture('/images/loading/bg.jpg');
   const { viewport } = useThree();
 
   return (
@@ -14,4 +13,4 @@ const BackgroundInCanvas = () => {
   );
 };
 
-export default BackgroundInCanvas;
+export default BgWelcomeInCanvas;

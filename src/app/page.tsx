@@ -8,6 +8,11 @@ import IconWarning from '@/assets/icons/IconWarning';
 import IconArrow from '@/assets/icons/IconArrow';
 import { INFO } from '@/constant/info';
 import useStore from '@/store';
+import { Canvas } from '@react-three/fiber';
+import BgWelcomeInCanvas from '@/components/BgWelcomeInCanvas';
+import TextWelcomeInCanvas from '@/components/TextWelcomeInCanvas';
+import { EffectComposer } from '@react-three/postprocessing';
+import { Fluid } from '@whatisjery/react-fluid-distortion';
 
 const HeroSection = () => {
   const h1Refs = React.useRef<(HTMLHeadingElement | null)[]>([]);
@@ -15,9 +20,18 @@ const HeroSection = () => {
   const itemRefs = React.useRef<(HTMLParagraphElement | null)[]>([]);
   const [hovered, setHovered] = useState<string | null>(null);
   const pageState = useStore((state: any) => state.welcomeState);
+  const welcomeState = useStore((state: any) => state.welcomeState);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
+    if (pageState === PAGE_STATE.WELCOME) {
+      gsap.to('.welcome-canvas', {
+        opacity: 1,
+        pointerEvents: 'auto',
+        duration: 0.8,
+        ease: 'power2.inOut',
+      });
+    }
     if (pageState === PAGE_STATE.HERO) {
       gsap.set('.hero-canvas', {
         y: -30,
@@ -95,7 +109,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <div id='section' className='relative h-screen w-full'>
+    <div id='section' className={`relative h-screen w-full`}>
       <div className='relative z-10 flex h-full w-full flex-col items-center justify-end'>
         {/* <CustomImage
           src='/images/home/tqn.webp'
