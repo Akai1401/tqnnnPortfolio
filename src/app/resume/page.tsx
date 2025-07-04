@@ -2,7 +2,10 @@ import React from 'react';
 
 const ResumePage = () => {
   return (
-    <div id='section' className=''>
+    <div
+      id='section'
+      className='min-h-screen bg-[url("/images/home/bg.jpg")] bg-cover bg-center bg-no-repeat'
+    >
       Resume Page
     </div>
   );

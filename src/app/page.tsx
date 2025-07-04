@@ -7,19 +7,29 @@ import Marquee from 'react-fast-marquee';
 import IconWarning from '@/assets/icons/IconWarning';
 import IconArrow from '@/assets/icons/IconArrow';
 import { INFO } from '@/constant/info';
-import CustomImage from '@/components/custom/CustomImage';
 import useStore from '@/store';
 
 const HeroSection = () => {
   const h1Refs = React.useRef<(HTMLHeadingElement | null)[]>([]);
   const socialRefs = React.useRef<(HTMLAnchorElement | null)[]>([]);
+  const itemRefs = React.useRef<(HTMLParagraphElement | null)[]>([]);
   const [hovered, setHovered] = useState<string | null>(null);
   const pageState = useStore((state: any) => state.welcomeState);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
-    // if (pageState !== PAGE_STATE.HERO) return;
-    // Animate các h1 lần lượt từ dưới lên
+    if (pageState === PAGE_STATE.HERO) {
+      gsap.set('.hero-canvas', {
+        y: -30,
+      });
+      gsap.to('.hero-canvas', {
+        opacity: 1,
+        y: 0,
+        pointerEvents: 'auto',
+        duration: 0.5,
+        ease: 'power2.out',
+      });
+    }
     gsap.fromTo(
       h1Refs.current,
       { y: 60, opacity: 0 },
@@ -28,6 +38,7 @@ const HeroSection = () => {
         opacity: 1,
         stagger: 0.12,
         duration: 0.7,
+        delay: 0.2,
         ease: 'power2.out',
       }
     );
@@ -40,13 +51,31 @@ const HeroSection = () => {
         opacity: 1,
         stagger: 0.1,
         duration: 0.6,
-        delay: 0.3,
+        delay: 0.4,
+        ease: 'power2.out',
+      }
+    );
+
+    // Animate items
+    gsap.fromTo(
+      itemRefs.current,
+      { y: 20, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        stagger: 0.15,
+        duration: 0.8,
+        delay: 1,
         ease: 'power2.out',
       }
     );
   }, [pageState]);
 
   const MARQUEE_LIST = [
+    {
+      id: 0,
+      text: 'portfolio version 2025',
+    },
     {
       id: 1,
       text: 'by Thanh Quy Nguyen aka tqnggg',
@@ -59,31 +88,62 @@ const HeroSection = () => {
       id: 3,
       text: 'grateful to myself and all that shaped this journey',
     },
+    {
+      id: 4,
+      text: 'nice to meet you',
+    },
   ];
 
   return (
     <div id='section' className='relative h-screen w-full'>
       <div className='relative z-10 flex h-full w-full flex-col items-center justify-end'>
-        <CustomImage
+        {/* <CustomImage
           src='/images/home/tqn.webp'
           alt='error'
           width={492}
           height={700}
           className='absolute right-0 top-0'
-        />
+        /> */}
         {pageState === PAGE_STATE.HERO && (
           <>
+            <div className='fixed right-[12.5rem] top-[20rem] flex rotate-[270deg] gap-[84px] overflow-hidden text-[16px] font-[400] text-[#F4E4CA]'>
+              <p
+                ref={(el) => {
+                  itemRefs.current[0] = el;
+                }}
+              >
+                UI/UX DESIGN
+              </p>
+              <p
+                ref={(el) => {
+                  itemRefs.current[1] = el;
+                }}
+              >
+                GRAPHIC DESIGN
+              </p>
+              <p
+                ref={(el) => {
+                  itemRefs.current[2] = el;
+                }}
+              >
+                2025 PORTFOLIO
+              </p>
+            </div>
             <div className='relative mb-[1.5rem]'>
               <div className='mb-[18px] flex items-center justify-between px-[38px]'>
-                <div className='flex items-center gap-[12px]'>
+                <div className='flex items-center gap-[12px] overflow-hidden'>
                   {Object.keys(INFO.SOCIAL).map((key, index) => {
-                    const isActive = hovered ? hovered === key : index === 0; // Email mặc định active
+                    const isActive = hovered && hovered === key;
                     return (
                       <a
                         ref={(el) => {
                           socialRefs.current[index] = el;
                         }}
-                        href={INFO.SOCIAL[key as keyof typeof INFO.SOCIAL]}
+                        href={
+                          key === 'EMAIL'
+                            ? 'mailto:tqnggg@gmail.com'
+                            : INFO.SOCIAL[key as keyof typeof INFO.SOCIAL]
+                        }
                         key={key}
                         target='_blank'
                         onMouseEnter={() => setHovered(key)}
@@ -127,15 +187,6 @@ const HeroSection = () => {
           </>
         )}
         <Marquee speed={100} className='flex items-center bg-black py-[12px]'>
-          {MARQUEE_LIST.map((item) => (
-            <div
-              className='flex items-center text-[20px] font-[400] text-[#F4E4CA]'
-              key={item.id}
-            >
-              <IconWarning className='mx-[32px]' />
-              {item.text}
-            </div>
-          ))}
           {MARQUEE_LIST.map((item) => (
             <div
               className='flex items-center text-[20px] font-[400] text-[#F4E4CA]'

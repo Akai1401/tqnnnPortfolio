@@ -73,7 +73,7 @@ const Header = () => {
         )}
       </div>
 
-      <div className='flex items-center gap-[2rem]'>
+      <div className='flex items-center'>
         {MENU_ITEMS.map((item, index) => (
           <div
             key={index}

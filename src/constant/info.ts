@@ -7,9 +7,9 @@ export const INFO = {
     THUMBNAIL_URL: '/images/thumbnail.webp',
   },
   SOCIAL: {
-    EMAIL: 'nguyenthanhquy.dev@gmail.com',
-    LINKEDIN: 'https://www.linkedin.com/in/tqnggg/',
-    BEHANCE: 'https://www.behance.net/tqnggg',
-    INSTAGRAM: 'https://www.instagram.com/tqnggg/',
+    EMAIL: 'thanhquynguyen0306@gmail.com',
+    LINKEDIN: 'https://www.linkedin.com/in/thanh-quy-nguyen-79792823a/',
+    BEHANCE: 'https://www.behance.net/thanhquynguyen',
+    INSTAGRAM: 'https://www.instagram.com/tqqqqqqn',
   },
 };

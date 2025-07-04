@@ -12,6 +12,7 @@ import { Text as DreiText } from '@react-three/drei';
 import useResponsive from '@/hook/useResponsive';
 import useStore from '@/store';
 import { PAGE_STATE } from '@/constant';
+import useMounted from '@/hook/useMounted';
 
 // Register ScrollToPlugin
 gsap.registerPlugin(ScrollToPlugin);
@@ -81,7 +82,7 @@ const TextInCanvas = () => {
 const WelcomeSection = () => {
   const [progress, setProgress] = useState(0);
   const buttonRef = React.useRef<any>(null);
-
+  const { isMounted } = useMounted();
   const welcomeState = useStore((state: any) => state.welcomeState);
   const setWelcomeState = useStore((state: any) => state.setWelcomeState);
 
@@ -170,33 +171,35 @@ const WelcomeSection = () => {
           )}
           {welcomeState === PAGE_STATE.WELCOME && (
             <>
-              <Canvas
-                orthographic
-                className='welcome-canvas'
-                style={{
-                  position: 'fixed',
-                  top: 0,
-                  left: 0,
-                }}
-              >
-                <ImageInCanvas />
-                <TextInCanvas />
-                <EffectComposer>
-                  <Fluid
-                    radius={0.03}
-                    curl={10}
-                    swirl={5}
-                    distortion={1}
-                    force={2}
-                    pressure={0.94}
-                    densityDissipation={0.98}
-                    velocityDissipation={0.99}
-                    intensity={0.3}
-                    rainbow={false}
-                    blend={0}
-                  />
-                </EffectComposer>
-              </Canvas>
+              {/* {isMounted && ( */}
+                <Canvas
+                  orthographic
+                  className='welcome-canvas'
+                  style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                  }}
+                >
+                  <ImageInCanvas />
+                  <TextInCanvas />
+                  <EffectComposer>
+                    <Fluid
+                      radius={0.03}
+                      curl={10}
+                      swirl={5}
+                      distortion={1}
+                      force={2}
+                      pressure={0.94}
+                      densityDissipation={0.98}
+                      velocityDissipation={0.99}
+                      intensity={0.3}
+                      rainbow={false}
+                      blend={0}
+                    />
+                  </EffectComposer>
+                </Canvas>
+              {/* )} */}
               {/* <div className='flex w-full items-center justify-between'>
           {WELCOME_TEXT.map((text, index) => (
             <h1
