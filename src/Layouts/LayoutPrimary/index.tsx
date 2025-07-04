@@ -42,6 +42,12 @@ const LayoutPrimary = ({ children }: any) => {
         },
       });
       // }, 500);
+      gsap.to('#layout-primary-pathname-text', {
+        y: -30,
+        opacity: 0,
+        duration: 0.3,
+        ease: 'power2.inOut',
+      });
     }
   }, [isPending, welcomeState]);
 
@@ -65,6 +71,17 @@ const LayoutPrimary = ({ children }: any) => {
         zIndex: 9999,
         ease: 'power2.inOut',
       });
+      gsap.fromTo(
+        '#layout-primary-pathname-text',
+        { y: 30, opacity: 1},
+        {
+          y: 0,
+          stagger: 0.1,
+          duration: 0.3,
+          delay: 0.3,
+          ease: 'power2.inOut',
+        }
+      );
     }
   }, [isChangingPage, nextPathname]);
 
@@ -78,7 +95,9 @@ const LayoutPrimary = ({ children }: any) => {
               id='layout-primary-pathname'
               className='fixed inset-0 z-[-1] flex items-center justify-center bg-[url("/images/home/bg.jpg")] bg-cover bg-center bg-no-repeat text-[48px] text-[#F4E4CA] opacity-0'
             >
-              {nextPathname}
+              <div className='overflow-hidden leading-10'>
+                <p id='layout-primary-pathname-text'>{nextPathname}</p>
+              </div>
             </div>
             {welcomeState !== PAGE_STATE.WELCOME && <Header />}
             {
