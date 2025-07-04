@@ -47,7 +47,7 @@ const Header = () => {
   };
 
   return (
-    <div className='fixed left-0 right-0 top-0 z-[9999] flex items-center justify-between px-[2rem] py-[1rem]'>
+    <div className='fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-[2rem] py-[1rem]'>
       <div className='flex items-center gap-[124px]'>
         <CustomImage
           src={INFO.APP.LOGO_URL}
