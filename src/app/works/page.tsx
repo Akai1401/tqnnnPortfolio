@@ -97,7 +97,7 @@ const WorksPage = () => {
 
         <div
           ref={containerRef}
-          className='relative mt-[29px]'
+          className='relative mt-[10px]'
           onMouseLeave={handleMouseLeave}
         >
           {/* Shared background block */}
@@ -112,7 +112,7 @@ const WorksPage = () => {
               key={item.id}
               ref={(el) => (itemRefs.current[index] = el) as any}
               onMouseEnter={() => handleHover(index)}
-              className='group relative z-10 flex cursor-pointer items-center justify-between px-[46px] py-[20px]'
+              className='group relative z-10 flex cursor-pointer items-center justify-between px-[46px] py-[10px]'
             >
               {/* Title */}
               <div className='relative inline-block overflow-hidden text-[80px] font-[400] text-[#6E675B] transition-all duration-[500ms] group-hover:text-[#F4E4CA]'>
