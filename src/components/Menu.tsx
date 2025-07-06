@@ -14,18 +14,18 @@ const Menu = () => {
   useEffect(() => {
     if (!isShowMenu) {
       gsap.set(socialRefs.current, {
-        y: 60,
-        opacity: 0,
+        y: 80,
+        // opacity: 0,
       });
       gsap.set(itemRefs.current, {
-        y: 60,
-        opacity: 0,
+        y: 80,
+        // opacity: 0,
       });
       return;
     }
     gsap.to(itemRefs.current, {
       y: 0,
-      opacity: 1,
+      // opacity: 1,
       stagger: 0.2,
       duration: 0.6,
       delay: 0,
@@ -33,7 +33,7 @@ const Menu = () => {
     });
     gsap.to(socialRefs.current, {
       y: 0,
-      opacity: 1,
+      // opacity: 1,
       stagger: 0.2,
       duration: 0.6,
       delay: 0,
@@ -46,7 +46,7 @@ const Menu = () => {
     >
       <div className='flex h-full flex-col items-center justify-center gap-[32px]'>
         {MENU_ITEMS.map((item, index) => (
-          <div key={index} className='overflow-hidden'>
+          <div key={index} className='overflow-y-hidden'>
             <div
               ref={(el) => {
                 (itemRefs as any).current[index] = el;
