@@ -3,31 +3,19 @@
 import IconMenu from '@/assets/icons/IconMenu';
 import CustomImage from '@/components/custom/CustomImage';
 import { INFO } from '@/constant/info';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import useCustomRouter from '@/hook/useCustomRouter';
 
-const Header = () => {
+const MenuList = () => {
   const customRouter = useCustomRouter();
-  const [showDetail, setShowDetail] = useState(false);
-  const path = usePathname();
-
-  useEffect(() => {
-    if (path !== '/') {
-      setShowDetail(true);
-    } else {
-      setShowDetail(false);
-    }
-  }, [path]);
-
   const MENU_ITEMS = [
     { label: 'About', href: '/about' },
     { label: 'Works', href: '/works' },
     { label: 'My Story', href: '/my-story' },
     { label: 'CV / Resume', href: '/resume' },
   ];
-
   const refs = useRef<(HTMLDivElement | null)[]>([]);
 
   const handleMouseEnter = (index: number) => {
@@ -45,6 +33,49 @@ const Header = () => {
     gsap.to(normal, { y: '0%', duration: 0.2, ease: 'power2.inOut' });
     gsap.to(hover, { y: '0%', duration: 0.2, ease: 'power2.inOut' });
   };
+
+  return (
+    <div className='flex items-center'>
+      {MENU_ITEMS.map((item, index) => (
+        <div
+          key={index}
+          onClick={() => customRouter.push(item.href)}
+          onMouseEnter={() => handleMouseEnter(index)}
+          onMouseLeave={() => handleMouseLeave(index)}
+          className='group flex cursor-pointer items-center text-[16px] font-[600] uppercase text-[#F4E4CA]'
+        >
+          <div
+            ref={(el) => {
+              refs.current[index] = el;
+            }}
+            className='relative h-[16px] overflow-hidden leading-none'
+          >
+            <div className='transform transition-transform'>{item.label}</div>
+            <div className='absolute left-0 top-full transform transition-transform'>
+              {item.label}
+            </div>
+          </div>
+          {index !== MENU_ITEMS.length - 1 && (
+            <span className='mx-[32px]'>/</span>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const Header = () => {
+  const customRouter = useCustomRouter();
+  const [showDetail, setShowDetail] = useState(false);
+  const path = usePathname();
+
+  useEffect(() => {
+    if (path !== '/') {
+      setShowDetail(true);
+    } else {
+      setShowDetail(false);
+    }
+  }, [path]);
 
   return (
     <div className='fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-[2rem] py-[1rem]'>
@@ -73,33 +104,12 @@ const Header = () => {
         )}
       </div>
 
-      <div className='flex items-center'>
-        {MENU_ITEMS.map((item, index) => (
-          <div
-            key={index}
-            onClick={() => customRouter.push(item.href)}
-            onMouseEnter={() => handleMouseEnter(index)}
-            onMouseLeave={() => handleMouseLeave(index)}
-            className='group flex cursor-pointer items-center text-[16px] font-[600] uppercase text-[#F4E4CA]'
-          >
-            <div
-              ref={(el) => {
-                refs.current[index] = el;
-              }}
-              className='relative h-[16px] overflow-hidden leading-none'
-            >
-              <div className='transform transition-transform'>{item.label}</div>
-              <div className='absolute left-0 top-full transform transition-transform'>
-                {item.label}
-              </div>
-            </div>
-            {index !== MENU_ITEMS.length - 1 && (
-              <span className='mx-[32px]'>/</span>
-            )}
-          </div>
-        ))}
+      {path === '/' && <MenuList />}
+
+      <div className='flex items-center gap-[80px]'>
+        {path === '/about' && <MenuList />}
+        <IconMenu className='cursor-pointer transition-all active:scale-95' />
       </div>
-      <IconMenu className='cursor-pointer transition-all active:scale-95' />
     </div>
   );
 };

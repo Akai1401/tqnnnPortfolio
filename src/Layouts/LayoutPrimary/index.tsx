@@ -158,7 +158,7 @@ const LayoutPrimary = ({ children }: any) => {
               </div>
             </div>
             {welcomeState !== PAGE_STATE.WELCOME && <Header />}
-            {<div className='min-h-screen'>{children}</div>}
+            {<div className=''>{children}</div>}
           </div>
         </>
       )}
