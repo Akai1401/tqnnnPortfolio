@@ -257,7 +257,7 @@ const AboutPage = () => {
             <div className='overflow-hidden'>
               <h1
                 id='about_title'
-                className='overflow-hidden text-[64px] font-[400] leading-[78px]'
+                className='overflow-hidden text-[48px] font-[400] leading-[64px]'
               >
                 About <br /> <span className='font-[600]'>Thanh Quy,</span>
               </h1>
@@ -297,7 +297,7 @@ const AboutPage = () => {
             </div>
 
             <SocialButtons
-              className='mt-[10rem] max-w-[400px] flex-wrap'
+              className='mt-[7rem] max-w-[400px] flex-wrap'
               socialRefs={socialRefs}
             />
           </div>
@@ -307,7 +307,7 @@ const AboutPage = () => {
             <div className='absolute bottom-[1.5rem] right-[3rem] text-[16px] font-[400] text-[#F4E4CA]'>
               ALL RIGHTS RESERVED <br /> © 2025 TQNG MARUKO
             </div>
-            <div className='scrollable-content flex max-h-[80vh] flex-col gap-[80px] overflow-y-auto'>
+            <div className='scrollable-content flex max-h-[70vh] flex-col gap-[80px] overflow-y-auto'>
               {/* EXPERIENCES */}
               <div id='experiences_section' className=''>
                 <div>
