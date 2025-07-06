@@ -24,7 +24,7 @@ const WorksPage = () => {
     },
     {
       id: '3',
-      title: '3. C “Content Creator”',
+      title: '3. A “Content Creator”',
       icon: <IconDinosaur />,
       describe1: 'So what if I chose to embrace the creative',
       describe2: 'chaos and become a Content creator?????',
