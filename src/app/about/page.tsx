@@ -137,7 +137,7 @@ const AboutPage = () => {
         const sectionElement = document.querySelector(selector) as HTMLElement;
 
         if (sectionElement) {
-          if (selector !== '#education_section') {
+          // if (selector !== '#education_section') {
             // Animate section title
             gsap.fromTo(
               `${selector} h2`,
@@ -157,7 +157,7 @@ const AboutPage = () => {
                 },
               }
             );
-          }
+          // }
 
           // Animate line image
           gsap.fromTo(
@@ -307,7 +307,7 @@ const AboutPage = () => {
             <div className='absolute bottom-[1.5rem] right-[3rem] text-[16px] font-[400] text-[#F4E4CA]'>
               ALL RIGHTS RESERVED <br /> © 2025 TQNG MARUKO
             </div>
-            <div className='scrollable-content flex max-h-[790px] flex-col gap-[80px] overflow-y-auto'>
+            <div className='scrollable-content flex max-h-[80vh] flex-col gap-[80px] overflow-y-auto'>
               {/* EXPERIENCES */}
               <div id='experiences_section' className=''>
                 <div>
