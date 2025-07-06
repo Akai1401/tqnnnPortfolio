@@ -12,7 +12,7 @@ import IconXd from '@/assets/icons/IconXd';
 import CustomImage from '@/components/custom/CustomImage';
 import SocialButtons from '@/components/SocialButtons';
 import useResponsive from '@/hook/useResponsive';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PAGE_STATE } from '@/constant';
@@ -24,10 +24,14 @@ gsap.registerPlugin(ScrollTrigger);
 const AboutPage = () => {
   const socialRefs = React.useRef<(HTMLAnchorElement | null)[]>([]);
   const welcomeState = useStore((state: any) => state.welcomeState);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const IMAGES_LIST = [
+    '/images/about/tqn.webp',
+    '/images/about/tqn2.webp',
+    '/images/about/tqn3.webp',
+  ];
 
   useEffect(() => {
-
-    // Set body to allow scrolling but prevent default scroll behavior
     document.body.style.overflow = 'hidden';
 
     // Add event listener to handle scroll anywhere on the page
@@ -38,6 +42,13 @@ const AboutPage = () => {
       ) as HTMLElement;
       if (scrollableContent) {
         scrollableContent.scrollTop += e.deltaY;
+        if (scrollableContent.scrollTop > 900) {
+          setCurrentImageIndex(2);
+        } else if (scrollableContent.scrollTop > 400) {
+          setCurrentImageIndex(1);
+        } else {
+          setCurrentImageIndex(0);
+        }
       }
     };
 
@@ -229,14 +240,17 @@ const AboutPage = () => {
       className='min-h-screen bg-[url("/images/home/bg.png")] bg-cover bg-center bg-no-repeat text-[#F4E4CA]'
     >
       <div className='flex items-start justify-between'>
-        <div className='h-screen overflow-hidden'>
-          <CustomImage
-            src='/images/about/tqn.webp'
-            alt='error'
-            width={670}
-            height={1192}
-            className=''
-          />
+        <div className='relative h-screen w-[670px] overflow-hidden'>
+          {IMAGES_LIST.map((image, index) => (
+            <CustomImage
+              key={index}
+              src={image}
+              alt='error'
+              width={670}
+              height={1192}
+              className={`absolute inset-0 transition-all duration-[1000ms] ease-in-out ${currentImageIndex === index ? 'scale-100 opacity-100' : 'scale-50 opacity-0'}`}
+            />
+          ))}
         </div>
         {welcomeState === PAGE_STATE.HERO && (
           <div className='flex h-screen w-[506px] flex-col justify-center'>
