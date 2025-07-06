@@ -50,6 +50,9 @@ const LayoutPrimary = ({ children }: any) => {
         ease: 'power2.inOut',
       });
       // setTimeout(() => {
+      gsap.set('#layout-primary', {
+        overflow: 'hidden',
+      });
       gsap.to('#layout-primary', {
         scale: 1,
         // opacity: 1,
@@ -58,6 +61,9 @@ const LayoutPrimary = ({ children }: any) => {
         ease: 'power2.inOut',
         onComplete: () => {
           setIsChangingPage(false);
+          gsap.set('#layout-primary', {
+            overflow: 'visible',
+          });
         },
       });
       // }, 500);
@@ -147,10 +153,10 @@ const LayoutPrimary = ({ children }: any) => {
                   className='object-cover'
                 />
               </video>
-              {pathname === '/' && !isShowMenu && (
+              {pathname === '/' && (
                 <CustomImage
                   src='/images/home/tqn.webp'
-                  className='fixed right-0 top-0'
+                  className={`fixed right-0 top-0 ${!isShowMenu ? 'opacity-100' : 'opacity-0'} transition-all duration-[1000ms] ease-in-out`}
                   alt='tqn'
                   width={453}
                   height={688}
