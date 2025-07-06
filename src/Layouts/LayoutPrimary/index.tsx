@@ -11,6 +11,7 @@ import { EffectComposer } from '@react-three/postprocessing';
 import { Fluid } from '@whatisjery/react-fluid-distortion';
 import BackgroundInCanvas from '@/components/BackgroundInCanvas';
 import ImageInCanvas from '@/components/ImageInCanvas';
+import CustomImage from '@/components/custom/CustomImage';
 
 const LayoutPrimary = ({ children }: any) => {
   const welcomeState = useStore((state: any) => state.welcomeState);
@@ -62,7 +63,12 @@ const LayoutPrimary = ({ children }: any) => {
 
   useEffect(() => {
     if (isChangingPage) {
-      gsap.to('.hero-canvas', {
+      // gsap.to('.hero-canvas', {
+      //   opacity: 0,
+      //   duration: 0.8,
+      //   ease: 'power2.inOut',
+      // });
+      gsap.to('#bg-video', {
         opacity: 0,
         duration: 0.8,
         ease: 'power2.inOut',
@@ -110,38 +116,67 @@ const LayoutPrimary = ({ children }: any) => {
       {welcomeState !== PAGE_STATE.LOADING && (
         <>
           {pathname === '/' && (
-            <Canvas
-              className='hero-canvas'
-              orthographic
-              style={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                pointerEvents: 'none',
-                opacity: 0,
-                // zIndex: 1,
-                // width: '100vw',
-                // height: '100vh',
-              }}
-            >
-              <BackgroundInCanvas />
-              <ImageInCanvas />
-              <EffectComposer>
-                <Fluid
-                  radius={0.03}
-                  curl={10}
-                  swirl={5}
-                  distortion={1}
-                  force={2}
-                  pressure={0.94}
-                  densityDissipation={0.98}
-                  velocityDissipation={0.99}
-                  intensity={0.3}
-                  rainbow={false}
-                  blend={0}
+            <>
+              <div
+                id='bg-video'
+                className='pointer-events-none fixed inset-0 opacity-0'
+              >
+                <div className='absolute inset-0 bg-black bg-opacity-50'></div>
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  className='h-full w-full object-cover'
+                  playsInline
+                >
+                  <source
+                    src='/videos/bg.mp4'
+                    type='video/mp4'
+                    className='object-cover'
+                  />
+                </video>
+                <CustomImage
+                  src='/images/home/tqn.webp'
+                  className='fixed right-0 top-0'
+                  alt='tqn'
+                  width={453}
+                  height={688}
                 />
-              </EffectComposer>
-            </Canvas>
+              </div>
+
+              {/* <Canvas
+                className='hero-canvas'
+                orthographic
+                style={{
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  pointerEvents: 'none',
+                  opacity: 0,
+                  // zIndex: 1,
+                  // width: '100vw',
+                  // height: '100vh',
+                }}
+              >
+                <BackgroundInCanvas />
+                <ImageInCanvas />
+                <EffectComposer>
+                  <Fluid
+                    radius={0.03}
+                    curl={10}
+                    swirl={5}
+                    distortion={1}
+                    force={2}
+                    pressure={0.94}
+                    densityDissipation={0.98}
+                    velocityDissipation={0.99}
+                    intensity={0.3}
+                    rainbow={false}
+                    blend={0}
+                  />
+                </EffectComposer>
+              </Canvas> */}
+            </>
           )}
           <div id='layout-primary'>
             <div
@@ -153,7 +188,16 @@ const LayoutPrimary = ({ children }: any) => {
                 className='overflow-hidden leading-[41px]'
               >
                 <p id='layout-primary-pathname-text' className='uppercase'>
-                  {nextPathname}
+                  {nextPathname === '/' ? (
+                    <CustomImage
+                      src='/images/tqn.webp'
+                      alt='tqn'
+                      width={100}
+                      height={100}
+                    />
+                  ) : (
+                    nextPathname
+                  )}
                 </p>
               </div>
             </div>

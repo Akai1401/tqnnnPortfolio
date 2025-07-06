@@ -1,6 +1,6 @@
 export const INFO = {
   APP: {
-    NAME: 'TQNG MARUKO',
+    NAME: 'Quý nè hihi | Portfolio 2025',
     DOMAIN: '',
     DESC: '',
     LOGO_URL: '/images/logo.webp',
