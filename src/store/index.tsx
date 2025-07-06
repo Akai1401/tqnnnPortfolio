@@ -24,6 +24,8 @@ const useStore = create((set: any) => {
     setIsChangingPage: initSetState('isChangingPage'),
     nextPathname: '',
     setNextPathname: initSetState('nextPathname'),
+    isShowMenu: false,
+    setIsShowMenu: initSetState('isShowMenu'),
   };
 });
 

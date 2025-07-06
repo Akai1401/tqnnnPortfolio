@@ -58,7 +58,7 @@ const AboutPage = () => {
       document.body.style.overflow = 'auto';
       document.removeEventListener('wheel', handleWheel);
     };
-  }, []);
+  }, [welcomeState]);
 
   useEffect(() => {
     // if (

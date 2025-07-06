@@ -16,23 +16,6 @@ const HeroSection = () => {
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
-    if (welcomeState === PAGE_STATE.HERO) {
-      // gsap.set('.hero-canvas', {
-      //   y: -30,
-      // });
-      // gsap.to('.hero-canvas', {
-      //   opacity: 1,
-      //   y: 0,
-      //   pointerEvents: 'auto',
-      //   duration: 0.5,
-      //   ease: 'power2.out',
-      // });
-      gsap.to('#bg-video', {
-        opacity: 1,
-        duration: 0.8,
-        ease: 'power2.inOut',
-      });
-    }
     gsap.fromTo(
       h1Refs.current,
       { y: 60, opacity: 0 },

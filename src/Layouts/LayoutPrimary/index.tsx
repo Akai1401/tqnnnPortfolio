@@ -12,6 +12,7 @@ import { Fluid } from '@whatisjery/react-fluid-distortion';
 import BackgroundInCanvas from '@/components/BackgroundInCanvas';
 import ImageInCanvas from '@/components/ImageInCanvas';
 import CustomImage from '@/components/custom/CustomImage';
+import Menu from '@/components/Menu';
 
 const LayoutPrimary = ({ children }: any) => {
   const welcomeState = useStore((state: any) => state.welcomeState);
@@ -21,6 +22,17 @@ const LayoutPrimary = ({ children }: any) => {
   const nextRouter = useRouter();
   const { isPending, startTransition } = useContextStore();
   const pathname = usePathname();
+  const isShowMenu = useStore((state: any) => state.isShowMenu);
+
+  useEffect(() => {
+    if (welcomeState === PAGE_STATE.HERO) {
+      gsap.to('#bg-video', {
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power2.inOut',
+      });
+    }
+  }, [welcomeState, pathname]);
 
   useEffect(() => {
     if (
@@ -115,26 +127,27 @@ const LayoutPrimary = ({ children }: any) => {
       {welcomeState !== PAGE_STATE.HERO && <WelcomeSection />}
       {welcomeState !== PAGE_STATE.LOADING && (
         <>
-          {pathname === '/' && (
-            <>
-              <div
-                id='bg-video'
-                className='pointer-events-none fixed inset-0 opacity-0'
+          {/* {pathname === '/' && ( */}
+          <>
+            <div
+              id='bg-video'
+              className='pointer-events-none fixed inset-0 opacity-0'
+            >
+              <div className='absolute inset-0 bg-black bg-opacity-50'></div>
+              <video
+                autoPlay
+                loop
+                muted
+                className='h-full w-full object-cover'
+                playsInline
               >
-                <div className='absolute inset-0 bg-black bg-opacity-50'></div>
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  className='h-full w-full object-cover'
-                  playsInline
-                >
-                  <source
-                    src='/videos/bg.mp4'
-                    type='video/mp4'
-                    className='object-cover'
-                  />
-                </video>
+                <source
+                  src='/videos/bg.mp4'
+                  type='video/mp4'
+                  className='object-cover'
+                />
+              </video>
+              {pathname === '/' && !isShowMenu && (
                 <CustomImage
                   src='/images/home/tqn.webp'
                   className='fixed right-0 top-0'
@@ -142,9 +155,10 @@ const LayoutPrimary = ({ children }: any) => {
                   width={453}
                   height={688}
                 />
-              </div>
+              )}
+            </div>
 
-              {/* <Canvas
+            {/* <Canvas
                 className='hero-canvas'
                 orthographic
                 style={{
@@ -176,8 +190,8 @@ const LayoutPrimary = ({ children }: any) => {
                   />
                 </EffectComposer>
               </Canvas> */}
-            </>
-          )}
+          </>
+          {/* )} */}
           <div id='layout-primary'>
             <div
               id='layout-primary-pathname'
@@ -202,7 +216,15 @@ const LayoutPrimary = ({ children }: any) => {
               </div>
             </div>
             {welcomeState !== PAGE_STATE.WELCOME && <Header />}
-            {<div className=''>{children}</div>}
+            {/* Menu */}
+            <Menu />
+            {
+              <div
+                className={`${isShowMenu ? 'opacity-0' : 'opacity-100'} transition-all duration-[1000ms] ease-in-out`}
+              >
+                {children}
+              </div>
+            }
           </div>
         </>
       )}

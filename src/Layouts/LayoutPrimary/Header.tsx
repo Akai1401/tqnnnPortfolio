@@ -7,15 +7,13 @@ import { usePathname } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import useCustomRouter from '@/hook/useCustomRouter';
+import useStore from '@/store';
+import { MENU_ITEMS } from '@/constant';
 
 const MenuList = () => {
   const customRouter = useCustomRouter();
-  const MENU_ITEMS = [
-    { label: 'About', href: '/about' },
-    { label: 'Works', href: '/works' },
-    { label: 'My Story', href: '/my-story' },
-    { label: 'CV / Resume', href: '/resume' },
-  ];
+  const setIsShowMenu = useStore((state: any) => state.setIsShowMenu);
+
   const refs = useRef<(HTMLDivElement | null)[]>([]);
 
   const handleMouseEnter = (index: number) => {
@@ -39,7 +37,9 @@ const MenuList = () => {
       {MENU_ITEMS.map((item, index) => (
         <div
           key={index}
-          onClick={() => customRouter.push(item.href)}
+          onClick={() => {
+            customRouter.push(item.href);
+          }}
           onMouseEnter={() => handleMouseEnter(index)}
           onMouseLeave={() => handleMouseLeave(index)}
           className='group flex cursor-pointer items-center text-[16px] font-[600] uppercase text-[#F4E4CA]'
@@ -68,6 +68,8 @@ const Header = () => {
   const customRouter = useCustomRouter();
   const [showDetail, setShowDetail] = useState(false);
   const path = usePathname();
+  const setIsShowMenu = useStore((state: any) => state.setIsShowMenu);
+  const isShowMenu = useStore((state: any) => state.isShowMenu);
 
   useEffect(() => {
     if (path !== '/') {
@@ -78,7 +80,7 @@ const Header = () => {
   }, [path]);
 
   return (
-    <div className='fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-[2rem] py-[1rem]'>
+    <div className='fixed left-0 right-0 top-0 z-[100] flex items-center justify-between px-[2rem] py-[1rem]'>
       <div className='flex items-center gap-[124px]'>
         <CustomImage
           src={INFO.APP.LOGO_URL}
@@ -104,11 +106,14 @@ const Header = () => {
         )}
       </div>
 
-      {path === '/' && <MenuList />}
+      {(path === '/' || path === '/works') && <MenuList />}
 
       <div className='flex items-center gap-[80px]'>
-        {path === '/about' && <MenuList />}
-        <IconMenu className='cursor-pointer transition-all active:scale-95' />
+        {(path === '/about' || path === '/my-story') && <MenuList />}
+        <IconMenu
+          onClick={() => setIsShowMenu(!isShowMenu)}
+          className='cursor-pointer transition-all active:scale-95'
+        />
       </div>
     </div>
   );
