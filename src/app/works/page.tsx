@@ -48,7 +48,7 @@ const WorksPage = () => {
   const { isMounted } = useMounted();
 
   useEffect(() => {
-    if (!isMounted) return;
+    if (!isMounted || welcomeState !== PAGE_STATE.HERO) return;
     // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
       duration: 1.2,
@@ -67,82 +67,78 @@ const WorksPage = () => {
     return () => {
       lenis.destroy();
     };
-  }, [isMounted]);
+  }, [isMounted, welcomeState]);
 
   useEffect(() => {
     if (welcomeState === PAGE_STATE.HERO) {
       document.body.style.overflow = 'unset';
+      return;
     }
   }, [welcomeState]);
 
   useEffect(() => {
     // Initialize project refs array
     projectRefs.current = [];
-    // Set initial state for project images - start from top and hidden
-    gsap.set('.project-image', {
-      // y: -200,
-      // opacity: 0,
-      scaleY: 0,
-      transformOrigin: 'top center',
+    // Set initial state for project wrappers and content
+    gsap.set('.project-anim-wrapper', {
+      clipPath: 'inset(0 0 100% 0)',
     });
+    // gsap.set('.project-content', {
+    //   opacity: 0,
+    //   y: 40,
+    // });
+
+    gsap.fromTo(
+      itemRefs.current,
+      {
+        y: 120,
+        opacity: 0,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'power2.inOut',
+      }
+    );
 
     // Create scroll triggers for each project row
     const projectRows = document.querySelectorAll('.project-row');
 
     projectRows.forEach((row, rowIndex) => {
-      const images = row.querySelectorAll('.project-image');
-      const texts = row.querySelectorAll('.project-text');
+      const wrappers = row.querySelectorAll('.project-anim-wrapper');
+      // const contents = row.querySelectorAll('.project-content');
 
-      // Animate images with paper reveal effect
-      gsap.fromTo(
-        images,
-        {
-          // y: -200,
-          // opacity: 0,
-          scaleY: 0,
-          transformOrigin: 'top center',
+      // Animate wrappers with paper reveal effect using clip-path
+      gsap.to(wrappers, {
+        clipPath: 'inset(0 0 0% 0)',
+        duration: 1.1,
+        stagger: 0.15,
+        delay: 0.5,
+        ease: 'power2.inOut',
+        scrollTrigger: {
+          trigger: row,
+          start: 'top 100%',
+          end: 'bottom 0%',
+          toggleActions: 'play none none reverse',
         },
-        {
-          // y: 0,
-          // opacity: 1,
-          scaleY: 1,
-          duration: 1.2,
-          stagger: 0.3, // 0.3s delay between images in same row
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: row,
-            start: 'top 100%',
-            end: 'bottom 0%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
-
-      // Animate text content with delay after images start revealing
-      gsap.fromTo(
-        texts,
-        {
-          // y: 50,
-          // opacity: 0,
-          scaleY: 0,
-          transformOrigin: 'top center',
-        },
-        {
-          // y: 0,
-          // opacity: 1,
-          scaleY: 1,
-          duration: 0.8,
-          stagger: 0.15,
-          delay: 0.4, // Start after images begin revealing
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: row,
-            start: 'top 100%',
-            end: 'bottom 0%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
+      });
+      // Animate content fade/slide in
+      // gsap.to(contents, {
+      //   // opacity: 1,
+      //   // y: 0,
+      //   duration: 0.8,
+      //   stagger: 0.3,
+      //   delay: 0.8,
+      //   ease: 'power2.out',
+      //   scrollTrigger: {
+      //     trigger: row,
+      //     start: 'top 100%',
+      //     end: 'bottom 0%',
+      //     toggleActions: 'play none none reverse',
+      //   },
+      // });
     });
 
     // Cleanup function
@@ -227,31 +223,35 @@ const WorksPage = () => {
             {BECOME_LIST.map((item, index) => (
               <div
                 key={item.id}
-                ref={(el) => (itemRefs.current[index] = el) as any}
                 onMouseEnter={() => handleHover(index)}
-                className='group relative z-10 flex items-center justify-between px-[46px] py-[10px]'
+                className='overflow-hidden'
               >
-                {/* Title */}
-                <div className='relative inline-block overflow-hidden text-[80px] font-[400] text-[#6E675B] transition-all duration-[500ms] group-hover:text-[#F4E4CA]'>
-                  {item.title}
-                  <div className='absolute bottom-[1rem] left-[15rem] h-[3px] w-[0rem] bg-[#F4E4CA] transition-all duration-[500ms] group-hover:w-full'></div>
-                </div>
-
-                {/* Icon */}
-                <div className='origin-bottom scale-0 transition-all duration-[500ms] group-hover:scale-100'>
-                  {item.icon}
-                </div>
-
-                {/* Description */}
-                <div>
-                  <div className='overflow-hidden'>
-                    <div className='translate-y-[3.5rem] text-[20px] font-[400] uppercase text-[#F0E0C5] opacity-0 transition-all delay-200 duration-[500ms] group-hover:translate-y-[0] group-hover:opacity-100'>
-                      {item.describe1}
-                    </div>
+                <div
+                  ref={(el) => (itemRefs.current[index] = el) as any}
+                  className='group relative z-10 flex items-center justify-between px-[46px] py-[10px]'
+                >
+                  {/* Title */}
+                  <div className='relative inline-block overflow-hidden text-[80px] font-[400] text-[#6E675B] transition-all duration-[500ms] group-hover:text-[#F4E4CA]'>
+                    {item.title}
+                    <div className='absolute bottom-[1rem] left-[15rem] h-[3px] w-[0rem] bg-[#F4E4CA] transition-all duration-[500ms] group-hover:w-full'></div>
                   </div>
-                  <div className='overflow-hidden'>
-                    <div className='translate-y-[3.5rem] text-[20px] font-[400] uppercase text-[#F0E0C5] opacity-0 transition-all delay-200 duration-[500ms] group-hover:translate-y-[0] group-hover:opacity-100'>
-                      {item.describe2}
+
+                  {/* Icon */}
+                  <div className='origin-bottom scale-0 transition-all duration-[500ms] group-hover:scale-100'>
+                    {item.icon}
+                  </div>
+
+                  {/* Description */}
+                  <div>
+                    <div className='overflow-hidden'>
+                      <div className='translate-y-[3.5rem] text-[20px] font-[400] uppercase text-[#F0E0C5] opacity-0 transition-all delay-200 duration-[500ms] group-hover:translate-y-[0] group-hover:opacity-100'>
+                        {item.describe1}
+                      </div>
+                    </div>
+                    <div className='overflow-hidden'>
+                      <div className='translate-y-[3.5rem] text-[20px] font-[400] uppercase text-[#F0E0C5] opacity-0 transition-all delay-200 duration-[500ms] group-hover:translate-y-[0] group-hover:opacity-100'>
+                        {item.describe2}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -267,179 +267,186 @@ const WorksPage = () => {
             <div className='mt-[20px] flex flex-col gap-[48px]'>
               {/* row 1 */}
               <div className='project-row flex items-start gap-[16px]'>
-                <div>
-                  <div className='project-image overflow-hidden'>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <div className='project-content'>
                     <CustomImage
                       src='/images/works/shin404.webp'
                       alt='shin404'
                       width={1061}
                       height={733}
-                      className='min-h-[733px]'
                     />
-                  </div>
-                  <div className='project-text'>
-                    <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
-                      Shin404 & 404 Anime Website and App{' '}
-                    </h3>
-                    <div className='mt-[8px] text-[20px] font-[400] uppercase text-[#D1BA93]'>
-                      <p>UI UX DESIGN | GRAPHIC DESIGN | PRODUCT OWNER</p>
-                      <p>AUG 2024 - NOW</p>
+                    <div className='project-text'>
+                      <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
+                        Shin404 & 404 Anime Website and App{' '}
+                      </h3>
+                      <div className='mt-[8px] text-[20px] font-[400] uppercase text-[#D1BA93]'>
+                        <p>UI UX DESIGN | GRAPHIC DESIGN | PRODUCT OWNER</p>
+                        <p>AUG 2024 - NOW</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div>
-                  <CustomImage
-                    src='/images/works/rock.webp'
-                    alt='rock'
-                    width={753}
-                    height={733}
-                    className='project-image'
-                  />
-                  <div className='project-text'>
-                    <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
-                      Shin404 & 404 Anime Website and App{' '}
-                    </h3>
-                    <div className='mt-[8px] text-[20px] font-[400] uppercase text-[#D1BA93]'>
-                      <p>UI UX DESIGN | GRAPHIC DESIGN | PRODUCT OWNER</p>
-                      <p>AUG 2024 - NOW</p>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <div className='project-content'>
+                    <CustomImage
+                      src='/images/works/rock.webp'
+                      alt='rock'
+                      width={753}
+                      height={733}
+                    />
+                    <div className='project-text'>
+                      <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
+                        Shin404 & 404 Anime Website and App{' '}
+                      </h3>
+                      <div className='mt-[8px] text-[20px] font-[400] uppercase text-[#D1BA93]'>
+                        <p>UI UX DESIGN | GRAPHIC DESIGN | PRODUCT OWNER</p>
+                        <p>AUG 2024 - NOW</p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
               {/* row 2 */}
               <div className='project-row flex items-center gap-[16px]'>
-                <div>
-                  <CustomImage
-                    src='/images/works/skin.webp'
-                    alt='skin'
-                    width={753}
-                    height={733}
-                    className='project-image'
-                  />
-                  <div className='project-text'>
-                    <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
-                      Eterna Skin Clinic Website
-                    </h3>
-                    <div className='mt-[8px] text-[20px] font-[400] uppercase text-[#D1BA93]'>
-                      <p>ui ux design | Personal Project</p>
-                      <p>oct 2024 - dec 2024</p>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <div className='project-content'>
+                    <CustomImage
+                      src='/images/works/skin.webp'
+                      alt='skin'
+                      width={753}
+                      height={733}
+                    />
+                    <div className='project-text'>
+                      <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
+                        Eterna Skin Clinic Website
+                      </h3>
+                      <div className='mt-[8px] text-[20px] font-[400] uppercase text-[#D1BA93]'>
+                        <p>ui ux design | Personal Project</p>
+                        <p>oct 2024 - dec 2024</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div>
-                  <CustomImage
-                    src='/images/works/web3.webp'
-                    alt='web3'
-                    width={1061}
-                    height={733}
-                    className='project-image'
-                  />
-                  <div className='project-text'>
-                    <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
-                      Horizon Vault | Web3 website{' '}
-                    </h3>
-                    <div className='mt-[8px] text-[20px] font-[400] uppercase text-[#D1BA93]'>
-                      <p>UI UX DESIGN | personal project</p>
-                      <p>MAR 2025 - MAY 2025</p>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <div className='project-content'>
+                    <CustomImage
+                      src='/images/works/web3.webp'
+                      alt='web3'
+                      width={1061}
+                      height={733}
+                    />
+                    <div className='project-text'>
+                      <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
+                        Horizon Vault | Web3 website{' '}
+                      </h3>
+                      <div className='mt-[8px] text-[20px] font-[400] uppercase text-[#D1BA93]'>
+                        <p>UI UX DESIGN | personal project</p>
+                        <p>MAR 2025 - MAY 2025</p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
               {/* row 3 */}
               <div className='project-row flex items-center gap-[16px]'>
-                <div>
-                  <CustomImage
-                    src='/images/works/personal.webp'
-                    alt='skin'
-                    width={1830}
-                    height={733}
-                    className='project-image'
-                  />
-                  <div className='project-text'>
-                    <h3 className='mt-[16px] text-center text-[36px] font-[400] text-[#F4E4CA]'>
-                      PERSONAL GRAPHIC DESIGN | MY FIRST PLACEGROUND
-                    </h3>
-                    <div className='mt-[8px] text-center text-[20px] font-[400] uppercase text-[#D1BA93]'>
-                      <p>CREATIVE GRAPHIC DESIGN</p>
-                      <p>JUN 2023 - NOW</p>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <div className='project-content'>
+                    <CustomImage
+                      src='/images/works/personal.webp'
+                      alt='skin'
+                      width={1830}
+                      height={733}
+                    />
+                    <div className='project-text'>
+                      <h3 className='mt-[16px] text-center text-[36px] font-[400] text-[#F4E4CA]'>
+                        PERSONAL GRAPHIC DESIGN | MY FIRST PLACEGROUND
+                      </h3>
+                      <div className='mt-[8px] text-center text-[20px] font-[400] uppercase text-[#D1BA93]'>
+                        <p>CREATIVE GRAPHIC DESIGN</p>
+                        <p>JUN 2023 - NOW</p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
               {/* row 4 */}
               <div className='project-row flex items-center gap-[16px]'>
-                <div>
-                  <CustomImage
-                    src='/images/works/luxe.webp'
-                    alt='lux'
-                    width={1061}
-                    height={733}
-                    className='project-image'
-                  />
-                  <div className='project-text'>
-                    <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
-                      Luxe Timber | Interior Website
-                    </h3>
-                    <div className='mt-[8px] text-[20px] font-[400] uppercase text-[#D1BA93]'>
-                      <p>UI UX DESIGNER</p>
-                      <p>SEP 2024 - OCT 2024</p>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <div className='project-content'>
+                    <CustomImage
+                      src='/images/works/luxe.webp'
+                      alt='lux'
+                      width={1061}
+                      height={733}
+                    />
+                    <div className='project-text'>
+                      <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
+                        Luxe Timber | Interior Website
+                      </h3>
+                      <div className='mt-[8px] text-[20px] font-[400] uppercase text-[#D1BA93]'>
+                        <p>UI UX DESIGNER</p>
+                        <p>SEP 2024 - OCT 2024</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div>
-                  <CustomImage
-                    src='/images/works/fpt.webp'
-                    alt='fp'
-                    width={753}
-                    height={733}
-                    className='project-image'
-                  />
-                  <div className='project-text'>
-                    <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
-                      FPT Korea Calendar 2025
-                    </h3>
-                    <div className='mt-[8px] text-[20px] font-[400] uppercase text-[#D1BA93]'>
-                      <p>Graphic design</p>
-                      <p>oct 2024 - dec 2024</p>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <div className='project-content'>
+                    <CustomImage
+                      src='/images/works/fpt.webp'
+                      alt='fp'
+                      width={753}
+                      height={733}
+                    />
+                    <div className='project-text'>
+                      <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
+                        FPT Korea Calendar 2025
+                      </h3>
+                      <div className='mt-[8px] text-[20px] font-[400] uppercase text-[#D1BA93]'>
+                        <p>Graphic design</p>
+                        <p>oct 2024 - dec 2024</p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
               {/* row 5 */}
               <div className='project-row flex items-center gap-[16px]'>
-                <div>
-                  <CustomImage
-                    src='/images/works/lowkey.webp'
-                    alt='lowkey'
-                    width={1061}
-                    height={733}
-                    className='project-image'
-                  />
-                  <div className='project-text'>
-                    <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
-                      Experiment with logos
-                    </h3>
-                    <div className='mt-[8px] text-[20px] font-[400] uppercase text-[#D1BA93]'>
-                      <p>GRAPHIC DESIGNER</p>
-                      <p>MAR 2025 - NOW</p>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <div className='project-content'>
+                    <CustomImage
+                      src='/images/works/lowkey.webp'
+                      alt='lowkey'
+                      width={1061}
+                      height={733}
+                    />
+                    <div className='project-text'>
+                      <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
+                        Experiment with logos
+                      </h3>
+                      <div className='mt-[8px] text-[20px] font-[400] uppercase text-[#D1BA93]'>
+                        <p>GRAPHIC DESIGNER</p>
+                        <p>MAR 2025 - NOW</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div>
-                  <CustomImage
-                    src='/images/works/supporter.webp'
-                    alt='supporter'
-                    width={753}
-                    height={733}
-                    className='project-image'
-                  />
-                  <div className='project-text'>
-                    <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
-                      Another projects as a supporter
-                    </h3>
-                    <div className='mt-[8px] text-[20px] font-[400] uppercase text-[#D1BA93]'>
-                      <p>UI UX DESIGNER & GRAPHIC DESIGNER</p>
-                      <p>oct 2024 - dec 2024</p>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <div className='project-content'>
+                    <CustomImage
+                      src='/images/works/supporter.webp'
+                      alt='supporter'
+                      width={753}
+                      height={733}
+                    />
+                    <div className='project-text'>
+                      <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
+                        Another projects as a supporter
+                      </h3>
+                      <div className='mt-[8px] text-[20px] font-[400] uppercase text-[#D1BA93]'>
+                        <p>UI UX DESIGNER & GRAPHIC DESIGNER</p>
+                        <p>oct 2024 - dec 2024</p>
+                      </div>
                     </div>
                   </div>
                 </div>
