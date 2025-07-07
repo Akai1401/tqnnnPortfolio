@@ -113,7 +113,7 @@ const WorksPage = () => {
       // Animate wrappers with paper reveal effect using clip-path
       gsap.to(wrappers, {
         clipPath: 'inset(0 0 0% 0)',
-        duration: 1.1,
+        duration: 1.5,
         stagger: 0.15,
         delay: 0.5,
         ease: 'power2.inOut',
