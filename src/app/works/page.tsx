@@ -11,6 +11,7 @@ import useStore from '@/store';
 import { PAGE_STATE } from '@/constant';
 import useMounted from '@/hook/useMounted';
 import Lenis from 'lenis';
+import CustomMarquee from '@/components/CustomMarquee';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -46,9 +47,10 @@ const WorksPage = () => {
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
   const welcomeState = useStore((state: any) => state.welcomeState);
   const { isMounted } = useMounted();
+  const isShowMenu = useStore((state: any) => state.isShowMenu);
 
   useEffect(() => {
-    if (!isMounted || welcomeState !== PAGE_STATE.HERO) return;
+    if (!isMounted || welcomeState !== PAGE_STATE.HERO || isShowMenu) return;
     // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
       duration: 1.2,
@@ -67,7 +69,7 @@ const WorksPage = () => {
     return () => {
       lenis.destroy();
     };
-  }, [isMounted, welcomeState]);
+  }, [isMounted, welcomeState, isShowMenu]);
 
   useEffect(() => {
     if (welcomeState === PAGE_STATE.HERO) {
@@ -114,7 +116,7 @@ const WorksPage = () => {
       gsap.to(wrappers, {
         clipPath: 'inset(0 0 0% 0)',
         duration: 1.5,
-        stagger: 0.15,
+        stagger: 0.2,
         delay: 0.5,
         ease: 'power2.inOut',
         scrollTrigger: {
@@ -454,7 +456,14 @@ const WorksPage = () => {
             </div>
           </div>
           {/* Footer */}
-          <div className=''></div>
+          <div className='mt-[96px]'>
+            <CustomMarquee />
+            <div className='mt-[100px] flex items-center justify-between px-[51px]'>
+              <p className='text-[16px] font-[400] text-[#F4E4CA]'>
+                ALL RIGHTS RESERVED <br /> © 2025 TQNG MARUKO
+              </p>
+            </div>
+          </div>
         </div>
       )}
     </div>

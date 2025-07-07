@@ -1,7 +1,7 @@
 import useStore from '@/store';
 import React, { useEffect } from 'react';
 import SocialButtons from './SocialButtons';
-import { MENU_ITEMS } from '@/constant';
+import { MENU_ITEMS, PAGE_STATE } from '@/constant';
 import useCustomRouter from '@/hook/useCustomRouter';
 import gsap from 'gsap';
 
@@ -10,6 +10,7 @@ const Menu = () => {
   const socialRefs = React.useRef<(HTMLAnchorElement | null)[]>([]);
   const itemRefs = React.useRef<(HTMLButtonElement | null)[]>([]);
   const customRouter = useCustomRouter();
+  const welcomeState = useStore((state: any) => state.welcomeState);
 
   useEffect(() => {
     if (!isShowMenu) {
@@ -21,8 +22,12 @@ const Menu = () => {
         y: 80,
         opacity: 0,
       });
+      if (welcomeState === PAGE_STATE.HERO) {
+        document.body.style.overflow = 'unset';
+      }
       return;
     }
+    document.body.style.overflow = 'hidden';
     gsap.to(itemRefs.current, {
       y: 0,
       opacity: 1,
@@ -39,10 +44,10 @@ const Menu = () => {
       delay: 0,
       ease: 'power2.out',
     });
-  }, [isShowMenu]);
+  }, [isShowMenu, welcomeState]);
   return (
     <div
-      className={`fixed inset-0 text-white ${isShowMenu ? 'z-50 opacity-100' : 'z-[-1] opacity-0'} transition-all duration-[1000ms] ease-in-out`}
+      className={`fixed inset-0 text-white ${isShowMenu ? 'z-50 opacity-100' : 'z-[-1] opacity-0'} h-screen transition-all duration-[1000ms] ease-in-out`}
     >
       <div className='flex h-full flex-col items-center justify-center gap-[32px]'>
         {MENU_ITEMS.map((item, index) => (
@@ -54,7 +59,7 @@ const Menu = () => {
               onClick={() => {
                 customRouter.push(item.href);
               }}
-              className='group relative flex items-start gap-[20px] transition-all duration-300 active:scale-95 cursor-pointer'
+              className='group relative flex cursor-pointer items-start gap-[20px] transition-all duration-300 active:scale-95'
             >
               <div className='absolute left-[-20px] top-0 h-full w-0 bg-[#BD2F00] transition-all duration-300 group-hover:w-[calc(100%+40px)]'></div>
               <p
