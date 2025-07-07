@@ -52,6 +52,7 @@ const LayoutPrimary = ({ children }: any) => {
       // setTimeout(() => {
       gsap.set('#layout-primary', {
         overflow: 'hidden',
+        // maxHeight: '100vh',
       });
       gsap.to('#layout-primary', {
         scale: 1,
@@ -63,6 +64,7 @@ const LayoutPrimary = ({ children }: any) => {
           setIsChangingPage(false);
           gsap.set('#layout-primary', {
             overflow: 'visible',
+            maxHeight: 'unset',
           });
         },
       });
@@ -90,6 +92,10 @@ const LayoutPrimary = ({ children }: any) => {
         opacity: 0,
         duration: 0.8,
         ease: 'power2.inOut',
+      });
+      gsap.set('#layout-primary', {
+        maxHeight: '100vh',
+        overflow: 'hidden',
       });
       gsap.to('#layout-primary', {
         scale: 0.9,

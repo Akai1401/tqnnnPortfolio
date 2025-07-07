@@ -59,9 +59,9 @@ const Menu = () => {
               onClick={() => {
                 customRouter.push(item.href);
               }}
-              className='group relative flex cursor-pointer items-start gap-[20px] transition-all duration-300 active:scale-95'
+              className='group relative flex cursor-pointer items-start gap-[20px] transition-all duration-[500ms] active:scale-95'
             >
-              <div className='absolute left-[-20px] top-0 h-full w-0 bg-[#BD2F00] transition-all duration-300 group-hover:w-[calc(100%+40px)]'></div>
+              <div className='absolute left-[-20px] top-0 h-full w-0 bg-[#BD2F00] transition-all duration-[500ms] group-hover:w-[calc(100%+40px)]'></div>
               <p
                 className={`relative mt-[0.5rem] text-[32px] font-[400] text-[#6E675B] group-hover:text-[#F4E4CA]`}
               >
