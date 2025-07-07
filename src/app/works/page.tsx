@@ -9,6 +9,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import CustomImage from '@/components/custom/CustomImage';
 import useStore from '@/store';
 import { PAGE_STATE } from '@/constant';
+import useMounted from '@/hook/useMounted';
+import Lenis from 'lenis';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -43,6 +45,29 @@ const WorksPage = () => {
   const bgRef = useRef<HTMLDivElement>(null);
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
   const welcomeState = useStore((state: any) => state.welcomeState);
+  const { isMounted } = useMounted();
+
+  useEffect(() => {
+    if (!isMounted) return;
+    // Initialize Lenis for smooth scrolling
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    });
+
+    // Integrate Lenis with GSAP
+    lenis.on('scroll', ScrollTrigger.update);
+
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+
+    gsap.ticker.lagSmoothing(0);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, [isMounted]);
 
   useEffect(() => {
     if (welcomeState === PAGE_STATE.HERO) {
