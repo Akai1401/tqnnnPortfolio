@@ -134,13 +134,16 @@ const WelcomeSection = () => {
                 }}
                 className='absolute left-0 top-0 h-[1px] bg-[#F4E4CA] transition-all duration-[3s] ease-in'
               >
-                <CustomImage
-                  src='/images/loading/tqn.webp'
-                  alt='progress'
-                  width={92.27}
-                  height={111}
-                  className='absolute right-[-3rem] top-[-4rem]'
-                />
+                <div className='absolute right-[-3rem] top-[-4rem]'>
+                  <CustomImage
+                    src='/images/loading/tqn.gif'
+                    alt='progress'
+                    width={1748}
+                    height={1234}
+                    className='w-[92.27px]'
+                  />
+                  <p className='text-[20px] text-[#F4E4CA]'>loading...</p>
+                </div>
               </div>
             </div>
           )}

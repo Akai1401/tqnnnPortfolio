@@ -15,25 +15,25 @@ const Menu = () => {
     if (!isShowMenu) {
       gsap.set(socialRefs.current, {
         y: 80,
-        // opacity: 0,
+        opacity: 0,
       });
       gsap.set(itemRefs.current, {
         y: 80,
-        // opacity: 0,
+        opacity: 0,
       });
       return;
     }
     gsap.to(itemRefs.current, {
       y: 0,
-      // opacity: 1,
+      opacity: 1,
       stagger: 0.2,
       duration: 0.6,
       delay: 0,
-      ease: 'power2.out',
+      ease: 'power2.inOut',
     });
     gsap.to(socialRefs.current, {
       y: 0,
-      // opacity: 1,
+      opacity: 1,
       stagger: 0.2,
       duration: 0.6,
       delay: 0,
