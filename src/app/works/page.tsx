@@ -13,9 +13,29 @@ import useMounted from '@/hook/useMounted';
 import Lenis from 'lenis';
 import CustomMarquee from '@/components/CustomMarquee';
 import Footer from '@/components/Footer';
+import IconArrow from '@/assets/icons/IconArrow';
+import useCustomRouter from '@/hook/useCustomRouter';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
+
+const Overlay = ({ href }: { href: string }) => {
+  const customRouter = useCustomRouter();
+  return (
+    <div className='absolute inset-0 flex items-center justify-center bg-[rgba(0,0,0,0.40)] opacity-0 backdrop-blur-[10px] transition-all duration-[500ms] group-hover:opacity-100'>
+      <button
+        onClick={() => {
+          customRouter.push(href);
+        }}
+        className='flex items-center gap-[10px] rounded-[24px] bg-[#BD2A00] px-[20px] py-[8px] text-[18px] font-[600] text-[#F4E4CA] transition-all duration-[300ms] hover:opacity-70'
+      >
+        More detail
+        <IconArrow /* className='transition-all duration-[300ms] hover:rotate-45'  */
+        />
+      </button>
+    </div>
+  );
+};
 
 const WorksPage = () => {
   const BECOME_LIST = [
@@ -272,12 +292,16 @@ const WorksPage = () => {
               <div className='project-row flex items-start gap-[16px]'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <div className='project-content'>
-                    <CustomImage
-                      src='/images/works/shin404.webp'
-                      alt='shin404'
-                      width={1061}
-                      height={733}
-                    />
+                    <div className='group relative overflow-hidden'>
+                      <CustomImage
+                        src='/images/works/shin404.webp'
+                        alt='shin404'
+                        className='transition-all duration-[800ms] group-hover:scale-110'
+                        width={1061}
+                        height={733}
+                      />
+                      <Overlay href='/works/shin404' />
+                    </div>
                     <div className='project-text'>
                       <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
                         Shin404 & 404 Anime Website and App{' '}
@@ -291,12 +315,16 @@ const WorksPage = () => {
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <div className='project-content'>
-                    <CustomImage
-                      src='/images/works/rock.webp'
-                      alt='rock'
-                      width={753}
-                      height={733}
-                    />
+                    <div className='group relative overflow-hidden'>
+                      <CustomImage
+                        src='/images/works/rock.webp'
+                        alt='rock'
+                        className='transition-all duration-[800ms] group-hover:scale-110'
+                        width={753}
+                        height={733}
+                      />
+                      <Overlay href='/works/hnrock' />
+                    </div>
                     <div className='project-text'>
                       <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
                         Hanoi Rock City
@@ -313,12 +341,16 @@ const WorksPage = () => {
               <div className='project-row flex items-center gap-[16px]'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <div className='project-content'>
-                    <CustomImage
-                      src='/images/works/skin.webp'
-                      alt='skin'
-                      width={753}
-                      height={733}
-                    />
+                    <div className='group relative overflow-hidden'>
+                      <CustomImage
+                        src='/images/works/skin.webp'
+                        alt='skin'
+                        className='transition-all duration-[800ms] group-hover:scale-110'
+                        width={753}
+                        height={733}
+                      />
+                      <Overlay href='/works/eterna' />
+                    </div>
                     <div className='project-text'>
                       <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
                         Eterna Skin Clinic Website
@@ -332,12 +364,16 @@ const WorksPage = () => {
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <div className='project-content'>
-                    <CustomImage
-                      src='/images/works/web3.webp'
-                      alt='web3'
-                      width={1061}
-                      height={733}
-                    />
+                    <div className='group relative overflow-hidden'>
+                      <CustomImage
+                        src='/images/works/web3.webp'
+                        alt='web3'
+                        className='transition-all duration-[800ms] group-hover:scale-110'
+                        width={1061}
+                        height={733}
+                      />
+                      <Overlay href='/works/vault' />
+                    </div>
                     <div className='project-text'>
                       <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
                         Horizon Vault | Web3 website{' '}
@@ -354,13 +390,17 @@ const WorksPage = () => {
               <div className='project-row flex items-center gap-[16px]'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <div className='project-content'>
-                    <CustomImage
-                      src='/images/works/personal.webp'
-                      alt='skin'
-                      unoptimized
-                      width={1830}
-                      height={733}
-                    />
+                    <div className='group relative overflow-hidden'>
+                      <CustomImage
+                        src='/images/works/personal.webp'
+                        alt='skin'
+                        className='transition-all duration-[800ms] group-hover:scale-110'
+                        unoptimized
+                        width={1830}
+                        height={733}
+                      />
+                      <Overlay href='/works/personal' />
+                    </div>
                     <div className='project-text'>
                       <h3 className='mt-[16px] text-center text-[36px] font-[400] text-[#F4E4CA]'>
                         PERSONAL GRAPHIC DESIGN | MY FIRST PLACEGROUND
@@ -377,12 +417,16 @@ const WorksPage = () => {
               <div className='project-row flex items-center gap-[16px]'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <div className='project-content'>
-                    <CustomImage
-                      src='/images/works/luxe.webp'
-                      alt='lux'
-                      width={1061}
-                      height={733}
-                    />
+                    <div className='group relative overflow-hidden'>
+                      <CustomImage
+                        src='/images/works/luxe.webp'
+                        alt='lux'
+                        className='transition-all duration-[800ms] group-hover:scale-110'
+                        width={1061}
+                        height={733}
+                      />
+                      <Overlay href='/works/luxe' />
+                    </div>
                     <div className='project-text'>
                       <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
                         Luxe Timber | Interior Website
@@ -396,12 +440,16 @@ const WorksPage = () => {
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <div className='project-content'>
-                    <CustomImage
-                      src='/images/works/fpt.webp'
-                      alt='fp'
-                      width={753}
-                      height={733}
-                    />
+                    <div className='group relative overflow-hidden'>
+                      <CustomImage
+                        src='/images/works/fpt.webp'
+                        alt='fp'
+                        className='transition-all duration-[800ms] group-hover:scale-110'
+                        width={753}
+                        height={733}
+                      />
+                      <Overlay href='/works/calendar' />
+                    </div>
                     <div className='project-text'>
                       <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
                         FPT Korea Calendar 2025
@@ -418,12 +466,16 @@ const WorksPage = () => {
               <div className='project-row flex items-center gap-[16px]'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <div className='project-content'>
-                    <CustomImage
-                      src='/images/works/lowkey.webp'
-                      alt='lowkey'
-                      width={1061}
-                      height={733}
-                    />
+                    <div className='group relative overflow-hidden'>
+                      <CustomImage
+                        src='/images/works/lowkey.webp'
+                        alt='lowkey'
+                        className='transition-all duration-[800ms] group-hover:scale-110'
+                        width={1061}
+                        height={733}
+                      />
+                      <Overlay href='/works/logos' />
+                    </div>
                     <div className='project-text'>
                       <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
                         Experiment with logos
@@ -437,12 +489,16 @@ const WorksPage = () => {
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <div className='project-content'>
-                    <CustomImage
-                      src='/images/works/supporter.webp'
-                      alt='supporter'
-                      width={753}
-                      height={733}
-                    />
+                    <div className='group relative overflow-hidden'>
+                      <CustomImage
+                        src='/images/works/supporter.webp'
+                        alt='supporter'
+                        className='transition-all duration-[800ms] group-hover:scale-110'
+                        width={753}
+                        height={733}
+                      />
+                      <Overlay href='/works/supporter' />
+                    </div>
                     <div className='project-text'>
                       <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
                         Another projects as a supporter

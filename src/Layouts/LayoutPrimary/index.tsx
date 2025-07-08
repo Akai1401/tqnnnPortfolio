@@ -208,7 +208,10 @@ const LayoutPrimary = ({ children }: any) => {
               </Canvas> */}
           </>
           {/* )} */}
-          <div id='layout-primary'>
+          <div
+            id='layout-primary'
+            // className='scroll-smooth transition-all duration-[1000ms] ease-in-out'
+          >
             <div
               id='layout-primary-pathname'
               className='fixed inset-0 z-[-1] flex items-center justify-center bg-[url("/images/home/bg.png")] bg-cover bg-center bg-no-repeat text-[48px] text-[#F4E4CA] opacity-0'

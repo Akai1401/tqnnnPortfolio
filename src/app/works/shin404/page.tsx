@@ -1,9 +1,14 @@
-import React from 'react'
+import React from 'react';
 
-const page = () => {
+const Shin404Page = () => {
   return (
-    <div>page</div>
-  )
-}
+    <div
+      id='section'
+      className='min-h-screen bg-[url("/images/home/bg.png")] bg-cover bg-center bg-no-repeat'
+    >
+      Shin404Page
+    </div>
+  );
+};
 
-export default page
+export default Shin404Page;
