@@ -13,15 +13,15 @@ const Footer = () => {
   return (
     <div>
       <CustomMarquee />
-      <div className='min-h-[540px] flex items-center bg-[url("/images/works/footer.webp")] bg-cover bg-center bg-no-repeat'>
-        <div className='flex items-end justify-between w-full px-[67px]'>
+      <div className='flex min-h-[540px] items-center bg-[url("/images/works/footer.webp")] bg-cover bg-center bg-no-repeat'>
+        <div className='flex w-full items-end justify-between px-[67px]'>
           <div>
             <div className='flex items-center gap-[16px]'>
               <div
                 onClick={() => {
                   customRouter.push('/');
                 }}
-                className='border-[#rgba(255,255,255,0.16) cursor-pointer border bg-[rgba(255,255,255,0.08)] px-[24px] py-[8px] text-[20px] font-[400] text-[#F4E4CA] backdrop-blur-[12px] transition-all duration-300 active:scale-95'
+                className='border-[#rgba(255,255,255,0.16) cursor-pointer border bg-[rgba(255,255,255,0.08)] px-[24px] py-[8px] text-[20px] font-[400] text-[#F4E4CA] backdrop-blur-[12px] transition-all duration-300 hover:opacity-[0.7] active:scale-95'
               >
                 About
               </div>
@@ -29,7 +29,7 @@ const Footer = () => {
                 onClick={() => {
                   customRouter.push('/works');
                 }}
-                className='border-[#rgba(255,255,255,0.16) cursor-pointer border bg-[rgba(255,255,255,0.08)] px-[24px] py-[8px] text-[20px] font-[400] text-[#F4E4CA] backdrop-blur-[12px] transition-all duration-300 active:scale-95'
+                className='border-[#rgba(255,255,255,0.16) cursor-pointer border bg-[rgba(255,255,255,0.08)] px-[24px] py-[8px] text-[20px] font-[400] text-[#F4E4CA] backdrop-blur-[12px] transition-all duration-300 hover:opacity-[0.7] active:scale-95'
               >
                 Works
               </div>
@@ -37,7 +37,7 @@ const Footer = () => {
                 onClick={() => {
                   customRouter.push('/my-story');
                 }}
-                className='border-[#rgba(255,255,255,0.16) cursor-pointer border bg-[rgba(255,255,255,0.08)] px-[24px] py-[8px] text-[20px] font-[400] text-[#F4E4CA] backdrop-blur-[12px] transition-all duration-300 active:scale-95'
+                className='border-[#rgba(255,255,255,0.16) cursor-pointer border bg-[rgba(255,255,255,0.08)] px-[24px] py-[8px] text-[20px] font-[400] text-[#F4E4CA] backdrop-blur-[12px] transition-all duration-300 hover:opacity-[0.7] active:scale-95'
               >
                 My story
               </div>
@@ -45,12 +45,12 @@ const Footer = () => {
                 onClick={() => {
                   customRouter.push('/cv.pdf');
                 }}
-                className='border-[#rgba(255,255,255,0.16) cursor-pointer border bg-[rgba(255,255,255,0.08)] px-[24px] py-[8px] text-[20px] font-[400] text-[#F4E4CA] backdrop-blur-[12px] transition-all duration-300 active:scale-95'
+                className='border-[#rgba(255,255,255,0.16) cursor-pointer border bg-[rgba(255,255,255,0.08)] px-[24px] py-[8px] text-[20px] font-[400] text-[#F4E4CA] backdrop-blur-[12px] transition-all duration-300 hover:opacity-[0.7] active:scale-95'
               >
                 CV / Resume
               </div>
             </div>
-            <div className='flex items-start text-[80px] font-[700] uppercase text-[#F4E4CA] mt-[5rem]'>
+            <div className='mt-[5rem] flex items-start text-[80px] font-[700] uppercase text-[#F4E4CA]'>
               <CustomImage
                 src='/images/footer/let.webp'
                 alt='let'
@@ -62,7 +62,7 @@ const Footer = () => {
                 alt='logo'
                 width={196}
                 height={85}
-                className='cursor-pointer transition-all active:scale-95 ml-[-21rem] mt-[1.5rem]'
+                className='ml-[-21rem] mt-[1.5rem] cursor-pointer transition-all active:scale-95'
                 onClick={() => {
                   customRouter.push('/');
                 }}

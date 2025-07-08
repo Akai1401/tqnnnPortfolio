@@ -15,11 +15,11 @@ const Menu = () => {
   useEffect(() => {
     if (!isShowMenu) {
       gsap.set(socialRefs.current, {
-        y: 80,
+        y: 50,
         opacity: 0,
       });
       gsap.set(itemRefs.current, {
-        y: 80,
+        y: 50,
         opacity: 0,
       });
       if (welcomeState === PAGE_STATE.HERO) {
@@ -47,7 +47,7 @@ const Menu = () => {
   }, [isShowMenu, welcomeState]);
   return (
     <div
-      className={`fixed inset-0 text-white ${isShowMenu ? 'z-50 opacity-100' : 'z-[-1] opacity-0'} h-screen transition-all duration-[1000ms] ease-in-out`}
+      className={`fixed inset-0 text-white ${isShowMenu ? 'z-50 opacity-100' : 'z-[-1] opacity-0'} h-screen bg-[url('/images/home/bg.png')] bg-cover bg-center transition-all duration-[1000ms] ease-in-out`}
     >
       <div className='flex h-full flex-col items-center justify-center gap-[32px]'>
         {MENU_ITEMS.map((item, index) => (
@@ -67,7 +67,7 @@ const Menu = () => {
               >
                 0{index + 1}
               </p>
-              <button className='relative mx-[14px] py-[4px] text-[64px] font-[400] text-[#6E675B] transition-all group-hover:text-[#F4E4CA]'>
+              <button className='relative mx-[14px] py-[4px] text-[48px] font-[400] text-[#6E675B] transition-all group-hover:text-[#F4E4CA]'>
                 {item.labelMenu}
               </button>
             </div>

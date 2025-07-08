@@ -299,11 +299,11 @@ const WorksPage = () => {
                     />
                     <div className='project-text'>
                       <h3 className='mt-[16px] text-[36px] font-[400] text-[#F4E4CA]'>
-                        Shin404 & 404 Anime Website and App{' '}
+                        Hanoi Rock City
                       </h3>
                       <div className='mt-[8px] text-[20px] font-[400] uppercase text-[#D1BA93]'>
-                        <p>UI UX DESIGN | GRAPHIC DESIGN | PRODUCT OWNER</p>
-                        <p>AUG 2024 - NOW</p>
+                        <p>GRAPHIC DESIGNER - CONCEPT CREATOR</p>
+                        <p>JAN 2024 - MAR 2025</p>
                       </div>
                     </div>
                   </div>
