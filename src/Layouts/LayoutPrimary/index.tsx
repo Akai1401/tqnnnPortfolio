@@ -14,6 +14,8 @@ import ImageInCanvas from '@/components/ImageInCanvas';
 import CustomImage from '@/components/custom/CustomImage';
 import Menu from '@/components/Menu';
 import ScrollToTop from '@/components/ScrollToTop';
+import IconArrowBold from '@/assets/icons/IconArrowBold';
+import Shin404Intro from '@/components/Shin404Intro';
 
 const LayoutPrimary = ({ children }: any) => {
   const welcomeState = useStore((state: any) => state.welcomeState);
@@ -208,6 +210,13 @@ const LayoutPrimary = ({ children }: any) => {
               </Canvas> */}
           </>
           {/* )} */}
+
+          {welcomeState !== PAGE_STATE.WELCOME && <Header />}
+
+          {welcomeState === PAGE_STATE.HERO && (
+            <>{pathname === '/works/shin404' && <Shin404Intro />}</>
+          )}
+
           <div
             id='layout-primary'
             // className='scroll-smooth transition-all duration-[1000ms] ease-in-out'
@@ -234,7 +243,6 @@ const LayoutPrimary = ({ children }: any) => {
                 </p>
               </div>
             </div>
-            {welcomeState !== PAGE_STATE.WELCOME && <Header />}
             {/* Menu */}
             <Menu />
             {
