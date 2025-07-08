@@ -15,6 +15,7 @@ import CustomMarquee from '@/components/CustomMarquee';
 import Footer from '@/components/Footer';
 import IconArrow from '@/assets/icons/IconArrow';
 import useCustomRouter from '@/hook/useCustomRouter';
+import IconArrowBold from '@/assets/icons/IconArrowBold';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -27,10 +28,10 @@ const Overlay = ({ href }: { href: string }) => {
         onClick={() => {
           customRouter.push(href);
         }}
-        className='flex items-center gap-[10px] rounded-[24px] bg-[#BD2A00] px-[20px] py-[8px] text-[18px] font-[600] text-[#F4E4CA] transition-all duration-[300ms] hover:opacity-70'
+        className='btn-primary'
       >
         More detail
-        <IconArrow /* className='transition-all duration-[300ms] hover:rotate-45'  */
+        <IconArrowBold /* className='transition-all duration-[300ms] hover:rotate-45'  */
         />
       </button>
     </div>

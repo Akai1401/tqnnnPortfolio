@@ -67,6 +67,7 @@ const MenuList = () => {
 const Header = () => {
   const customRouter = useCustomRouter();
   const [showDetail, setShowDetail] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
   const path = usePathname();
   const setIsShowMenu = useStore((state: any) => state.setIsShowMenu);
   const isShowMenu = useStore((state: any) => state.isShowMenu);
@@ -78,6 +79,23 @@ const Header = () => {
       setShowDetail(false);
     }
   }, [path]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = (date: Date) => {
+    return date.toLocaleTimeString('en-US', {
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZone: 'Asia/Ho_Chi_Minh',
+    });
+  };
 
   return (
     <div className='fixed left-0 right-0 top-0 z-[100] flex items-center justify-between px-[2rem] py-[1rem]'>
@@ -99,14 +117,14 @@ const Header = () => {
               Hanoi, Vietnam
             </p>
             <p>
-              / 12:34 (GMT+7) <br />
+              / {formatTime(currentTime)} (GMT+7) <br />
               35.6764° N, 139.6500° E
             </p>
           </div>
         )}
       </div>
 
-      {(path === '/' || path === '/works') && <MenuList />}
+      {(path === '/' || path.includes('/works')) && <MenuList />}
 
       <div className='flex items-center gap-[80px]'>
         {(path === '/about' || path === '/my-story') && <MenuList />}

@@ -41,7 +41,7 @@
   }
 
   .btn-primary {
-    @apply btn border-none !text-white ![background:var(--primary-gradient)];
+    @apply flex items-center gap-[10px] rounded-[24px] bg-[#BD2A00] px-[24px] py-[10px] text-[18px] font-[600] text-[#F4E4CA] transition-all duration-[300ms] hover:opacity-70;
   }
 
   .btn-secondary {

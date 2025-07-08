@@ -138,25 +138,25 @@ const AboutPage = () => {
 
         if (sectionElement) {
           // if (selector !== '#education_section') {
-            // Animate section title
-            gsap.fromTo(
-              `${selector} h2`,
-              { x: -50, opacity: 0 },
-              {
-                x: 0,
-                opacity: 1,
-                duration: 0.8,
-                delay: delay,
-                ease: 'power2.out',
-                scrollTrigger: {
-                  trigger: sectionElement,
-                  scroller: scrollableContent,
-                  start: 'top 80%',
-                  end: 'bottom 20%',
-                  toggleActions: 'play none none reverse',
-                },
-              }
-            );
+          // Animate section title
+          gsap.fromTo(
+            `${selector} h2`,
+            { x: -50, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              duration: 0.8,
+              delay: delay,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: sectionElement,
+                scroller: scrollableContent,
+                start: 'top 80%',
+                end: 'bottom 20%',
+                toggleActions: 'play none none reverse',
+              },
+            }
+          );
           // }
 
           // Animate line image
@@ -338,7 +338,7 @@ const AboutPage = () => {
                   {/* HN Rock */}
                   <div className='content-item flex flex-col gap-[8px]'>
                     <h3 className='text-[20px] font-[600]'>
-                      *Hanoi Rock City (Dec 2023 - now)
+                      *Hanoi Rock City (Dec 2023 - Mar 2025)
                     </h3>
                     <p className='text-[16px] font-[400]'>
                       • Freelancer Graphic Designer
@@ -396,7 +396,8 @@ const AboutPage = () => {
                   {/* Shin404 & 404 Anime */}
                   <div className='content-item flex flex-col gap-[8px]'>
                     <h3 className='text-[20px] font-[600]'>
-                      *Diplomatic Academy of Vietnam (Oct 2021 - now)
+                      *Diplomatic Academy of Vietnam <br /> (Oct 2021 - Jun
+                      2025)
                     </h3>
                     <p className='text-[16px] font-[400]'>
                       • International Relationship

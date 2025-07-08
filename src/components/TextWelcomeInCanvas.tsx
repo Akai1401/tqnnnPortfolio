@@ -3,7 +3,7 @@ import { Text as DreiText } from '@react-three/drei';
 
 const TextWelcomeInCanvas = () => {
   const WELCOME_TEXT = [
-    'CREATIVE DEVELOPMENT',
+    'WELCOME TO',
     'PORTFOLIO',
     '2025 SHOWCASE',
     'OF',
