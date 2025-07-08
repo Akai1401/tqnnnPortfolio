@@ -13,6 +13,7 @@ import BackgroundInCanvas from '@/components/BackgroundInCanvas';
 import ImageInCanvas from '@/components/ImageInCanvas';
 import CustomImage from '@/components/custom/CustomImage';
 import Menu from '@/components/Menu';
+import ScrollToTop from '@/components/ScrollToTop';
 
 const LayoutPrimary = ({ children }: any) => {
   const welcomeState = useStore((state: any) => state.welcomeState);
@@ -137,6 +138,9 @@ const LayoutPrimary = ({ children }: any) => {
   return (
     <div className=''>
       {welcomeState !== PAGE_STATE.HERO && <WelcomeSection />}
+      {welcomeState === PAGE_STATE.HERO && pathname === '/works' && (
+        <ScrollToTop />
+      )}
       {welcomeState !== PAGE_STATE.LOADING && (
         <>
           {/* {pathname === '/' && ( */}

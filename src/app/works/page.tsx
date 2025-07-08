@@ -12,6 +12,7 @@ import { PAGE_STATE } from '@/constant';
 import useMounted from '@/hook/useMounted';
 import Lenis from 'lenis';
 import CustomMarquee from '@/components/CustomMarquee';
+import Footer from '@/components/Footer';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -356,6 +357,7 @@ const WorksPage = () => {
                     <CustomImage
                       src='/images/works/personal.webp'
                       alt='skin'
+                      unoptimized
                       width={1830}
                       height={733}
                     />
@@ -457,12 +459,7 @@ const WorksPage = () => {
           </div>
           {/* Footer */}
           <div className='mt-[96px]'>
-            <CustomMarquee />
-            <div className='mt-[100px] flex items-center justify-between px-[51px]'>
-              <p className='text-[16px] font-[400] text-[#F4E4CA]'>
-                ALL RIGHTS RESERVED <br /> © 2025 TQNG MARUKO
-              </p>
-            </div>
+            <Footer />
           </div>
         </div>
       )}

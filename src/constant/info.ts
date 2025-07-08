@@ -3,7 +3,7 @@ export const INFO = {
     NAME: 'Quý nè hihi | Portfolio 2025',
     DOMAIN: '',
     DESC: '',
-    LOGO_URL: '/images/logo.webp',
+    LOGO_URL: '/images/logo.png',
     THUMBNAIL_URL: '/images/thumbnail.webp',
   },
   SOCIAL: {
