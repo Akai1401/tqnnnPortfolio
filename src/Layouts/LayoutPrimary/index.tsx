@@ -58,7 +58,7 @@ const LayoutPrimary = ({ children }: any) => {
         // maxHeight: '100vh',
       });
       gsap.to('#layout-primary', {
-        scale: 1,
+        // scale: 1,
         // opacity: 1,
         // filter: 'blur(0px)',
         duration: 0.5,
@@ -101,7 +101,7 @@ const LayoutPrimary = ({ children }: any) => {
         overflow: 'hidden',
       });
       gsap.to('#layout-primary', {
-        scale: 0.9,
+        // scale: 0.9,
         // opacity: 0,
         // filter: 'blur(8px)',
         duration: 1,
@@ -211,11 +211,9 @@ const LayoutPrimary = ({ children }: any) => {
           </>
           {/* )} */}
 
-          {welcomeState !== PAGE_STATE.WELCOME && <Header />}
-
-          {welcomeState === PAGE_STATE.HERO && (
+          {/* {welcomeState === PAGE_STATE.HERO && (
             <>{pathname === '/works/shin404' && <Shin404Intro />}</>
-          )}
+          )} */}
 
           <div
             id='layout-primary'
@@ -243,6 +241,7 @@ const LayoutPrimary = ({ children }: any) => {
                 </p>
               </div>
             </div>
+            {welcomeState !== PAGE_STATE.WELCOME && <Header />}
             {/* Menu */}
             <Menu />
             {
