@@ -12,4 +12,7 @@ export const INFO = {
     BEHANCE: 'https://www.behance.net/thanhquynguyen',
     INSTAGRAM: 'https://www.instagram.com/tqqqqqqn',
   },
+  PROJECT: {
+    SHIN404: 'https://www.shin404.com',
+  },
 };

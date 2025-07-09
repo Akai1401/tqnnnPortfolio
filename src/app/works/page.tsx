@@ -15,24 +15,52 @@ import CustomMarquee from '@/components/CustomMarquee';
 import Footer from '@/components/Footer';
 import IconArrow from '@/assets/icons/IconArrow';
 import useCustomRouter from '@/hook/useCustomRouter';
+import IconArrowBold from '@/assets/icons/IconArrowBold';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
 const Overlay = ({ href }: { href: string }) => {
+  const cursorRef = useRef<HTMLDivElement>(null);
   const customRouter = useCustomRouter();
+
+  // Mouse tracking for custom cursor with GSAP smooth animation
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cursorRef.current) return;
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Sử dụng GSAP để tạo smooth follow animation với delay nhiều hơn và easing mượt
+    gsap.to(cursorRef.current, {
+      x: x,
+      y: y,
+      duration: 0.5, // Tăng lên 0.5s để delay nhiều hơn
+      ease: 'power3.out', // Easing mượt hơn
+    });
+  };
+
+  const handleClick = () => {
+    customRouter.push(href);
+  };
+
   return (
-    <div className='absolute inset-0 flex items-center justify-center bg-[rgba(0,0,0,0.40)] opacity-0 backdrop-blur-[10px] transition-all duration-[500ms] group-hover:opacity-100'>
-      <button
-        onClick={() => {
-          customRouter.push(href);
+    <div
+      onMouseMove={handleMouseMove}
+      onClick={handleClick}
+      className='absolute inset-0 flex cursor-none items-center justify-center bg-[rgba(0,0,0,0.40)] opacity-0 backdrop-blur-[10px] transition-all duration-[500ms] group-hover:opacity-100'
+    >
+      <div
+        ref={cursorRef}
+        className='btn-primary pointer-events-none absolute z-20 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100'
+        style={{
+          left: 0,
+          top: 0,
         }}
-        className='flex items-center gap-[10px] rounded-[24px] bg-[#BD2A00] px-[20px] py-[8px] text-[18px] font-[600] text-[#F4E4CA] transition-all duration-[300ms] hover:opacity-70'
       >
-        More detail
-        <IconArrow /* className='transition-all duration-[300ms] hover:rotate-45'  */
-        />
-      </button>
+        More detail <IconArrowBold />
+      </div>
     </div>
   );
 };
@@ -69,9 +97,10 @@ const WorksPage = () => {
   const welcomeState = useStore((state: any) => state.welcomeState);
   const { isMounted } = useMounted();
   const isShowMenu = useStore((state: any) => state.isShowMenu);
+  const customRouter = useCustomRouter();
 
   useEffect(() => {
-    if (!isMounted || welcomeState !== PAGE_STATE.HERO || isShowMenu) return;
+    if (welcomeState !== PAGE_STATE.HERO) return;
     // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
       duration: 1.2,
@@ -90,7 +119,7 @@ const WorksPage = () => {
     return () => {
       lenis.destroy();
     };
-  }, [isMounted, welcomeState, isShowMenu]);
+  }, [welcomeState]);
 
   useEffect(() => {
     if (welcomeState === PAGE_STATE.HERO) {
@@ -292,7 +321,7 @@ const WorksPage = () => {
               <div className='project-row flex items-start gap-[16px]'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <div className='project-content'>
-                    <div className='group relative overflow-hidden'>
+                    <div className='group relative cursor-none overflow-hidden'>
                       <CustomImage
                         src='/images/works/shin404.webp'
                         alt='shin404'
@@ -315,7 +344,7 @@ const WorksPage = () => {
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <div className='project-content'>
-                    <div className='group relative overflow-hidden'>
+                    <div className='group relative cursor-none overflow-hidden'>
                       <CustomImage
                         src='/images/works/rock.webp'
                         alt='rock'
@@ -341,7 +370,7 @@ const WorksPage = () => {
               <div className='project-row flex items-center gap-[16px]'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <div className='project-content'>
-                    <div className='group relative overflow-hidden'>
+                    <div className='group relative cursor-none overflow-hidden'>
                       <CustomImage
                         src='/images/works/skin.webp'
                         alt='skin'
@@ -364,7 +393,7 @@ const WorksPage = () => {
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <div className='project-content'>
-                    <div className='group relative overflow-hidden'>
+                    <div className='group relative cursor-none overflow-hidden'>
                       <CustomImage
                         src='/images/works/web3.webp'
                         alt='web3'
@@ -390,7 +419,7 @@ const WorksPage = () => {
               <div className='project-row flex items-center gap-[16px]'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <div className='project-content'>
-                    <div className='group relative overflow-hidden'>
+                    <div className='group relative cursor-none overflow-hidden'>
                       <CustomImage
                         src='/images/works/personal.webp'
                         alt='skin'
@@ -417,7 +446,7 @@ const WorksPage = () => {
               <div className='project-row flex items-center gap-[16px]'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <div className='project-content'>
-                    <div className='group relative overflow-hidden'>
+                    <div className='group relative cursor-none overflow-hidden'>
                       <CustomImage
                         src='/images/works/luxe.webp'
                         alt='lux'
@@ -440,7 +469,7 @@ const WorksPage = () => {
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <div className='project-content'>
-                    <div className='group relative overflow-hidden'>
+                    <div className='group relative cursor-none overflow-hidden'>
                       <CustomImage
                         src='/images/works/fpt.webp'
                         alt='fp'
@@ -466,7 +495,7 @@ const WorksPage = () => {
               <div className='project-row flex items-center gap-[16px]'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <div className='project-content'>
-                    <div className='group relative overflow-hidden'>
+                    <div className='group relative cursor-none overflow-hidden'>
                       <CustomImage
                         src='/images/works/lowkey.webp'
                         alt='lowkey'
@@ -489,7 +518,7 @@ const WorksPage = () => {
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <div className='project-content'>
-                    <div className='group relative overflow-hidden'>
+                    <div className='group relative cursor-none overflow-hidden'>
                       <CustomImage
                         src='/images/works/supporter.webp'
                         alt='supporter'

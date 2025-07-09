@@ -6,11 +6,6 @@ import WelcomeSection from '@/components/WelcomeSection';
 import { PAGE_STATE } from '@/constant';
 import gsap from 'gsap';
 import { useContextStore } from '@/context/store';
-import { Canvas } from '@react-three/fiber';
-import { EffectComposer } from '@react-three/postprocessing';
-import { Fluid } from '@whatisjery/react-fluid-distortion';
-import BackgroundInCanvas from '@/components/BackgroundInCanvas';
-import ImageInCanvas from '@/components/ImageInCanvas';
 import CustomImage from '@/components/custom/CustomImage';
 import Menu from '@/components/Menu';
 import ScrollToTop from '@/components/ScrollToTop';
@@ -51,22 +46,22 @@ const LayoutPrimary = ({ children }: any) => {
         ease: 'power2.inOut',
       });
       // setTimeout(() => {
-      gsap.set('#layout-primary', {
-        overflow: 'hidden',
-        // maxHeight: '100vh',
-      });
+      // gsap.set('#layout-primary', {
+      //   overflow: 'hidden',
+      //   // maxHeight: '100vh',
+      // });
       gsap.to('#layout-primary', {
-        scale: 1,
+        // scale: 1,
         // opacity: 1,
         // filter: 'blur(0px)',
         duration: 0.5,
         ease: 'power2.inOut',
         onComplete: () => {
           setIsChangingPage(false);
-          gsap.set('#layout-primary', {
-            overflow: 'visible',
-            maxHeight: 'unset',
-          });
+          // gsap.set('#layout-primary', {
+          //   overflow: 'visible',
+          //   maxHeight: 'unset',
+          // });
         },
       });
       // }, 500);
@@ -94,12 +89,12 @@ const LayoutPrimary = ({ children }: any) => {
         duration: 0.8,
         ease: 'power2.inOut',
       });
-      gsap.set('#layout-primary', {
-        maxHeight: '100vh',
-        overflow: 'hidden',
-      });
+      // gsap.set('#layout-primary', {
+      //   maxHeight: '100vh',
+      //   overflow: 'hidden',
+      // });
       gsap.to('#layout-primary', {
-        scale: 0.9,
+        // scale: 0.9,
         // opacity: 0,
         // filter: 'blur(8px)',
         duration: 1,
@@ -144,13 +139,12 @@ const LayoutPrimary = ({ children }: any) => {
       {welcomeState !== PAGE_STATE.LOADING && (
         <>
           {/* {pathname === '/' && ( */}
-          <>
-            <div
-              id='bg-video'
-              className='pointer-events-none fixed inset-0 opacity-0'
-            >
-              <div className='absolute inset-0 bg-black bg-opacity-50'></div>
-              <video
+          <div
+            id='bg-video'
+            className='pointer-events-none fixed inset-0 opacity-0'
+          >
+            <div className='absolute inset-0 z-10 bg-black bg-opacity-50'></div>
+            {/* <video
                 autoPlay
                 loop
                 muted
@@ -162,56 +156,29 @@ const LayoutPrimary = ({ children }: any) => {
                   type='video/mp4'
                   className='object-cover'
                 />
-              </video>
-              {pathname === '/' && (
-                <CustomImage
-                  src='/images/home/tqn.webp'
-                  className={`fixed right-0 top-0 ${!isShowMenu ? 'opacity-100' : 'opacity-0'} transition-all duration-[1000ms] ease-in-out`}
-                  alt='tqn'
-                  width={453}
-                  height={688}
-                />
-              )}
+              </video> */}{' '}
+            <div className='relative h-full w-full overflow-hidden'>
+              <iframe
+                className='absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-full min-w-[177.77vh] -translate-x-1/2 -translate-y-1/2 border-0'
+                src='https://www.youtube-nocookie.com/embed/B4du2GEuTw4?autoplay=1&mute=1&loop=1&playlist=B4du2GEuTw4&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&enablejsapi=1&origin=window.location.origin'
+                title='YouTube video player'
+                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+                referrerPolicy='strict-origin-when-cross-origin'
+                allowFullScreen
+              ></iframe>
             </div>
+            {pathname === '/' && (
+              <CustomImage
+                src='/images/home/tqn.webp'
+                className={`fixed right-0 top-0 ${!isShowMenu ? 'opacity-100' : 'opacity-0'} transition-all duration-[1000ms] ease-in-out`}
+                alt='tqn'
+                width={453}
+                height={688}
+              />
+            )}
+          </div>
 
-            {/* <Canvas
-                className='hero-canvas'
-                orthographic
-                style={{
-                  position: 'fixed',
-                  top: 0,
-                  left: 0,
-                  pointerEvents: 'none',
-                  opacity: 0,
-                  // zIndex: 1,
-                  // width: '100vw',
-                  // height: '100vh',
-                }}
-              >
-                <BackgroundInCanvas />
-                <ImageInCanvas />
-                <EffectComposer>
-                  <Fluid
-                    radius={0.03}
-                    curl={10}
-                    swirl={5}
-                    distortion={1}
-                    force={2}
-                    pressure={0.94}
-                    densityDissipation={0.98}
-                    velocityDissipation={0.99}
-                    intensity={0.3}
-                    rainbow={false}
-                    blend={0}
-                  />
-                </EffectComposer>
-              </Canvas> */}
-          </>
-          {/* )} */}
-          <div
-            id='layout-primary'
-            // className='scroll-smooth transition-all duration-[1000ms] ease-in-out'
-          >
+          <div id='layout-primary' className='relative'>
             <div
               id='layout-primary-pathname'
               className='fixed inset-0 z-[-1] flex items-center justify-center bg-[url("/images/home/bg.png")] bg-cover bg-center bg-no-repeat text-[48px] text-[#F4E4CA] opacity-0'
@@ -234,8 +201,9 @@ const LayoutPrimary = ({ children }: any) => {
                 </p>
               </div>
             </div>
+
             {welcomeState !== PAGE_STATE.WELCOME && <Header />}
-            {/* Menu */}
+
             <Menu />
             {
               <div
