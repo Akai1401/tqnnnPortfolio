@@ -6,16 +6,9 @@ import WelcomeSection from '@/components/WelcomeSection';
 import { PAGE_STATE } from '@/constant';
 import gsap from 'gsap';
 import { useContextStore } from '@/context/store';
-import { Canvas } from '@react-three/fiber';
-import { EffectComposer } from '@react-three/postprocessing';
-import { Fluid } from '@whatisjery/react-fluid-distortion';
-import BackgroundInCanvas from '@/components/BackgroundInCanvas';
-import ImageInCanvas from '@/components/ImageInCanvas';
 import CustomImage from '@/components/custom/CustomImage';
 import Menu from '@/components/Menu';
 import ScrollToTop from '@/components/ScrollToTop';
-import IconArrowBold from '@/assets/icons/IconArrowBold';
-import Shin404Intro from '@/components/Shin404Intro';
 
 const LayoutPrimary = ({ children }: any) => {
   const welcomeState = useStore((state: any) => state.welcomeState);
@@ -145,8 +138,7 @@ const LayoutPrimary = ({ children }: any) => {
       )}
       {welcomeState !== PAGE_STATE.LOADING && (
         <>
-          {/* {pathname === '/' && ( */}
-          <>
+          {pathname === '/' && (
             <div
               id='bg-video'
               className='pointer-events-none fixed inset-0 opacity-0'
@@ -165,60 +157,18 @@ const LayoutPrimary = ({ children }: any) => {
                   className='object-cover'
                 />
               </video>
-              {pathname === '/' && (
-                <CustomImage
-                  src='/images/home/tqn.webp'
-                  className={`fixed right-0 top-0 ${!isShowMenu ? 'opacity-100' : 'opacity-0'} transition-all duration-[1000ms] ease-in-out`}
-                  alt='tqn'
-                  width={453}
-                  height={688}
-                />
-              )}
+
+              <CustomImage
+                src='/images/home/tqn.webp'
+                className={`fixed right-0 top-0 ${!isShowMenu ? 'opacity-100' : 'opacity-0'} transition-all duration-[1000ms] ease-in-out`}
+                alt='tqn'
+                width={453}
+                height={688}
+              />
             </div>
+          )}
 
-            {/* <Canvas
-                className='hero-canvas'
-                orthographic
-                style={{
-                  position: 'fixed',
-                  top: 0,
-                  left: 0,
-                  pointerEvents: 'none',
-                  opacity: 0,
-                  // zIndex: 1,
-                  // width: '100vw',
-                  // height: '100vh',
-                }}
-              >
-                <BackgroundInCanvas />
-                <ImageInCanvas />
-                <EffectComposer>
-                  <Fluid
-                    radius={0.03}
-                    curl={10}
-                    swirl={5}
-                    distortion={1}
-                    force={2}
-                    pressure={0.94}
-                    densityDissipation={0.98}
-                    velocityDissipation={0.99}
-                    intensity={0.3}
-                    rainbow={false}
-                    blend={0}
-                  />
-                </EffectComposer>
-              </Canvas> */}
-          </>
-          {/* )} */}
-
-          {/* {welcomeState === PAGE_STATE.HERO && (
-            <>{pathname === '/works/shin404' && <Shin404Intro />}</>
-          )} */}
-
-          <div
-            id='layout-primary'
-            // className='scroll-smooth transition-all duration-[1000ms] ease-in-out'
-          >
+          <div id='layout-primary'>
             <div
               id='layout-primary-pathname'
               className='fixed inset-0 z-[-1] flex items-center justify-center bg-[url("/images/home/bg.png")] bg-cover bg-center bg-no-repeat text-[48px] text-[#F4E4CA] opacity-0'
@@ -241,8 +191,9 @@ const LayoutPrimary = ({ children }: any) => {
                 </p>
               </div>
             </div>
+
             {welcomeState !== PAGE_STATE.WELCOME && <Header />}
-            {/* Menu */}
+
             <Menu />
             {
               <div
