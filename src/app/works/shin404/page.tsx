@@ -352,33 +352,42 @@ const Shin404Page = () => {
                 its quality. As of now, the website I designed has garnered ~
                 <span className='font-[700]'> 70,000 visits.</span>
               </p>
-              <div className='flex items-start justify-between'>
-                <CustomImage
-                  src='/images/works/shin404/mockup_pc_1.webp'
-                  alt='Shin404'
-                  width={1034}
-                  height={775}
-                />
-                <CustomImage
-                  src='/images/works/shin404/mockup_mobile_1.webp'
-                  alt='Shin404'
-                  width={775}
-                  height={775}
-                />
+              <div className='project-row flex items-start justify-between'>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/shin404/mockup_pc_1.webp'
+                    alt='Shin404'
+                    width={1034}
+                    height={775}
+                  />
+                </div>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/shin404/mockup_mobile_1.webp'
+                    alt='Shin404'
+                    width={775}
+                    height={775}
+                  />
+                </div>
               </div>
-              <div className='mt-[16px] flex items-start justify-between'>
-                <CustomImage
-                  src='/images/works/shin404/mockup_mobile_2.webp'
-                  alt='Shin404'
-                  width={775}
-                  height={775}
-                />
-                <CustomImage
-                  src='/images/works/shin404/mockup_pc_2.webp'
-                  alt='Shin404'
-                  width={1034}
-                  height={775}
-                />
+              <div className='project-row mt-[16px] flex items-start justify-between'>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  {' '}
+                  <CustomImage
+                    src='/images/works/shin404/mockup_mobile_2.webp'
+                    alt='Shin404'
+                    width={775}
+                    height={775}
+                  />
+                </div>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/shin404/mockup_pc_2.webp'
+                    alt='Shin404'
+                    width={1034}
+                    height={775}
+                  />
+                </div>
               </div>
             </div>
             <div className='px-[44px] text-center'>
@@ -387,14 +396,18 @@ const Shin404Page = () => {
                 currently launching. We are continuously working hard to improve
                 its quality and deliver the best possible experience
               </p>
-              <CustomImage
-                src='/images/works/shin404/mockup_admin.webp'
-                alt='Shin404'
-                unoptimized
-                className='mt-[64px]'
-                width={1834}
-                height={1036}
-              />
+              <div className='project-row'>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/shin404/mockup_admin.webp'
+                    alt='Shin404'
+                    unoptimized
+                    className='mt-[64px]'
+                    width={1834}
+                    height={1036}
+                  />
+                </div>
+              </div>
               <p className='mt-[16px] text-[16px] text-[#D1BA93]'>
                 Apart from the main website, we also have an additional platform
                 to manage published content and monitor traffic for optimization
@@ -442,38 +455,47 @@ const Shin404Page = () => {
                   </p>
                 </div>
               </div>{' '}
-              <div className='mt-[64px] flex items-start justify-between'>
-                <CustomImage
-                  src='/images/works/shin404/event.webp'
-                  alt='Shin404'
-                  width={1034}
-                  height={775}
-                />
-                <CustomImage
-                  src='/images/works/shin404/recruit.webp'
-                  alt='Shin404'
-                  width={775}
-                  height={775}
-                />
+              <div className='project-row mt-[64px] flex items-start justify-between'>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/shin404/event.webp'
+                    alt='Shin404'
+                    width={1034}
+                    height={775}
+                  />
+                </div>
+
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/shin404/recruit.webp'
+                    alt='Shin404'
+                    width={775}
+                    height={775}
+                  />
+                </div>
               </div>{' '}
               <p className='my-[16px] text-[20px] text-[#D1BA93]'>
                 In addition to working as a UI/UX Designer, I also take on the
                 role of designing graphic materials, including banners and
                 posters, for the project.
               </p>{' '}
-              <div className='mt-[64px] flex items-start justify-between'>
-                <CustomImage
-                  src='/images/works/shin404/mockup_tiktok.webp'
-                  alt='Shin404'
-                  width={775}
-                  height={775}
-                />
-                <CustomImage
-                  src='/images/works/shin404/mockup_page.webp'
-                  alt='Shin404'
-                  width={1034}
-                  height={775}
-                />
+              <div className='project-row mt-[64px] flex items-start justify-between'>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/shin404/mockup_tiktok.webp'
+                    alt='Shin404'
+                    width={775}
+                    height={775}
+                  />
+                </div>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/shin404/mockup_page.webp'
+                    alt='Shin404'
+                    width={1034}
+                    height={775}
+                  />
+                </div>
               </div>{' '}
               <p className='mt-[16px] text-[20px] text-[#D1BA93]'>
                 And as a result, within just four months of launching and
@@ -486,14 +508,18 @@ const Shin404Page = () => {
                 , and{' '}
                 <span className='font-[700]'>22K members in our groups</span>
               </p>{' '}
-              <CustomImage
-                src='/images/works/shin404/explore.webp'
-                alt='Shin404'
-                unoptimized
-                className='mt-[64px]'
-                width={1832}
-                height={1000}
-              />
+              <div className='project-row'>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/shin404/explore.webp'
+                    alt='Shin404'
+                    unoptimized
+                    className='mt-[64px]'
+                    width={1832}
+                    height={1000}
+                  />
+                </div>
+              </div>
               <div className='mt-[64px]'>
                 <p className='text-left text-[48px] font-[600] text-[#F4E4CA]'>
                   Expanding beyond Shin-chan: A vision for the future of Shin404
@@ -527,19 +553,24 @@ const Shin404Page = () => {
                   </p>
                 </div>
               </div>{' '}
-              <div className='mt-[64px] flex items-start justify-between'>
-                <CustomImage
-                  src='/images/works/shin404/404anime.webp'
-                  alt='Shin404'
-                  width={610}
-                  height={612}
-                />
-                <CustomImage
-                  src='/images/works/shin404/404anime_banner.webp'
-                  alt='Shin404'
-                  width={1200}
-                  height={775}
-                />
+              <div className='project-row mt-[64px] flex items-start justify-between'>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/shin404/404anime.webp'
+                    alt='Shin404'
+                    width={610}
+                    height={612}
+                  />
+                </div>
+
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/shin404/404anime_banner.webp'
+                    alt='Shin404'
+                    width={1200}
+                    height={775}
+                  />
+                </div>
               </div>{' '}
               <p className='my-[16px] text-[20px] text-[#D1BA93]'>
                 This is just the beginning of an exciting journey. With every
@@ -547,37 +578,46 @@ const Shin404Page = () => {
                 celebrates the joy of anime but also shapes the future of
                 animation appreciation in Vietnam and beyond.
               </p>{' '}
-              <div className='flex items-start justify-between'>
-                <CustomImage
-                  src='/images/works/shin404/mon404.webp'
-                  alt='Shin404'
-                  width={1159}
-                  height={647}
-                />{' '}
-                <CustomImage
-                  src='/images/works/shin404/mon404_logo.webp'
-                  alt='Shin404'
-                  width={647}
-                  height={647}
-                />
+              <div className='project-row flex items-start justify-between'>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/shin404/mon404.webp'
+                    alt='Shin404'
+                    width={1159}
+                    height={647}
+                  />{' '}
+                </div>
+
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/shin404/mon404_logo.webp'
+                    alt='Shin404'
+                    width={647}
+                    height={647}
+                  />
+                </div>
               </div>{' '}
               <p className='my-[16px] text-[20px] text-[#D1BA93]'>
                 with more projects...
               </p>{' '}
-              <div className='flex items-start justify-between'>
-                {' '}
-                <CustomImage
-                  src='/images/works/shin404/conan404_logo.webp'
-                  alt='Shin404'
-                  width={647}
-                  height={647}
-                />
-                <CustomImage
-                  src='/images/works/shin404/conan404.webp'
-                  alt='Shin404'
-                  width={1159}
-                  height={647}
-                />{' '}
+              <div className='project-row flex items-start justify-between'>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/shin404/conan404_logo.webp'
+                    alt='Shin404'
+                    width={647}
+                    height={647}
+                  />
+                </div>
+
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/shin404/conan404.webp'
+                    alt='Shin404'
+                    width={1159}
+                    height={647}
+                  />{' '}
+                </div>
               </div>{' '}
               <div className='relative mt-[64px]'>
                 <CustomImage
