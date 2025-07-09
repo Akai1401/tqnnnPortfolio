@@ -17,6 +17,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PAGE_STATE } from '@/constant';
 import useStore from '@/store';
+import Lenis from 'lenis';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -32,31 +33,73 @@ const AboutPage = () => {
   ];
 
   useEffect(() => {
+    if (welcomeState !== PAGE_STATE.HERO) return;
+    
+    // Initialize Lenis for smooth scrolling cho scrollable-content
+    const scrollableContent = document.querySelector('.scrollable-content') as HTMLElement;
+    
+    if (scrollableContent) {
+      const lenis = new Lenis({
+        wrapper: scrollableContent,
+        content: scrollableContent,
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+
+      // Integrate Lenis with GSAP
+      lenis.on('scroll', ScrollTrigger.update);
+
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+
+      gsap.ticker.lagSmoothing(0);
+
+      // Add wheel event listener to the entire document to forward to Lenis
+      const handleWheel = (e: WheelEvent) => {
+        e.preventDefault();
+        // Forward wheel events to Lenis
+        lenis.scrollTo(lenis.scroll + e.deltaY, { immediate: false });
+      };
+
+      document.addEventListener('wheel', handleWheel, { passive: false });
+
+      return () => {
+        lenis.destroy();
+        document.removeEventListener('wheel', handleWheel);
+      };
+    }
+  }, [welcomeState]);
+
+  useEffect(() => {
     document.body.style.overflow = 'hidden';
 
-    // Add event listener to handle scroll anywhere on the page
-    const handleWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      const scrollableContent = document.querySelector(
-        '.scrollable-content'
-      ) as HTMLElement;
-      if (scrollableContent) {
-        scrollableContent.scrollTop += e.deltaY;
-        if (scrollableContent.scrollTop > 900) {
+    // Lấy scrollable content element
+    const scrollableContent = document.querySelector('.scrollable-content') as HTMLElement;
+    
+    if (scrollableContent) {
+      // Add scroll event listener cho scrollable content để update image
+      const handleScroll = () => {
+        const scrollTop = scrollableContent.scrollTop;
+        if (scrollTop > 900) {
           setCurrentImageIndex(2);
-        } else if (scrollableContent.scrollTop > 400) {
+        } else if (scrollTop > 400) {
           setCurrentImageIndex(1);
         } else {
           setCurrentImageIndex(0);
         }
-      }
-    };
+      };
 
-    document.addEventListener('wheel', handleWheel, { passive: false });
+      scrollableContent.addEventListener('scroll', handleScroll);
+
+      return () => {
+        document.body.style.overflow = 'auto';
+        scrollableContent.removeEventListener('scroll', handleScroll);
+      };
+    }
 
     return () => {
       document.body.style.overflow = 'auto';
-      document.removeEventListener('wheel', handleWheel);
     };
   }, [welcomeState]);
 

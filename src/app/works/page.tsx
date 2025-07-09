@@ -99,12 +99,8 @@ const WorksPage = () => {
   const isShowMenu = useStore((state: any) => state.isShowMenu);
   const customRouter = useCustomRouter();
 
-  const handleProjectClick = (href: string) => {
-    customRouter.push(href);
-  };
-
   useEffect(() => {
-    if (!isMounted || welcomeState !== PAGE_STATE.HERO || isShowMenu) return;
+    if (welcomeState !== PAGE_STATE.HERO) return;
     // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
       duration: 1.2,
@@ -123,7 +119,7 @@ const WorksPage = () => {
     return () => {
       lenis.destroy();
     };
-  }, [isMounted, welcomeState, isShowMenu]);
+  }, [welcomeState]);
 
   useEffect(() => {
     if (welcomeState === PAGE_STATE.HERO) {
