@@ -198,6 +198,29 @@ const Shin404Page = () => {
       '<'
     );
 
+    /* Anim body */
+    gsap.set('.project-anim-wrapper', {
+      clipPath: 'inset(0 0 100% 0)',
+    });
+    const projectRows = document.querySelectorAll('.project-row');
+    projectRows.forEach((row, rowIndex) => {
+      const wrappers = row.querySelectorAll('.project-anim-wrapper');
+
+      gsap.to(wrappers, {
+        clipPath: 'inset(0 0 0% 0)',
+        duration: 1.5,
+        stagger: 0.2,
+        delay: 0.5,
+        ease: 'power2.inOut',
+        scrollTrigger: {
+          trigger: row,
+          start: 'top 100%',
+          end: 'bottom 0%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+    });
+
     // Cleanup
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
@@ -301,19 +324,23 @@ const Shin404Page = () => {
                 </p>
               </div>
               <ButtonVisit href={INFO.PROJECT.SHIN404} className='mt-[48px]' />
-              <div className='mt-[64px] flex items-start justify-between'>
-                <CustomImage
-                  src='/images/works/shin404/logo.webp'
-                  alt='Shin404'
-                  width={647}
-                  height={647}
-                />
-                <CustomImage
-                  src='/images/works/shin404/banner.webp'
-                  alt='Shin404'
-                  width={1160}
-                  height={647}
-                />
+              <div className='project-row mt-[64px] flex items-start justify-between'>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/shin404/logo.webp'
+                    alt='Shin404'
+                    width={647}
+                    height={647}
+                  />
+                </div>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/shin404/banner.webp'
+                    alt='Shin404'
+                    width={1160}
+                    height={647}
+                  />
+                </div>
               </div>
               <p className='py-[64px] text-center text-[24px] text-[#D1BA93]'>
                 This is a personal project and also my very first product, which
