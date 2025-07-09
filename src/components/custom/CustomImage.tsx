@@ -33,7 +33,7 @@ const CustomImage = ({
       // onError={() => {
       //   setImgSrc(DEFAULT_IMAGE);
       // }}
-      sizes='(max-width: 640px) 100vw, (max-width: 1024px) 75vw, 50vw'
+      // sizes='(max-width: 640px) 100vw, (max-width: 1024px) 75vw, 50vw'
       alt={alt}
       width={isPC && !isNaN(scaledWidth) ? scaledWidth : width}
       height={isPC && !isNaN(scaledHeight) ? scaledHeight : height}

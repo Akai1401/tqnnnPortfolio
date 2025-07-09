@@ -12,6 +12,8 @@ import Lenis from 'lenis';
 import useScrollSmoother from '@/hook/useScrollSmoother';
 import ButtonVisit from '@/components/ButtonVisit';
 import Footer from '@/components/Footer';
+import SocialButtons from '@/components/SocialButtons';
+import ProjectSocialButtons from '@/components/ProjectSocialButtons';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,6 +27,7 @@ const Shin404Page = () => {
   const buttonRef = useRef(null);
   const tagsRef = useRef(null);
   const welcomeState = useStore((state: any) => state.welcomeState);
+  const socialRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
   useScrollSmoother();
 
@@ -201,6 +204,13 @@ const Shin404Page = () => {
     };
   }, [welcomeState]);
 
+  const INFO_SOCIAL = {
+    WEBSITE: 'https://www.shin404.com/',
+    FACEBOOK: 'https://www.facebook.com/shin404Official',
+    TIKTOK: 'https://www.tiktok.com/@shin404_team?lang=vi-VN',
+    YOUTUBE: 'https://www.youtube.com/@Shin404Official',
+  };
+
   return (
     <div id='section' className='min-h-screen bg-black'>
       {welcomeState === PAGE_STATE.HERO && (
@@ -275,8 +285,8 @@ const Shin404Page = () => {
             </div>
           </div>
           {/* Body */}
-          <div>
-            <div className='bg-[url("/images/home/bg.png")] bg-cover bg-center bg-no-repeat pt-[48px] text-center font-[400]'>
+          <div className=''>
+            <div className='bg-[url("/images/works/bg_all.webp")] bg-cover bg-center bg-no-repeat px-[44px] pt-[48px] text-center font-[400]'>
               <h1 className='text-[48px] text-[#F4E4CA]'>
                 <span className='font-[700]'>Shin404 & 404 Anime</span> | Comic
                 Cartoon Website and App (1 designer){' '}
@@ -290,12 +300,283 @@ const Shin404Page = () => {
                   # Shin404 # Cartoon&film # Product_design # My_first_project
                 </p>
               </div>
-
               <ButtonVisit href={INFO.PROJECT.SHIN404} className='mt-[48px]' />
+              <div className='mt-[64px] flex items-start justify-between'>
+                <CustomImage
+                  src='/images/works/shin404/logo.webp'
+                  alt='Shin404'
+                  width={647}
+                  height={647}
+                />
+                <CustomImage
+                  src='/images/works/shin404/banner.webp'
+                  alt='Shin404'
+                  width={1160}
+                  height={647}
+                />
+              </div>
+              <p className='py-[64px] text-center text-[24px] text-[#D1BA93]'>
+                This is a personal project and also my very first product, which
+                I poured my heart into, created in collaboration with a talented
+                developer friend. Unlike typical interface design tasks, I had
+                the opportunity to conceptualize and develop ideas from the very
+                beginning stages to the point where it reached users. I gathered
+                their feedback, evaluated the results, and worked on improving
+                its quality. As of now, the website I designed has garnered ~
+                <span className='font-[700]'> 70,000 visits.</span>
+              </p>
+              <div className='flex items-start justify-between'>
+                <CustomImage
+                  src='/images/works/shin404/mockup_pc_1.webp'
+                  alt='Shin404'
+                  width={1034}
+                  height={775}
+                />
+                <CustomImage
+                  src='/images/works/shin404/mockup_mobile_1.webp'
+                  alt='Shin404'
+                  width={775}
+                  height={775}
+                />
+              </div>
+              <div className='mt-[16px] flex items-start justify-between'>
+                <CustomImage
+                  src='/images/works/shin404/mockup_mobile_2.webp'
+                  alt='Shin404'
+                  width={775}
+                  height={775}
+                />
+                <CustomImage
+                  src='/images/works/shin404/mockup_pc_2.webp'
+                  alt='Shin404'
+                  width={1034}
+                  height={775}
+                />
+              </div>
+            </div>
+            <div className='px-[44px] text-center'>
+              <p className='mt-[16px] text-[16px] text-[#D1BA93]'>
+                Some visuals related to the product my partner and I are
+                currently launching. We are continuously working hard to improve
+                its quality and deliver the best possible experience
+              </p>
+              <CustomImage
+                src='/images/works/shin404/mockup_admin.webp'
+                alt='Shin404'
+                unoptimized
+                className='mt-[64px]'
+                width={1834}
+                height={1036}
+              />
+              <p className='mt-[16px] text-[16px] text-[#D1BA93]'>
+                Apart from the main website, we also have an additional platform
+                to manage published content and monitor traffic for optimization
+                (update 27th Jun 2025).
+              </p>
+              <div className='mt-[64px]'>
+                <p className='text-left text-[48px] font-[600] text-[#F4E4CA]'>
+                  Where nostalgia meets creativity – A vibrant hub for Shin chan
+                  lovers
+                </p>
+                <div className='mt-[31px] flex items-start justify-end gap-[48px] text-left text-[20px] font-[400] text-[#D1BA93]'>
+                  <p className='w-[483px]'>
+                    As a <span className='font-[700]'>product designer</span>,
+                    Shin404 represents more than just a project to me; it’s a
+                    heartfelt endeavor to create a space where anime and
+                    Shin-chan character enthusiasts in Vietnam can truly connect
+                    and thrive. This platform is not merely about delivering
+                    content - it’s about fostering a vibrant community grounded
+                    in shared passion and creativity.
+                  </p>
+                  <p className='w-[483px]'>
+                    My vision for Shin404 goes beyond curating nostalgic and
+                    beloved anime content. I aspire to build a{' '}
+                    <span className='font-[700]'>sustainable ecosystem</span>{' '}
+                    where fans are{' '}
+                    <span className='font-[700]'>
+                      not just passive consumers
+                    </span>{' '}
+                    but{' '}
+                    <span className='font-[700]'>
+                      active contributors to the culture
+                    </span>
+                    . Whether you’re a newcomer discovering anime for the first
+                    time or a long-time devotee, I hope Shin404 becomes a space
+                    where everyone feels at home, where every interaction adds
+                    value to the community.
+                  </p>
+                  <p className='w-[483px]'>
+                    This journey is driven by the dream of elevating Vietnam’s
+                    anime community, breaking through stereotypes, and providing
+                    a platform that celebrates and empowers this unique fandom.
+                    I believe Shin404 can become a cornerstone of connection—a
+                    hub where ideas are exchanged, creativity flourishes, and
+                    voices are amplified.
+                  </p>
+                </div>
+              </div>{' '}
+              <div className='mt-[64px] flex items-start justify-between'>
+                <CustomImage
+                  src='/images/works/shin404/event.webp'
+                  alt='Shin404'
+                  width={1034}
+                  height={775}
+                />
+                <CustomImage
+                  src='/images/works/shin404/recruit.webp'
+                  alt='Shin404'
+                  width={775}
+                  height={775}
+                />
+              </div>{' '}
+              <p className='my-[16px] text-[20px] text-[#D1BA93]'>
+                In addition to working as a UI/UX Designer, I also take on the
+                role of designing graphic materials, including banners and
+                posters, for the project.
+              </p>{' '}
+              <div className='mt-[64px] flex items-start justify-between'>
+                <CustomImage
+                  src='/images/works/shin404/mockup_tiktok.webp'
+                  alt='Shin404'
+                  width={775}
+                  height={775}
+                />
+                <CustomImage
+                  src='/images/works/shin404/mockup_page.webp'
+                  alt='Shin404'
+                  width={1034}
+                  height={775}
+                />
+              </div>{' '}
+              <p className='mt-[16px] text-[20px] text-[#D1BA93]'>
+                And as a result, within just four months of launching and
+                running our channels, we successfully attracted over{' '}
+                <span className='font-[700]'>6.2K followers on TikTok</span>,
+                more than{' '}
+                <span className='font-[700]'>
+                  21K followers on our fan page
+                </span>
+                , and{' '}
+                <span className='font-[700]'>22K members in our groups</span>
+              </p>{' '}
+              <CustomImage
+                src='/images/works/shin404/explore.webp'
+                alt='Shin404'
+                unoptimized
+                className='mt-[64px]'
+                width={1832}
+                height={1000}
+              />
+              <div className='mt-[64px]'>
+                <p className='text-left text-[48px] font-[600] text-[#F4E4CA]'>
+                  Expanding beyond Shin-chan: A vision for the future of Shin404
+                </p>
+                <div className='mt-[31px] flex items-start justify-end gap-[48px] text-left text-[20px] font-[400] text-[#D1BA93]'>
+                  <p className='w-[483px]'>
+                    Our commitment to innovation drives us to go beyond what
+                    others in the industry have done. We are dedicated to
+                    developing unique features that not only enhance the user
+                    experience but also set Shin404 apart as a trailblazer in
+                    the anime community. From interactive storytelling to
+                    customizable fan experiences, our future plans are centered
+                    on nurturing creativity and engagement.
+                  </p>
+                  <p className='w-[483px]'>
+                    We firmly believe in the power of animation to inspire and
+                    bring people together. As we grow, one of our core missions
+                    is to cultivate a deeper appreciation for anime among the
+                    younger generation. By expanding our reach and creating
+                    content that resonates with today’s youth, we hope to
+                    instill a lifelong love for animation that transcends trends
+                    and fosters a sense of community.
+                  </p>
+                  <p className='w-[483px]'>
+                    In the coming years, Shin404 will not only broaden its scope
+                    in terms of content and features but also expand its team
+                    and resources to meet the demands of a growing community.
+                    Our dream is to build Shin404 into a cultural hub where
+                    anime lovers can find not just entertainment but also
+                    meaningful connections and opportunities for collaboration.
+                  </p>
+                </div>
+              </div>{' '}
+              <div className='mt-[64px] flex items-start justify-between'>
+                <CustomImage
+                  src='/images/works/shin404/404anime.webp'
+                  alt='Shin404'
+                  width={610}
+                  height={612}
+                />
+                <CustomImage
+                  src='/images/works/shin404/404anime_banner.webp'
+                  alt='Shin404'
+                  width={1200}
+                  height={775}
+                />
+              </div>{' '}
+              <p className='my-[16px] text-[20px] text-[#D1BA93]'>
+                This is just the beginning of an exciting journey. With every
+                step forward, we strive to create a platform that not only
+                celebrates the joy of anime but also shapes the future of
+                animation appreciation in Vietnam and beyond.
+              </p>{' '}
+              <div className='flex items-start justify-between'>
+                <CustomImage
+                  src='/images/works/shin404/mon404.webp'
+                  alt='Shin404'
+                  width={1159}
+                  height={647}
+                />{' '}
+                <CustomImage
+                  src='/images/works/shin404/mon404_logo.webp'
+                  alt='Shin404'
+                  width={647}
+                  height={647}
+                />
+              </div>{' '}
+              <p className='my-[16px] text-[20px] text-[#D1BA93]'>
+                with more projects...
+              </p>{' '}
+              <div className='flex items-start justify-between'>
+                {' '}
+                <CustomImage
+                  src='/images/works/shin404/conan404_logo.webp'
+                  alt='Shin404'
+                  width={647}
+                  height={647}
+                />
+                <CustomImage
+                  src='/images/works/shin404/conan404.webp'
+                  alt='Shin404'
+                  width={1159}
+                  height={647}
+                />{' '}
+              </div>{' '}
+              <div className='relative mt-[64px]'>
+                <CustomImage
+                  src='/images/works/shin404/end2.webp'
+                  alt='Shin404'
+                  width={1921}
+                  height={914}
+                />{' '}
+                <div className='absolute inset-0 bg-[rgba(0,0,0,0.40)] backdrop-blur-[20px]'></div>
+                <div className='absolute inset-0 flex flex-col items-center justify-center gap-[16px]'>
+                  <p className='text-[48px] text-[#F4E4CA]'>
+                    To know more about this project - visit this:
+                  </p>
+                  <ProjectSocialButtons
+                    socialRefs={socialRefs}
+                    socialData={INFO_SOCIAL}
+                  />
+                  <p className='text-[20px] text-[#F4E4CA]'>
+                    by Thanh Quy Nguyen with big love hihi
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
           {/* Footer */}
-          <Footer/>
+          <Footer />
         </>
       )}
     </div>
