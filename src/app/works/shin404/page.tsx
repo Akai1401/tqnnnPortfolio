@@ -10,6 +10,8 @@ import useStore from '@/store';
 import { PAGE_STATE } from '@/constant';
 import Lenis from 'lenis';
 import useScrollSmoother from '@/hook/useScrollSmoother';
+import ButtonVisit from '@/components/ButtonVisit';
+import Footer from '@/components/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -242,16 +244,10 @@ const Shin404Page = () => {
                 </div>
               </div>
               <div className='my-[48px] overflow-hidden'>
-                <a
+                <ButtonVisit
+                  buttonRef={buttonRef}
                   href={INFO.PROJECT.SHIN404}
-                  target='_blank'
-                  className='inline-block'
-                  rel='noopener noreferrer'
-                >
-                  <button ref={buttonRef} className='btn-primary'>
-                    Visit website <IconArrowBold />
-                  </button>
-                </a>
+                />
               </div>
 
               <div
@@ -278,8 +274,28 @@ const Shin404Page = () => {
               />
             </div>
           </div>
-          {/* skeleton */}
-          <div className='h-screen bg-red-100'></div>
+          {/* Body */}
+          <div>
+            <div className='bg-[url("/images/home/bg.png")] bg-cover bg-center bg-no-repeat pt-[48px] text-center font-[400]'>
+              <h1 className='text-[48px] text-[#F4E4CA]'>
+                <span className='font-[700]'>Shin404 & 404 Anime</span> | Comic
+                Cartoon Website and App (1 designer){' '}
+              </h1>
+              <div className='text-[20px] font-[400] text-[#D1BA93]'>
+                <p className='mt-[16px]'>
+                  Role: UI UX DESIGNer | GRAPHIC DESIGNer | PRODUCT OWNER
+                </p>
+                <p>AUG 2024 - NOW</p>
+                <p>
+                  # Shin404 # Cartoon&film # Product_design # My_first_project
+                </p>
+              </div>
+
+              <ButtonVisit href={INFO.PROJECT.SHIN404} className='mt-[48px]' />
+            </div>
+          </div>
+          {/* Footer */}
+          <Footer/>
         </>
       )}
     </div>
