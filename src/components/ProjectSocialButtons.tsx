@@ -2,12 +2,14 @@ import IconArrow from '@/assets/icons/IconArrow';
 import { INFO } from '@/constant/info';
 import React, { useState } from 'react';
 
-const SocialButtons = ({
+const ProjectSocialButtons = ({
   socialRefs,
   className,
+  socialData,
 }: {
   socialRefs?: any;
   className?: string;
+  socialData?: any;
 }) => {
   const [hovered, setHovered] = useState<string | null>(null);
 
@@ -15,7 +17,7 @@ const SocialButtons = ({
     <div
       className={`flex items-center gap-[12px] overflow-hidden ${className}`}
     >
-      {Object.keys(INFO.SOCIAL).map((key, index) => {
+      {Object.keys(socialData).map((key, index) => {
         const isActive = hovered && hovered === key;
         return (
           <a
@@ -25,7 +27,7 @@ const SocialButtons = ({
             href={
               key === 'EMAIL'
                 ? 'mailto:tqnggg@gmail.com'
-                : INFO.SOCIAL[key as keyof typeof INFO.SOCIAL]
+                : socialData[key as keyof typeof socialData]
             }
             key={key}
             target='_blank'
@@ -39,10 +41,10 @@ const SocialButtons = ({
               style={{ zIndex: 0 }}
             />
             <span className='relative z-10'>
-              {key === 'EMAIL' && 'Email'}
-              {key === 'LINKEDIN' && 'Linkedin'}
-              {key === 'BEHANCE' && 'Behance'}
-              {key === 'INSTAGRAM' && 'Instagram'}
+              {key === 'WEBSITE' && 'Website'}
+              {key === 'FACEBOOK' && 'Facebook'}
+              {key === 'TIKTOK' && 'Tiktok'}
+              {key === 'YOUTUBE' && 'Youtube'}
             </span>
             <IconArrow
               className='relative z-10 transition-all duration-300 group-hover:rotate-45'
@@ -55,4 +57,4 @@ const SocialButtons = ({
   );
 };
 
-export default SocialButtons;
+export default ProjectSocialButtons;

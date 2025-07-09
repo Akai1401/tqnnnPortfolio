@@ -71,6 +71,10 @@ const Header = () => {
   const path = usePathname();
   const setIsShowMenu = useStore((state: any) => state.setIsShowMenu);
   const isShowMenu = useStore((state: any) => state.isShowMenu);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const lastScrollY = useRef(0);
+  const isHeaderVisible = useRef(true);
+  const ticking = useRef(false);
 
   useEffect(() => {
     if (path !== '/') {
@@ -79,6 +83,44 @@ const Header = () => {
       setShowDetail(false);
     }
   }, [path]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!ticking.current) {
+        requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          
+          if (currentScrollY > lastScrollY.current && currentScrollY > 100 && isHeaderVisible.current) {
+            // Scrolling down - hide header
+            isHeaderVisible.current = false;
+            gsap.to(headerRef.current, {
+              y: -100,
+              duration: 0.3,
+              ease: 'power2.inOut',
+            });
+          } else if (currentScrollY < lastScrollY.current && !isHeaderVisible.current) {
+            // Scrolling up - show header
+            isHeaderVisible.current = true;
+            gsap.to(headerRef.current, {
+              y: 0,
+              duration: 0.3,
+              ease: 'power2.inOut',
+            });
+          }
+          
+          lastScrollY.current = currentScrollY;
+          ticking.current = false;
+        });
+        ticking.current = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -98,7 +140,10 @@ const Header = () => {
   };
 
   return (
-    <div className='fixed left-0 right-0 top-0 z-[100] flex items-center justify-between px-[2rem] py-[1rem]'>
+    <div 
+      ref={headerRef}
+      className='fixed left-0 right-0 top-0 z-[100] flex items-center justify-between px-[2rem] py-[1rem]'
+    >
       <div className='flex items-center gap-[124px]'>
         <CustomImage
           src={INFO.APP.LOGO_URL}

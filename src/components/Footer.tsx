@@ -19,7 +19,7 @@ const Footer = () => {
             <div className='flex items-center gap-[16px]'>
               <div
                 onClick={() => {
-                  customRouter.push('/');
+                  customRouter.push('/about');
                 }}
                 className='border-[#rgba(255,255,255,0.16) cursor-pointer border bg-[rgba(255,255,255,0.08)] px-[24px] py-[8px] text-[20px] font-[400] text-[#F4E4CA] backdrop-blur-[12px] transition-all duration-300 hover:opacity-[0.7] active:scale-95'
               >

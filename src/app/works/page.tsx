@@ -9,13 +9,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import CustomImage from '@/components/custom/CustomImage';
 import useStore from '@/store';
 import { PAGE_STATE } from '@/constant';
-import useMounted from '@/hook/useMounted';
-import Lenis from 'lenis';
-import CustomMarquee from '@/components/CustomMarquee';
 import Footer from '@/components/Footer';
-import IconArrow from '@/assets/icons/IconArrow';
 import useCustomRouter from '@/hook/useCustomRouter';
 import IconArrowBold from '@/assets/icons/IconArrowBold';
+import useScrollSmoother from '@/hook/useScrollSmoother';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -95,31 +92,8 @@ const WorksPage = () => {
   const bgRef = useRef<HTMLDivElement>(null);
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
   const welcomeState = useStore((state: any) => state.welcomeState);
-  const { isMounted } = useMounted();
-  const isShowMenu = useStore((state: any) => state.isShowMenu);
-  const customRouter = useCustomRouter();
 
-  useEffect(() => {
-    if (welcomeState !== PAGE_STATE.HERO) return;
-    // Initialize Lenis for smooth scrolling
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    });
-
-    // Integrate Lenis with GSAP
-    lenis.on('scroll', ScrollTrigger.update);
-
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-
-    gsap.ticker.lagSmoothing(0);
-
-    return () => {
-      lenis.destroy();
-    };
-  }, [welcomeState]);
+  useScrollSmoother();
 
   useEffect(() => {
     if (welcomeState === PAGE_STATE.HERO) {
