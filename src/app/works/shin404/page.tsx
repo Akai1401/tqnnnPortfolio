@@ -221,6 +221,31 @@ const Shin404Page = () => {
       });
     });
 
+    // Animation cho text và button trong body
+    const textElements = document.querySelectorAll('.text-animate');
+    textElements.forEach((element, index) => {
+      // Set initial state
+      gsap.set(element, {
+        opacity: 0,
+        y: 30,
+      });
+
+      // Create entrance animation
+      gsap.to(element, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: element,
+          start: 'top 80%',
+          end: 'bottom 20%',
+          toggleActions: 'play none none reverse',
+        },
+        // delay: index * 0.1, // Stagger effect
+      });
+    });
+
     // Cleanup
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
@@ -310,11 +335,11 @@ const Shin404Page = () => {
           {/* Body */}
           <div className=''>
             <div className='bg-[url("/images/works/bg_all.webp")] bg-cover bg-center bg-no-repeat px-[44px] pt-[48px] text-center font-[400]'>
-              <h1 className='text-[48px] text-[#F4E4CA]'>
+              <h1 className='text-animate text-[48px] text-[#F4E4CA]'>
                 <span className='font-[700]'>Shin404 & 404 Anime</span> | Comic
                 Cartoon Website and App (1 designer){' '}
               </h1>
-              <div className='text-[20px] font-[400] text-[#D1BA93]'>
+              <div className='text-animate text-[20px] font-[400] text-[#D1BA93]'>
                 <p className='mt-[16px]'>
                   Role: UI UX DESIGNer | GRAPHIC DESIGNer | PRODUCT OWNER
                 </p>
@@ -323,7 +348,12 @@ const Shin404Page = () => {
                   # Shin404 # Cartoon&film # Product_design # My_first_project
                 </p>
               </div>
-              <ButtonVisit href={INFO.PROJECT.SHIN404} className='mt-[48px]' />
+              <div className='text-animate'>
+                <ButtonVisit
+                  href={INFO.PROJECT.SHIN404}
+                  className='mt-[48px]'
+                />
+              </div>
               <div className='project-row mt-[64px] flex items-start justify-between'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
@@ -342,7 +372,7 @@ const Shin404Page = () => {
                   />
                 </div>
               </div>
-              <p className='py-[64px] text-center text-[24px] text-[#D1BA93]'>
+              <p className='text-animate py-[64px] text-center text-[24px] text-[#D1BA93]'>
                 This is a personal project and also my very first product, which
                 I poured my heart into, created in collaboration with a talented
                 developer friend. Unlike typical interface design tasks, I had
@@ -391,7 +421,7 @@ const Shin404Page = () => {
               </div>
             </div>
             <div className='px-[44px] text-center'>
-              <p className='mt-[16px] text-[16px] text-[#D1BA93]'>
+              <p className='text-animate mt-[16px] text-[16px] text-[#D1BA93]'>
                 Some visuals related to the product my partner and I are
                 currently launching. We are continuously working hard to improve
                 its quality and deliver the best possible experience
@@ -408,25 +438,25 @@ const Shin404Page = () => {
                   />
                 </div>
               </div>
-              <p className='mt-[16px] text-[16px] text-[#D1BA93]'>
+              <p className='text-animate mt-[16px] text-[16px] text-[#D1BA93]'>
                 Apart from the main website, we also have an additional platform
                 to manage published content and monitor traffic for optimization
                 (update 27th Jun 2025).
               </p>
               <div className='mt-[64px]'>
-                <p className='text-left text-[48px] font-[600] text-[#F4E4CA]'>
+                <p className='text-animate text-left text-[48px] font-[600] text-[#F4E4CA]'>
                   Where nostalgia meets creativity – A vibrant hub for Shin chan
                   lovers
                 </p>
-                <div className='mt-[31px] flex items-start justify-end gap-[48px] text-left text-[20px] font-[400] text-[#D1BA93]'>
+                <div className='text-animate mt-[31px] flex items-start justify-end gap-[48px] text-left text-[20px] font-[400] text-[#D1BA93]'>
                   <p className='w-[483px]'>
                     As a <span className='font-[700]'>product designer</span>,
-                    Shin404 represents more than just a project to me; it’s a
-                    heartfelt endeavor to create a space where anime and
+                    Shin404 represents more than just a project to me; it&apos;s
+                    a heartfelt endeavor to create a space where anime and
                     Shin-chan character enthusiasts in Vietnam can truly connect
                     and thrive. This platform is not merely about delivering
-                    content - it’s about fostering a vibrant community grounded
-                    in shared passion and creativity.
+                    content - it&apos;s about fostering a vibrant community
+                    grounded in shared passion and creativity.
                   </p>
                   <p className='w-[483px]'>
                     My vision for Shin404 goes beyond curating nostalgic and
@@ -440,18 +470,18 @@ const Shin404Page = () => {
                     <span className='font-[700]'>
                       active contributors to the culture
                     </span>
-                    . Whether you’re a newcomer discovering anime for the first
-                    time or a long-time devotee, I hope Shin404 becomes a space
-                    where everyone feels at home, where every interaction adds
-                    value to the community.
+                    . Whether you&apos;re a newcomer discovering anime for the
+                    first time or a long-time devotee, I hope Shin404 becomes a
+                    space where everyone feels at home, where every interaction
+                    adds value to the community.
                   </p>
                   <p className='w-[483px]'>
-                    This journey is driven by the dream of elevating Vietnam’s
-                    anime community, breaking through stereotypes, and providing
-                    a platform that celebrates and empowers this unique fandom.
-                    I believe Shin404 can become a cornerstone of connection—a
-                    hub where ideas are exchanged, creativity flourishes, and
-                    voices are amplified.
+                    This journey is driven by the dream of elevating
+                    Vietnam&apos;s anime community, breaking through
+                    stereotypes, and providing a platform that celebrates and
+                    empowers this unique fandom. I believe Shin404 can become a
+                    cornerstone of connection—a hub where ideas are exchanged,
+                    creativity flourishes, and voices are amplified.
                   </p>
                 </div>
               </div>{' '}
@@ -474,7 +504,7 @@ const Shin404Page = () => {
                   />
                 </div>
               </div>{' '}
-              <p className='my-[16px] text-[20px] text-[#D1BA93]'>
+              <p className='text-animate my-[16px] text-[20px] text-[#D1BA93]'>
                 In addition to working as a UI/UX Designer, I also take on the
                 role of designing graphic materials, including banners and
                 posters, for the project.
@@ -497,7 +527,7 @@ const Shin404Page = () => {
                   />
                 </div>
               </div>{' '}
-              <p className='mt-[16px] text-[20px] text-[#D1BA93]'>
+              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
                 And as a result, within just four months of launching and
                 running our channels, we successfully attracted over{' '}
                 <span className='font-[700]'>6.2K followers on TikTok</span>,
@@ -521,10 +551,10 @@ const Shin404Page = () => {
                 </div>
               </div>
               <div className='mt-[64px]'>
-                <p className='text-left text-[48px] font-[600] text-[#F4E4CA]'>
+                <p className='text-animate text-left text-[48px] font-[600] text-[#F4E4CA]'>
                   Expanding beyond Shin-chan: A vision for the future of Shin404
                 </p>
-                <div className='mt-[31px] flex items-start justify-end gap-[48px] text-left text-[20px] font-[400] text-[#D1BA93]'>
+                <div className='text-animate mt-[31px] flex items-start justify-end gap-[48px] text-left text-[20px] font-[400] text-[#D1BA93]'>
                   <p className='w-[483px]'>
                     Our commitment to innovation drives us to go beyond what
                     others in the industry have done. We are dedicated to
@@ -539,7 +569,7 @@ const Shin404Page = () => {
                     bring people together. As we grow, one of our core missions
                     is to cultivate a deeper appreciation for anime among the
                     younger generation. By expanding our reach and creating
-                    content that resonates with today’s youth, we hope to
+                    content that resonates with today&apos;s youth, we hope to
                     instill a lifelong love for animation that transcends trends
                     and fosters a sense of community.
                   </p>
@@ -572,7 +602,7 @@ const Shin404Page = () => {
                   />
                 </div>
               </div>{' '}
-              <p className='my-[16px] text-[20px] text-[#D1BA93]'>
+              <p className='text-animate my-[16px] text-[20px] text-[#D1BA93]'>
                 This is just the beginning of an exciting journey. With every
                 step forward, we strive to create a platform that not only
                 celebrates the joy of anime but also shapes the future of
@@ -597,7 +627,7 @@ const Shin404Page = () => {
                   />
                 </div>
               </div>{' '}
-              <p className='my-[16px] text-[20px] text-[#D1BA93]'>
+              <p className='text-animate my-[16px] text-[20px] text-[#D1BA93]'>
                 with more projects...
               </p>{' '}
               <div className='project-row flex items-start justify-between'>
@@ -628,14 +658,16 @@ const Shin404Page = () => {
                 />{' '}
                 <div className='absolute inset-0 bg-[rgba(0,0,0,0.40)] backdrop-blur-[20px]'></div>
                 <div className='absolute inset-0 flex flex-col items-center justify-center gap-[16px]'>
-                  <p className='text-[48px] text-[#F4E4CA]'>
+                  <p className='text-animate text-[48px] text-[#F4E4CA]'>
                     To know more about this project - visit this:
                   </p>
-                  <ProjectSocialButtons
-                    socialRefs={socialRefs}
-                    socialData={INFO_SOCIAL}
-                  />
-                  <p className='text-[20px] text-[#F4E4CA]'>
+                  <div className='text-animate'>
+                    <ProjectSocialButtons
+                      socialRefs={socialRefs}
+                      socialData={INFO_SOCIAL}
+                    />
+                  </div>
+                  <p className='text-animate text-[20px] text-[#F4E4CA]'>
                     by Thanh Quy Nguyen with big love hihi
                   </p>
                 </div>
