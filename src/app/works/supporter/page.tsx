@@ -276,28 +276,28 @@ const Supporter = () => {
                   ref={titleRef}
                   className='text-[48px] font-[700] leading-[57.6px] text-[#F4E4CA]'
                 >
-                  Experiment with logos
+                  Another projects as <br /> a supporter
                 </h1>
               </div>
 
-              <div className='overflow-hidden'>
+              {/* <div className='overflow-hidden'>
                 <h2
                   ref={subtitleRef}
                   className='text-[40px] leading-[57.6px] text-[#F4E4CA]'
                 >
                   Logo design (1 designer)
                 </h2>
-              </div>
+              </div> */}
 
               <div
                 ref={roleRef}
                 className='mt-[16px] text-[20px] font-[400] uppercase leading-[26px] text-[#D1BA93]'
               >
                 <div className='overflow-hidden'>
-                  <p>role: GRAPHIC DESIGNer </p>
+                  <p>role: ui/ux DESIGNer & graphic designer</p>
                 </div>
                 <div className='overflow-hidden'>
-                  <p>TIME: MAR 2025 - NOW</p>
+                  <p>TIME: oct 2024 - dec 2024</p>
                 </div>
               </div>
               <div className='my-[48px] overflow-hidden'>
@@ -312,9 +312,9 @@ const Supporter = () => {
                 ref={tagsRef}
                 className='text-[18px] font-[400] leading-[24px] text-[rgba(244,228,201,0.70)]'
               >
-                <p className='overflow-hidden'># Logo_design</p>
-                <p className='overflow-hidden'># Personal_PJ</p>
                 <p className='overflow-hidden'># Graphic_design</p>
+                <p className='overflow-hidden'># UI/UX_design</p>
+                <p className='overflow-hidden'># Another_PJ</p>
               </div>
             </div>
             {/* Ảnh bên phải */}
@@ -323,7 +323,7 @@ const Supporter = () => {
               className='absolute right-[-13rem] top-0 z-10 h-screen w-[70%]'
             >
               <CustomImage
-                src='/images/works/logos/intro.webp'
+                src='/images/works/supporter/intro.webp'
                 alt='Vault'
                 unoptimized
                 fill
@@ -335,13 +335,14 @@ const Supporter = () => {
           <div className=''>
             <div className='bg-[url("/images/works/bg_all.webp")] bg-cover bg-bottom bg-no-repeat px-[44px] pt-[48px] text-center font-[400]'>
               <h1 className='text-animate text-[48px] text-[#F4E4CA]'>
-                <span className='font-[700]'>Experiment with logos</span> | Logo
-                design (1 designer)
+                Another projects as a supporter
               </h1>
               <div className='text-animate text-[20px] font-[400] text-[#D1BA93]'>
-                <p className='mt-[16px] uppercase'>role: GRAPHIC DESIGNer</p>
-                <p className='uppercase'>Time: MAR 2025 - NOW</p>
-                <p># Logo_design # Personal_PJ # Graphic_design</p>
+                <p className='mt-[16px] uppercase'>
+                  role: ui/ux designer & GRAPHIC DESIGNer
+                </p>
+                <p className='uppercase'>Time: oct 2024 - dec 2024</p>
+                <p># Graphic_design # UI/UX_design # Supporter # Another_PJ</p>
               </div>
               <div className='text-animate'>
                 <ButtonVisit
@@ -351,12 +352,28 @@ const Supporter = () => {
                 />
               </div>
               <p className='text-animate pt-[64px] text-center text-[48px] font-[600] text-[#F4E4CA]'>
-                1. Lowkey logo
+                1. Aits Mobile Operations
               </p>
-              <div className='project-row mt-[64px] flex items-start justify-between'>
+              <div className='mt-[16px] flex justify-center overflow-hidden'>
+                <ButtonVisit
+                  href={
+                    'https://www.figma.com/proto/LdPhqDlhyDNboN7G2p0Mph/%F0%9F%94%B4--Un-Official--Aits-Mobile-Operations?page-id=269%3A1232&node-id=4213-5785&viewport=-1704%2C-250%2C0.21&t=4crO40qAAH6N7vRv-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=4213%3A5785&show-proto-sidebar=1'
+                  }
+                  title='More details'
+                />
+              </div>{' '}
+              <p className='text-animate py-[64px] text-center text-[24px] text-[#D1BA93]'>
+                This product was developed specifically for the pilot team of
+                Vietnam Airlines, one of the leading airlines in Vietnam. Its
+                primary goal is to streamline how pilots access, read, and
+                approve flight-related documents, making the process more
+                convenient, efficient, and user-friendly, especially under
+                time-sensitive conditions.
+              </p>
+              <div className='project-row flex items-start justify-between'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/logos/1.webp'
+                    src='/images/works/supporter/1.webp'
                     alt='Shin404'
                     width={650}
                     height={650}
@@ -364,7 +381,7 @@ const Supporter = () => {
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/logos/2.webp'
+                    src='/images/works/supporter/2.webp'
                     alt='Shin404'
                     width={1160}
                     height={650}
@@ -372,111 +389,87 @@ const Supporter = () => {
                 </div>
               </div>
               <p className='text-animate py-[64px] text-center text-[24px] text-[#D1BA93]'>
-                This project was an internal initiative for team Lowkey, where I
-                had the privilege of spending six months as a contributing
-                member. It was an incredible opportunity for me to explore an
-                aspect of design I had never ventured into before. Initially,
-                the process was filled with challenges, as I had to familiarize
-                myself with a new creative direction and adapt to the {`team's`}
-                unique requirements.
+                During the course of this project, I was responsible for
+                designing several key features, particularly those related to
+                organizing, searching, filtering flight schedules, and
+                navigating the document review process. My focus was on creating
+                a seamless and intuitive experience that would minimize effort
+                and maximize clarity for users who rely on precision and speed.
               </p>
               <div className='project-row flex items-start justify-between'>
+                {' '}
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/logos/3.webp'
+                    src='/images/works/supporter/4.webp'
                     alt='Shin404'
-                    width={1034}
+                    width={775}
                     height={775}
                   />
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/logos/4.webp'
+                    src='/images/works/supporter/3.webp'
                     alt='Shin404'
-                    width={775}
+                    unoptimized
+                    width={1034}
                     height={775}
                   />
                 </div>
               </div>{' '}
-              <p className='text-animate my-[16px] text-[20px] text-[#D1BA93]'>
-                Thanks to the enthusiastic support and guidance of my teammates,
-                especially the senior members, I was able to overcome these
-                hurdles and develop a complete visual identity for the team.
-              </p>
-              <div className='project-row flex items-start justify-between'>
-                <div className='project-anim-wrapper overflow-hidden'>
-                  <CustomImage
-                    src='/images/works/logos/6.webp'
-                    alt='Shin404'
-                    width={775}
-                    height={775}
-                  />
-                </div>
-                <div className='project-anim-wrapper overflow-hidden'>
-                  <CustomImage
-                    src='/images/works/logos/5.webp'
-                    alt='Shin404'
-                    width={1034}
-                    height={775}
-                  />
-                </div>
-              </div>
             </div>
             <div className='px-[44px] text-center'>
-              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
-                This project not only helped me grow as a designer but also
-                allowed me to understand the importance of collaboration and
-                teamwork in creating meaningful designs.
+              <p className='text-animate mt-[64px] text-[20px] text-[#D1BA93]'>
+                The project was completed over the span of one month, with a
+                small but focused team of two designers. Despite the tight
+                timeline, the collaboration was smooth and productive. It was an
+                exciting opportunity to apply user-centric design principles in
+                a high stakes, real world setting and to contribute to a product
+                that directly supports professionals in the aviation industry.
               </p>
               <p className='text-animate pt-[64px] text-center text-[48px] font-[600] text-[#F4E4CA]'>
-                2. 404 Anime, Shin404, Mon404 & Conan404 logo
+                2. Saint Gobain Web App
+              </p>{' '}
+              <div className='mt-[16px] flex justify-center overflow-hidden'>
+                <ButtonVisit
+                  href={
+                    'https://www.figma.com/proto/LdPhqDlhyDNboN7G2p0Mph/%F0%9F%94%B4--Un-Official--Aits-Mobile-Operations?page-id=269%3A1232&node-id=4213-5785&viewport=-1704%2C-250%2C0.21&t=4crO40qAAH6N7vRv-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=4213%3A5785&show-proto-sidebar=1'
+                  }
+                  title='More details'
+                />
+              </div>{' '}
+              <p className='text-animate my-[64px] text-[20px] text-[#D1BA93]'>
+                This project was centered around an e-commerce platform for
+                purchasing solar panels imported from the USA. The goal was to
+                modernize the existing website, making it more visually
+                appealing and significantly more user-friendly. The updated
+                design puts a strong emphasis on a clean, intuitive interface
+                that supports a smooth and efficient user journey from exploring
+                products to completing a purchase.
               </p>
               <div className='project-row'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/logos/7.webp'
+                    src='/images/works/supporter/5.webp'
                     alt='Shin404'
                     unoptimized
-                    className='mt-[64px]'
                     width={1834}
                     height={1036}
                   />
                 </div>
               </div>
-              <p className='text-animate mt-[16px] text-[16px] text-[#D1BA93]'>
-                A small part of a larger personal project I collaborated on with
-                a developer friend
+              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
+                In this project, I contributed to the conceptual development of
+                several key sections, particularly those related to the visual
+                representation of rooftops - one of the most essential elements
+                in the solar panel context. I worked on refining visual
+                components and layout ideas that clearly communicate how the
+                products integrate with residential spaces, while maintaining a
+                modern and trustworthy look.
               </p>
-              <div className='mt-[64px]'>
-                <p className='text-animate text-left text-[48px] font-[600] text-[#F4E4CA]'>
-                  A fusion of past and present: A perfect blend for a tech
-                  leader
-                </p>
-                <div className='text-animate mt-[31px] flex items-start justify-end gap-[48px] text-left text-[20px] font-[400] text-[#D1BA93]'>
-                  <p className='w-[483px]'>
-                    Creating logos in the realm of animation posed unique
-                    challenges. I had to balance simplicity and creativity while
-                    ensuring each design was distinctive yet cohesive with the
-                    overarching theme.
-                  </p>
-                  <p className='w-[483px]'>
-                    Whether it was the playful essence of Shin404 or the
-                    detective spirit of Conan404, each logo required a tailored
-                    approach to reflect its personality.
-                  </p>
-                  <p className='w-[483px]'>
-                    Working closely with my team and gathering feedback from
-                    fellow enthusiasts helped me refine each logo. These
-                    experiences not only enhanced my technical skills but also
-                    deepened my connection to the art of storytelling through
-                    visual design.
-                  </p>
-                </div>
-              </div>{' '}
               <div className='project-row mt-[64px] flex items-start justify-between'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/logos/8.webp'
+                    src='/images/works/supporter/6.webp'
                     alt='Shin404'
                     width={1034}
                     height={775}
@@ -484,7 +477,62 @@ const Supporter = () => {
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/logos/9.webp'
+                    src='/images/works/supporter/7.webp'
+                    alt='Shin404'
+                    width={775}
+                    height={775}
+                  />
+                </div>
+              </div>
+              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
+                The redesign was based on the foundation of the older version of
+                the website but was carefully reimagined with a more current
+                design direction and enhanced usability. The project was
+                completed within two weeks by a team of two designers, and it
+                was a valuable experience in balancing visual storytelling with
+                functional e-commerce design.
+              </p>{' '}
+              <p className='text-animate pt-[64px] text-center text-[48px] font-[600] text-[#F4E4CA]'>
+                3. Concert of Childhood Memory
+              </p>{' '}
+              <p className='text-animate mb-[64px] mt-[16px] text-[24px] text-[#D1BA93]'>
+                Concert of Childhood Memory is a large scale annual symphonic
+                event in Vietnam that brings the enchanting world of Studio
+                Ghibli to life through music. This beloved concert series
+                celebrates the emotional connection many people have with
+                Ghibli’s timeless soundtracks, making it a highly anticipated
+                cultural event each year.
+              </p>
+              <div className='project-row'>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/supporter/8.webp'
+                    alt='Shin404'
+                    unoptimized
+                    width={1834}
+                    height={1036}
+                  />
+                </div>
+              </div>
+              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
+                For the 2024 edition, I had the opportunity to contribute as a
+                visual designer, supporting the creation of the {`event's`} key
+                visual. My role involved helping shape the overall look and feel
+                that would capture the magical, nostalgic essence of Ghibli
+                while aligning with the concert’s tone and message.
+              </p>
+              <div className='project-row mt-[64px] flex items-start justify-between'>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/supporter/9.webp'
+                    alt='Shin404'
+                    width={1034}
+                    height={775}
+                  />
+                </div>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/supporter/10.webp'
                     alt='Shin404'
                     width={775}
                     height={775}
@@ -492,78 +540,15 @@ const Supporter = () => {
                 </div>
               </div>
               <p className='text-animate my-[16px] text-[20px] text-[#D1BA93]'>
-                The journey of creating logos for projects like Anime404,
-                Shin404, Mon404, and Conan404 began with a deep appreciation for
-                the world of animation. Each logo was inspired by the unique
-                traits of the characters and stories they represent. My goal was
-                to capture the essence of these beloved universes while crafting
-                a visual identity that resonates with fans and feels timeless.
-              </p>{' '}
-              <div className='mb-[16px] flex justify-center overflow-hidden'>
-                <div
-                  ref={buttonRef}
-                  className='btn-primary group cursor-pointer'
-                  onClick={() => {
-                    customRouter.push('/works/shin404');
-                  }}
-                >
-                  View detail Shin404 Project
-                  <IconArrowBold className='transition-all duration-300 group-hover:rotate-45' />
-                </div>
-              </div>
-              <div className='project-row flex items-start justify-between'>
-                <div className='project-anim-wrapper overflow-hidden'>
-                  <CustomImage
-                    src='/images/works/logos/10.webp'
-                    alt='Shin404'
-                    width={1034}
-                    height={775}
-                  />
-                </div>
-                <div className='project-anim-wrapper overflow-hidden'>
-                  <CustomImage
-                    src='/images/works/shin404/mon404_logo.webp'
-                    alt='Shin404'
-                    width={775}
-                    height={775}
-                  />
-                </div>
-              </div>
-              <p className='text-animate my-[16px] text-[20px] text-[#D1BA93]'>
-                Additional visuals from smaller projects within the overarching
-                Anime 404 initiative
-              </p>{' '}
-              <div className='project-row flex items-start justify-between'>
-                <div className='project-anim-wrapper overflow-hidden'>
-                  <CustomImage
-                    src='/images/works/shin404/conan404_logo.webp'
-                    alt='Shin404'
-                    width={775}
-                    height={775}
-                  />
-                </div>
-                <div className='project-anim-wrapper overflow-hidden'>
-                  <CustomImage
-                    src='/images/works/logos/11.webp'
-                    alt='Shin404'
-                    width={1034}
-                    height={775}
-                  />
-                </div>
-              </div>
-              <p className='text-animate my-[64px] text-[20px] text-[#D1BA93]'>
-                While the logos above may not meet the standards of a
-                professional logo designer, they represent valuable lessons in
-                mastering design tools such as Illustrator, Figma... These
-                experiences have allowed me to expand my skill set and explore
-                creative possibilities that go beyond just designing websites or
-                apps. Looking ahead, I envision applying these insights to more
-                multifaceted projects, perhaps even creating and sustaining a
-                comprehensive product in the future.
+                It was a meaningful experience to blend visual storytelling with
+                the music that shaped so many childhoods. Being part of this
+                creative process allowed me to explore softer, more emotional
+                design elements and collaborate closely with a team that shared
+                a deep passion for art, music, and animation.
               </p>{' '}
               <div className='relative mt-[64px]'>
                 <CustomImage
-                  src='/images/works/logos/intro.webp'
+                  src='/images/works/supporter/intro.webp'
                   alt='Shin404'
                   width={1921}
                   height={914}
