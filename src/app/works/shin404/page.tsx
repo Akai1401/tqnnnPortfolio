@@ -253,7 +253,7 @@ const Shin404Page = () => {
   }, [welcomeState]);
 
   const INFO_SOCIAL = {
-    WEBSITE: 'https://www.shin404.com/',
+    WEBSITE: INFO.PROJECT.SHIN404,
     FACEBOOK: 'https://www.facebook.com/shin404Official',
     TIKTOK: 'https://www.tiktok.com/@shin404_team?lang=vi-VN',
     YOUTUBE: 'https://www.youtube.com/@Shin404Official',
@@ -334,7 +334,7 @@ const Shin404Page = () => {
           </div>
           {/* Body */}
           <div className=''>
-            <div className='bg-[url("/images/works/bg_all.webp")] bg-cover bg-center bg-no-repeat px-[44px] pt-[48px] text-center font-[400]'>
+            <div className='bg-[url("/images/works/bg_all.webp")] bg-cover bg-bottom bg-no-repeat px-[44px] pt-[48px] text-center font-[400]'>
               <h1 className='text-animate text-[48px] text-[#F4E4CA]'>
                 <span className='font-[700]'>Shin404 & 404 Anime</span> | Comic
                 Cartoon Website and App (1 designer){' '}

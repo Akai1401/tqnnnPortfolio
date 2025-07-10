@@ -5,10 +5,12 @@ const ButtonVisit = ({
   buttonRef,
   href,
   className = '',
+  title = 'Visit website',
 }: {
   buttonRef?: React.RefObject<any>;
   href: string;
   className?: string;
+  title?: string;
 }) => {
   return (
     <a
@@ -19,7 +21,7 @@ const ButtonVisit = ({
       rel='noopener noreferrer'
     >
       <button className='btn-primary'>
-        Visit website{' '}
+        {title}{' '}
         <IconArrowBold className='transition-all duration-300 group-hover:rotate-45' />
       </button>
     </a>

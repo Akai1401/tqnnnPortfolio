@@ -14,5 +14,7 @@ export const INFO = {
   },
   PROJECT: {
     SHIN404: 'https://www.shin404.com',
+    VAULT:
+      'https://www.figma.com/proto/fM8bbneXxga98LIycLsHi4/Horizon-Vault---Web-3-project?page-id=33%3A1022&node-id=33-1023&viewport=379%2C313%2C0.22&t=reTopufROR4dGqDr-1&scaling=scale-down-width&content-scaling=fixed',
   },
 };
