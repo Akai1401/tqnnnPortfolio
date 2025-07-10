@@ -344,7 +344,7 @@ const VaultPage = () => {
               </div>
               <div className='text-animate'>
                 <ButtonVisit
-                  href={INFO.PROJECT.SHIN404}
+                  href={INFO.PROJECT.VAULT}
                   className='mt-[48px]'
                   title='View landing page'
                 />
