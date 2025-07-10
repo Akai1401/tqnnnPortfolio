@@ -449,8 +449,7 @@ const LogosPage = () => {
               </p>
               <div className='mt-[64px]'>
                 <p className='text-animate text-left text-[48px] font-[600] text-[#F4E4CA]'>
-                  A fusion of past and present: A perfect blend for a tech
-                  leader
+                  When logos carry texture and tell a story to our community
                 </p>
                 <div className='text-animate mt-[31px] flex items-start justify-end gap-[48px] text-left text-[20px] font-[400] text-[#D1BA93]'>
                   <p className='w-[483px]'>
