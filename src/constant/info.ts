@@ -20,5 +20,7 @@ export const INFO = {
     CALENDAR:
       'https://drive.google.com/file/d/1AEbVls7xhddnYZzeffD3PwBEvwy3GxBa/view',
     LOGOS: 'https://www.behance.net/thanhquynguyen',
+    ETERNA:
+      'https://www.behance.net/gallery/214166055/UIUX-Eternic-Skin-Clinic-Website-Design',
   },
 };
