@@ -253,7 +253,7 @@ const CalendarPage = () => {
   }, [welcomeState]);
 
   const INFO_SOCIAL = {
-    VIEW_LANDING_PAGE: INFO.PROJECT.LUXE,
+    VIEW_FULL_CALENDAR: INFO.PROJECT.CALENDAR,
   };
 
   return (
@@ -274,7 +274,7 @@ const CalendarPage = () => {
                   ref={titleRef}
                   className='text-[48px] font-[700] leading-[57.6px] text-[#F4E4CA]'
                 >
-                  Luxe Timber
+                  FPT Korea Calendar 2025
                 </h1>
               </div>
 
@@ -283,7 +283,7 @@ const CalendarPage = () => {
                   ref={subtitleRef}
                   className='text-[40px] leading-[57.6px] text-[#F4E4CA]'
                 >
-                  Interior Website (1 designer)
+                  Calendar design (2 designer)
                 </h2>
               </div>
 
@@ -292,17 +292,17 @@ const CalendarPage = () => {
                 className='mt-[16px] text-[20px] font-[400] uppercase leading-[26px] text-[#D1BA93]'
               >
                 <div className='overflow-hidden'>
-                  <p>role: UI UX DESIGNer</p>
+                  <p>role: GRAPHIC DESIGNer</p>
                 </div>
                 <div className='overflow-hidden'>
-                  <p>TIME: SEP 2024 - OCT 2024</p>
+                  <p>TIME: oct 2024 - dec 2024</p>
                 </div>
               </div>
               <div className='my-[48px] overflow-hidden'>
                 <ButtonVisit
                   buttonRef={buttonRef}
-                  href={INFO.PROJECT.LUXE}
-                  title='View landing page'
+                  href={INFO.PROJECT.CALENDAR}
+                  title='View full calendar'
                 />
               </div>
 
@@ -310,10 +310,9 @@ const CalendarPage = () => {
                 ref={tagsRef}
                 className='text-[18px] font-[400] leading-[24px] text-[rgba(244,228,201,0.70)]'
               >
-                <p className='overflow-hidden'># Luxe_Timber</p>
-                <p className='overflow-hidden'># Interior_field</p>
-                <p className='overflow-hidden'># UI_design</p>
-                <p className='overflow-hidden'># Landing_page</p>
+                <p className='overflow-hidden'># FPT_Korea</p>
+                <p className='overflow-hidden'># Calendar2025</p>
+                <p className='overflow-hidden'># Graphic_design</p>
               </div>
             </div>
             {/* Ảnh bên phải */}
@@ -322,7 +321,7 @@ const CalendarPage = () => {
               className='absolute right-[-13rem] top-0 z-10 h-screen w-[70%]'
             >
               <CustomImage
-                src='/images/works/luxe/intro.webp'
+                src='/images/works/calendar/intro.webp'
                 alt='Vault'
                 unoptimized
                 fill
@@ -334,25 +333,25 @@ const CalendarPage = () => {
           <div className=''>
             <div className='bg-[url("/images/works/bg_all.webp")] bg-cover bg-bottom bg-no-repeat px-[44px] pt-[48px] text-center font-[400]'>
               <h1 className='text-animate text-[48px] text-[#F4E4CA]'>
-                <span className='font-[700]'>Luxe Timber</span> | Interior
-                Website (1 designer){' '}
+                <span className='font-[700]'>FPT Korea Calendar 2025</span> |
+                Calendar design (2 designer)
               </h1>
               <div className='text-animate text-[20px] font-[400] text-[#D1BA93]'>
-                <p className='mt-[16px] uppercase'>role: UI UX DESIGNer</p>
-                <p className='uppercase'>Time: MAR 2025 - APR 2025</p>
-                <p># Luxe_Timber # Interior_field # UI_design # Landing_page</p>
+                <p className='mt-[16px] uppercase'>role: GRAPHIC DESIGNer</p>
+                <p className='uppercase'>Time: oct 2024 - dec 2024</p>
+                <p># FPT_Korea # Calendar2025 # Graphic_design</p>
               </div>
               <div className='text-animate'>
                 <ButtonVisit
-                  href={INFO.PROJECT.LUXE}
+                  href={INFO.PROJECT.CALENDAR}
                   className='mt-[48px]'
-                  title='View landing page'
+                  title='View full calendar'
                 />
               </div>
               <div className='project-row mt-[64px] flex items-start justify-between'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/luxe/logo.webp'
+                    src='/images/works/calendar/1.webp'
                     alt='Shin404'
                     width={647}
                     height={647}
@@ -360,27 +359,27 @@ const CalendarPage = () => {
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/luxe/near_logo.webp'
+                    src='/images/works/calendar/2.webp'
                     alt='Shin404'
                     width={1160}
                     height={647}
+                    unoptimized
                   />
                 </div>
               </div>
               <p className='text-animate py-[64px] text-center text-[24px] text-[#D1BA93]'>
-                This is another personal project of mine, focusing on the field
-                of interior architecture. My inspiration for this project came
-                from the incredibly eye-catching and captivating designs I
-                discovered on platforms like{' '}
-                <span className='font-[700]'>Dribbble</span> and{' '}
-                <span className='font-[700]'>Behance</span>. These examples
-                motivated me to push my creative boundaries and explore the
-                intersection of functionality and aesthetic appeal.
+                This project is a collection of publications I worked on during
+                my internship at FPT Software in October 2024. What initially
+                seemed like a straightforward task quickly proved to be more
+                challenging and time-intensive than I had anticipated. The
+                complexity of the project pushed me to think critically, manage
+                my time effectively, and refine my design skills to meet
+                high-quality standards.
               </p>
               <div className='project-row flex items-start justify-between'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/luxe/near_mockup_mobile.webp'
+                    src='/images/works/calendar/3.webp'
                     alt='Shin404'
                     width={1034}
                     height={775}
@@ -388,7 +387,7 @@ const CalendarPage = () => {
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/luxe/mockup_mobile.webp'
+                    src='/images/works/calendar/4.webp'
                     alt='Shin404'
                     width={775}
                     height={775}
@@ -398,20 +397,21 @@ const CalendarPage = () => {
             </div>
             <div className='px-[44px] text-center'>
               <p className='text-animate my-[16px] text-[16px] text-[#D1BA93]'>
-                A selection of images showcasing the website I worked on
+                Here are a few visuals from the project I worked on...
               </p>
               <div className='project-row flex items-start justify-between'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/luxe/near_mockup_pc.webp'
+                    src='/images/works/calendar/5.webp'
                     alt='Shin404'
                     width={775}
                     height={775}
+                    unoptimized
                   />
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/luxe/mockup_pc.webp'
+                    src='/images/works/calendar/6.webp'
                     alt='Shin404'
                     width={1034}
                     height={775}
@@ -419,13 +419,12 @@ const CalendarPage = () => {
                 </div>
               </div>
               <p className='text-animate mt-[16px] text-[16px] text-[#D1BA93]'>
-                This is a fascinating field that challenges and allows me to
-                refine my skills
+                And here are some additional visuals...
               </p>
               <div className='project-row'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/luxe/mockup_big_1.webp'
+                    src='/images/works/calendar/7.webp'
                     alt='Shin404'
                     unoptimized
                     className='mt-[64px]'
@@ -435,57 +434,45 @@ const CalendarPage = () => {
                 </div>
               </div>
               <p className='text-animate mt-[16px] text-[16px] text-[#D1BA93]'>
-                This is also a fascinating field that brings me a wealth of
-                inspiration and creativity.
+                This style was selected to reflect both the long-standing
+                history and youthful, dynamic spirit of FPT Software as a
+                leading tech company. The vibrant and creative approach also
+                aligned with the company’s image as a pioneer in innovation and
+                technology.
               </p>
               <div className='mt-[64px]'>
                 <p className='text-animate text-left text-[48px] font-[600] text-[#F4E4CA]'>
-                  Luxe Timber: Redefining modern luxury
+                  A fusion of past and present: A perfect blend for a tech
+                  leader
                 </p>
                 <div className='text-animate mt-[31px] flex items-start justify-end gap-[48px] text-left text-[20px] font-[400] text-[#D1BA93]'>
                   <p className='w-[483px]'>
-                    <span className='font-[700]'>Luxe Timber</span> is a website
-                    dedicated to showcasing exquisite wooden furniture that
-                    seamlessly combines{' '}
-                    <span className='font-[700]'>
-                      functionality with elegance
-                    </span>
-                    . Inspired by the beauty of natural materials, the designs
-                    aim to combines{' '}
-                    <span className='font-[700]'>
-                      elevate modern living spaces
-                    </span>
-                    with pieces that{' '}
-                    <span className='font-[700]'>exude sophistication</span> and{' '}
-                    <span className='font-[700]'>timeless appeal</span>.
+                    The FPT Korea calendar design embraced collage art as its
+                    central style, combining nostalgia with a modern, dynamic
+                    touch. This creative approach highlighted the company’s
+                    significant milestones while showcasing its innovative and
+                    forward-thinking spirit.
                   </p>
                   <p className='w-[483px]'>
-                    This project focuses on creating an online presence that
-                    reflects the{' '}
-                    <span className='font-[700]'>{`brand's`} commitment </span>
-                    to <span className='font-[700]'>quality</span> and{' '}
-                    <span className='font-[700]'>craftsmanship</span>. The
-                    website embraces a clean, minimalist design with warm tones
-                    and smooth navigation, ensuring a{' '}
-                    <span className='font-[700]'>user-friendly</span> experience
-                    that mirrors the{' '}
-                    <span className='font-[700]'>luxurious essence</span> of the
-                    products.
+                    Each month was uniquely designed to reflect a key event at
+                    FPT Korea, using bold compositions and a vibrant mix of
+                    textures, colors, and imagery. The collage art style allowed
+                    for a diverse yet cohesive representation of the company’s
+                    achievements throughout the year.
                   </p>
                   <p className='w-[483px]'>
-                    With Luxe Timber, the goal is to inspire a lifestyle of
-                    <span className='font-[700]'> modern luxury</span>, where
-                    every piece of furniture transforms a house into a home.
-                    This project allowed me to integrate contemporary UI
-                    elements with a touch of nature, presenting wooden furniture
-                    in a way that resonates with today’s discerning audience.
+                    This design approach seamlessly bridged tradition and
+                    innovation, aligning with FPT Korea’s identity as a leading
+                    tech company. The balance of youthful energy and creative
+                    storytelling made the calendar a fitting tribute to the
+                    company’s legacy and future aspirations.
                   </p>
                 </div>
               </div>{' '}
               <div className='project-row'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/luxe/mockup_big_2.webp'
+                    src='/images/works/calendar/8.webp'
                     alt='Shin404'
                     unoptimized
                     className='mt-[64px]'
@@ -495,16 +482,17 @@ const CalendarPage = () => {
                 </div>
               </div>
               <p className='text-animate my-[16px] text-[20px] text-[#D1BA93]'>
-                Similar to my previous projects, this was an excellent
-                opportunity for me to refine and enhance my UI design skills.
-                From crafting visually appealing layouts to experimenting with
-                modern design trends, this project allowed me to further develop
-                my expertise while embracing the challenges and intricacies of
-                interior design in the digital realm.
+                Through this project, I explored the balance between artistic
+                expression and corporate branding. It was a rewarding experience
+                that allowed me to experiment with diverse elements of design
+                while remaining true to the company’s identity. The process
+                taught me valuable lessons in storytelling, visual harmony, and
+                the importance of connecting design with an organization’s core
+                values.
               </p>{' '}
               <div className='relative mt-[64px]'>
                 <CustomImage
-                  src='/images/works/luxe/intro.webp'
+                  src='/images/works/calendar/intro.webp'
                   alt='Shin404'
                   width={1921}
                   height={914}
