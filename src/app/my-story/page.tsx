@@ -7,6 +7,9 @@ import React, { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import Footer from '@/components/Footer';
+import WelcomeSection from '@/components/WelcomeSection';
+import { PAGE_STATE } from '@/constant';
+import useStore from '@/store';
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -20,25 +23,23 @@ const MyStoryPage = () => {
   const currentImageIndex = useRef(0);
   const maxPanelIndex = 2; // 3 panels (0, 1, 2)
   const maxImageIndex = 6; // 7 images (0-6: one, two, three, four, five, six, seven)
-  const [windowWidth, setWindowWidth] = useState(1920);
+  const welcomeState = useStore((state: any) => state.welcomeState);
+
+  // Calculate panel width in pixels for GSAP animation
+  const getPanelOffset = (index: number) => {
+    if (typeof window === 'undefined') return 0;
+    const viewportWidth = window.innerWidth;
+    const marginInPx = (6.5 * 16 * viewportWidth) / 1920; // Convert 6.5rem to px based on your scaling
+    return -(index * viewportWidth) + (index * marginInPx);
+  };
 
   // useScrollSmoother();
 
   useEffect(() => {
-    // Set initial window width
-    if (typeof window !== 'undefined') {
-      setWindowWidth(window.innerWidth);
-
-      const handleResize = () => {
-        setWindowWidth(window.innerWidth);
-      };
-
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
+    if (welcomeState !== PAGE_STATE.HERO) {
+      return;
     }
-  }, []);
 
-  useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       const currentSection =
         window.scrollY < window.innerHeight
@@ -78,7 +79,6 @@ const MyStoryPage = () => {
         }
       } else if (currentSection === 'section2') {
         const horizontalContainer = horizontalContainerRef.current;
-        const panelWidth = windowWidth - 104; // Subtract margin (52px * 2)
 
         if (e.deltaY > 0) {
           // Scroll right (next panel)
@@ -86,7 +86,7 @@ const MyStoryPage = () => {
             currentPanelIndex.current++;
             gsap.to(horizontalContainer, {
               duration: 1,
-              x: -currentPanelIndex.current * panelWidth,
+              x: getPanelOffset(currentPanelIndex.current),
               ease: 'power2.inOut',
               onComplete: () => {
                 isScrolling.current = false;
@@ -109,7 +109,7 @@ const MyStoryPage = () => {
             currentPanelIndex.current--;
             gsap.to(horizontalContainer, {
               duration: 1,
-              x: -currentPanelIndex.current * panelWidth,
+              x: getPanelOffset(currentPanelIndex.current),
               ease: 'power2.inOut',
               onComplete: () => {
                 isScrolling.current = false;
@@ -223,11 +223,10 @@ const MyStoryPage = () => {
             // At first image, go back to section2 last panel
             currentPanelIndex.current = maxPanelIndex;
             const horizontalContainer = horizontalContainerRef.current;
-            const panelWidth = windowWidth - 104;
 
             // Set the horizontal container to the last panel position immediately
             gsap.set(horizontalContainer, {
-              x: -currentPanelIndex.current * panelWidth,
+              x: getPanelOffset(currentPanelIndex.current),
             });
 
             // Then scroll to section2
@@ -288,10 +287,13 @@ const MyStoryPage = () => {
         container.removeEventListener('wheel', handleWheel);
       }
     };
-  }, [windowWidth]);
+  }, [welcomeState]);
 
   // Initialize images visibility on mount
   useEffect(() => {
+    if (welcomeState !== PAGE_STATE.HERO) {
+      return;
+    }
     // Show only first image initially with proper setup
     imageRefs.current.forEach((ref, index) => {
       if (ref) {
@@ -303,294 +305,301 @@ const MyStoryPage = () => {
         });
       }
     });
-  }, []);
+  }, [welcomeState]);
 
   return (
-    <div
-      ref={containerRef}
-      id='section'
-      className='min-h-screen bg-[url("/images/home/bg.png")] bg-cover bg-fixed bg-center bg-no-repeat text-[#F4E4CA]'
-    >
-      <div
-        id='section1'
-        className='relative flex h-screen flex-col items-center justify-center'
-      >
-        <p className='text-[20px] font-[400]'>[ My story ]</p>
-        <p className='text-[64px] font-[600]'>
-          Guess who’s back? Still designing, still caffeinated
-        </p>{' '}
-        <CustomImage
-          src='/images/story/bg1.webp'
-          alt='scroll'
-          width={1112.6}
-          height={571}
-          unoptimized
-        />
-        <CustomImage
-          src='/images/loading/tqn.gif'
-          alt='progress'
-          width={799}
-          height={464}
-          className='absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%]'
-        />
-        <CustomImage
-          src='/images/story/scroll.webp'
-          alt='scroll'
-          className='absolute right-[48.58px] top-[50%] -translate-y-[50%]'
-          width={20.85}
-          height={120}
-        />
-        <SocialButtons
-          className='absolute bottom-[2rem] left-[3rem] max-w-[400px] flex-wrap'
-          socialRefs={socialRefs}
-        />
-        <div className='footer-content absolute bottom-[2rem] right-[3rem] text-[16px] font-[400] text-[#F4E4CA]'>
-          ALL RIGHTS RESERVED <br /> © 2025 TQNG MARUKO
-        </div>
-      </div>
-      <div
-        id='section2'
-        className='relative mx-[52px] h-screen overflow-hidden'
-      >
+    <div id='section' className='min-h-screen  bg-[url("/images/home/bg.png")] bg-cover bg-fixed bg-center bg-no-repeat text-[#F4E4CA]'>
+      {welcomeState === PAGE_STATE.HERO && (
         <div
-          ref={horizontalContainerRef}
-          className='absolute left-0 top-1/2 flex -translate-y-1/2 items-start'
-          style={{ width: `${3 * (windowWidth - 104)}px` }}
+          ref={containerRef}
         >
           <div
-            id='section2_1'
-            className='relative h-[calc(100vh-64px)] flex-shrink-0 bg-[url("/images/story/1.webp")] bg-cover bg-center bg-no-repeat'
-            style={{ width: `${windowWidth - 104}px` }}
+            id='section1'
+            className='relative flex h-screen flex-col items-center justify-center'
           >
-            <p className='w-[1505px] pl-[32px] pt-[48px] text-[40px] leading-[53px] text-[#C3B6A2]'>
-              With over{' '}
-              <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
-                3 years of experience
-              </span>{' '}
-              in design and more than 1 year specializing in UI/UX design, I am
-              currently living and working in{' '}
-              <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
-                Hanoi
-              </span>{' '}
-              as a product designer.{' '}
+            <p className='text-[20px] font-[400]'>[ My story ]</p>
+            <p className='text-[64px] font-[600]'>
+              Guess who’s back? Still designing, still caffeinated
+            </p>{' '}
+            <CustomImage
+              src='/images/story/bg1.webp'
+              alt='scroll'
+              width={1112.6}
+              height={571}
+              unoptimized
+            />
+            <CustomImage
+              src='/images/loading/tqn.gif'
+              alt='progress'
+              width={799}
+              height={464}
+              className='absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%]'
+            />
+            <CustomImage
+              src='/images/story/scroll.webp'
+              alt='scroll'
+              className='absolute right-[48.58px] top-[50%] -translate-y-[50%]'
+              width={20.85}
+              height={120}
+            />
+            <SocialButtons
+              className='absolute bottom-[2rem] left-[3rem] max-w-[400px] flex-wrap'
+              socialRefs={socialRefs}
+            />
+            <div className='footer-content absolute bottom-[2rem] right-[3rem] text-[16px] font-[400] text-[#F4E4CA]'>
+              ALL RIGHTS RESERVED <br /> © 2025 TQNG MARUKO
+            </div>
+          </div>
+          <div
+            id='section2'
+            className='relative mx-[3.25rem] h-screen overflow-hidden'
+          >
+            <div
+              ref={horizontalContainerRef}
+              className='absolute left-0 top-1/2 flex -translate-y-1/2 items-start'
+              style={{ width: 'calc(300vw - 19.5rem)' }}
+            >
+              <div
+                id='section2_1'
+                className='relative h-[calc(100vh-4rem)] flex-shrink-0 bg-[url("/images/story/1.webp")] bg-cover bg-center bg-no-repeat'
+                style={{ width: 'calc(100vw - 6.5rem)' }}
+              >
+                <p className='w-full max-w-[93.94rem] pl-[2rem] pt-[3rem] text-[2.5rem] leading-[3.31rem] text-[#C3B6A2]'>
+                  With over{' '}
+                  <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                    3 years of experience
+                  </span>{' '}
+                  in design and more than 1 year specializing in UI/UX design, I
+                  am currently living and working in{' '}
+                  <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                    Hanoi
+                  </span>{' '}
+                  as a product designer.{' '}
+                </p>
+                <div className='absolute bottom-[2.19rem] right-[1.38rem] w-full max-w-[93.94rem] pl-[2rem] pt-[3rem] text-right text-[2.5rem] leading-[3.31rem] text-[#C3B6A2]'>
+                  {`I'm`} passionate about creativity and dedicated to creating
+                  meaningful value for the community through the{' '}
+                  <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                    products I design
+                  </span>
+                  <p className='mt-[1rem] text-[1.25rem]'>
+                    Sunrise in my coastal city through my lens | by Thanh Quy
+                    Nguyen
+                  </p>
+                </div>
+              </div>
+              <div
+                id='section2_2'
+                className='relative h-[calc(100vh-4rem)] flex-shrink-0 bg-[url("/images/story/2.webp")] bg-cover bg-center bg-no-repeat'
+                style={{ width: 'calc(100vw - 6.5rem)' }}
+              >
+                <div className='absolute bottom-[2.19rem] right-[1.38rem] w-full pl-[2rem] pt-[3rem] text-right text-[2.5rem] leading-[3.31rem] text-[#C3B6A2]'>
+                  My design career began unexpectedly during an interview with
+                  Phuong Vu, art director of Nirvana and founder of
+                  Antiantiartat at a TeamX Hanoi event in 2022. I was deeply
+                  inspired by his stories and the projects he was working on at
+                  the time. That moment sparked something in me, and in the
+                  early days, I chose to pursue the path of a graphic designer
+                  <p className='mt-[1rem] text-[1.25rem]'>
+                    A photo with Phuong Vu and the TeamX Hanoi members at the
+                    Antiantiart office
+                  </p>
+                </div>
+              </div>
+              <div
+                id='section2_3'
+                className='relative h-[calc(100vh-4rem)] flex-shrink-0 bg-[url("/images/story/3.webp")] bg-cover bg-center bg-no-repeat'
+                style={{ width: 'calc(100vw - 6.5rem)' }}
+              >
+                <p className='w-full pl-[2rem] pt-[3rem] text-[2.5rem] leading-[3.31rem] text-[#C3B6A2]'>
+                  With over{' '}
+                  <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                    3 years of experience
+                  </span>{' '}
+                  in design and more than 1 year specializing in UI/UX design, I
+                  am currently living and working in{' '}
+                  <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                    Hanoi
+                  </span>{' '}
+                  as a product designer.{' '}
+                </p>
+                <div className='absolute bottom-[2.19rem] right-[1.38rem] w-full max-w-[93.94rem] pl-[2rem] pt-[3rem] text-right text-[2.5rem] leading-[3.31rem] text-[#C3B6A2]'>
+                  {`I'm`} passionate about creativity and dedicated to creating
+                  meaningful value for the community through the{' '}
+                  <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                    products I design
+                  </span>
+                  <p className='mt-[1rem] text-[1.25rem]'>
+                    Sunrise in my coastal city through my lens | by Thanh Quy
+                    Nguyen
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            id='section3'
+            className='relative flex h-screen items-center justify-between'
+          >
+            <div className='relative h-full w-[923px] overflow-hidden'>
+              <div
+                ref={(el) => {
+                  imageRefs.current[0] = el;
+                }}
+                className='absolute inset-0 will-change-transform'
+              >
+                <CustomImage
+                  src='/images/story/one.webp'
+                  alt='one'
+                  className='h-full w-full object-cover'
+                  unoptimized
+                  width={923}
+                  height={1080}
+                />
+              </div>
+              <div
+                ref={(el) => {
+                  imageRefs.current[1] = el;
+                }}
+                className='absolute inset-0 will-change-transform'
+              >
+                <CustomImage
+                  src='/images/story/two.webp'
+                  alt='two'
+                  className='h-full w-full object-cover'
+                  unoptimized
+                  width={923}
+                  height={1080}
+                />
+              </div>
+              <div
+                ref={(el) => {
+                  imageRefs.current[2] = el;
+                }}
+                className='absolute inset-0 will-change-transform'
+              >
+                <CustomImage
+                  src='/images/story/three.webp'
+                  alt='three'
+                  className='h-full w-full object-cover'
+                  unoptimized
+                  width={923}
+                  height={1080}
+                />
+              </div>
+              <div
+                ref={(el) => {
+                  imageRefs.current[3] = el;
+                }}
+                className='absolute inset-0 will-change-transform'
+              >
+                <CustomImage
+                  src='/images/story/four.webp'
+                  alt='four'
+                  className='h-full w-full object-cover'
+                  unoptimized
+                  width={923}
+                  height={1080}
+                />
+              </div>
+              <div
+                ref={(el) => {
+                  imageRefs.current[4] = el;
+                }}
+                className='absolute inset-0 will-change-transform'
+              >
+                <CustomImage
+                  src='/images/story/fire.webp'
+                  alt='five'
+                  className='h-full w-full object-cover'
+                  unoptimized
+                  width={923}
+                  height={1080}
+                />
+              </div>
+              <div
+                ref={(el) => {
+                  imageRefs.current[5] = el;
+                }}
+                className='absolute inset-0 will-change-transform'
+              >
+                <CustomImage
+                  src='/images/story/six.webp'
+                  alt='six'
+                  className='h-full w-full object-cover'
+                  unoptimized
+                  width={923}
+                  height={1080}
+                />
+              </div>
+              <div
+                ref={(el) => {
+                  imageRefs.current[6] = el;
+                }}
+                className='absolute inset-0 will-change-transform'
+              >
+                <CustomImage
+                  src='/images/story/seven.webp'
+                  alt='seven'
+                  className='h-full w-full object-cover'
+                  unoptimized
+                  width={923}
+                  height={1080}
+                />
+              </div>
+            </div>
+            <div className='mr-[52px] max-w-[859px] text-right'>
+              <p className='text-[48px] font-[600]'>Another things ^^</p>
+              <p className='text-[16px]'>
+                about Thanh Quy Nguyen (update on Jul 2025)
+              </p>
+              <div className='mt-[32px] text-[32px]'>
+                grew up by the <span>sea</span> and dream to stay passionate
+                about <span>deep talk</span> with friends a{' '}
+                <span>chess lover </span> who’s always down for 1 more game{' '}
+                <span>fireworks with fami</span>
+                ly is my favorite moment
+                <span>photobooth with friends</span> is so cute and worth one of
+                a biggest fans of <span>Son Tung M-TP </span>
+                and would be a <span>producer</span> if money didn’t matter
+              </div>
+            </div>
+            <p className='absolute bottom-[42px] right-[52px] text-[16px] font-[400]'>
+              ALL RIGHTS RESERVED © 2025 TQNG MARUKO
             </p>
-            <div className='absolute bottom-[35px] right-[22px] w-[1505px] pl-[32px] pt-[48px] text-right text-[40px] leading-[53px] text-[#C3B6A2]'>
-              {`I'm`} passionate about creativity and dedicated to creating
-              meaningful value for the community through the{' '}
-              <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
-                products I design
-              </span>
-              <p className='mt-[16px] text-[20px]'>
-                Sunrise in my coastal city through my lens | by Thanh Quy Nguyen
-              </p>
-            </div>
           </div>
           <div
-            id='section2_2'
-            className='relative h-[calc(100vh-64px)] flex-shrink-0 bg-[url("/images/story/2.webp")] bg-cover bg-center bg-no-repeat'
-            style={{ width: `${windowWidth - 104}px` }}
+            id='section4'
+            className='relative flex h-screen flex-col items-center justify-center'
           >
-            <div className='absolute bottom-[35px] right-[22px] w-full pl-[32px] pt-[48px] text-right text-[40px] leading-[53px] text-[#C3B6A2]'>
-              My design career began unexpectedly during an interview with
-              Phuong Vu, art director of Nirvana and founder of Antiantiartat at
-              a TeamX Hanoi event in 2022. I was deeply inspired by his stories
-              and the projects he was working on at the time. That moment
-              sparked something in me, and in the early days, I chose to pursue
-              the path of a graphic designer
-              <p className='mt-[16px] text-[20px]'>
-                A photo with Phuong Vu and the TeamX Hanoi members at the
-                Antiantiart office
-              </p>
-            </div>
-          </div>
-          <div
-            id='section2_3'
-            className='relative h-[calc(100vh-64px)] flex-shrink-0 bg-[url("/images/story/3.webp")] bg-cover bg-center bg-no-repeat'
-            style={{ width: `${windowWidth - 104}px` }}
-          >
-            <p className='w-full pl-[32px] pt-[48px] text-[40px] leading-[53px] text-[#C3B6A2]'>
-              With over{' '}
-              <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
-                3 years of experience
-              </span>{' '}
-              in design and more than 1 year specializing in UI/UX design, I am
-              currently living and working in{' '}
-              <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
-                Hanoi
-              </span>{' '}
-              as a product designer.{' '}
+            <p className='text-[20px] font-[400]'>
+              [ About awards and praise ]
             </p>
-            <div className='absolute bottom-[35px] right-[22px] w-[1505px] pl-[32px] pt-[48px] text-right text-[40px] leading-[53px] text-[#C3B6A2]'>
-              {`I'm`} passionate about creativity and dedicated to creating
-              meaningful value for the community through the{' '}
-              <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
-                products I design
-              </span>
-              <p className='mt-[16px] text-[20px]'>
-                Sunrise in my coastal city through my lens | by Thanh Quy Nguyen
-              </p>
+            <p className='text-[64px] font-[600]'>Coming soon hihi</p>{' '}
+            <CustomImage
+              src='/images/story/bg2.webp'
+              alt='scroll'
+              width={1112.6}
+              height={571}
+            />
+            <CustomImage
+              src='/images/loading/tqn.gif'
+              alt='progress'
+              width={799}
+              height={464}
+              className='absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%]'
+            />
+            <SocialButtons
+              className='absolute bottom-[2rem] left-[3rem] max-w-[400px] flex-wrap'
+              socialRefs={socialRefs}
+            />
+            <div className='footer-content absolute bottom-[2rem] right-[3rem] text-[16px] font-[400] text-[#F4E4CA]'>
+              ALL RIGHTS RESERVED <br /> © 2025 TQNG MARUKO
             </div>
           </div>
+          <Footer />
         </div>
-      </div>
-      <div
-        id='section3'
-        className='relative flex h-screen items-center justify-between'
-      >
-        <div className='relative h-full w-[923px] overflow-hidden'>
-          <div
-            ref={(el) => {
-              imageRefs.current[0] = el;
-            }}
-            className='absolute inset-0 will-change-transform'
-          >
-            <CustomImage
-              src='/images/story/one.webp'
-              alt='one'
-              className='h-full w-full object-cover'
-              unoptimized
-              width={923}
-              height={1080}
-            />
-          </div>
-          <div
-            ref={(el) => {
-              imageRefs.current[1] = el;
-            }}
-            className='absolute inset-0 will-change-transform'
-          >
-            <CustomImage
-              src='/images/story/two.webp'
-              alt='two'
-              className='h-full w-full object-cover'
-              unoptimized
-              width={923}
-              height={1080}
-            />
-          </div>
-          <div
-            ref={(el) => {
-              imageRefs.current[2] = el;
-            }}
-            className='absolute inset-0 will-change-transform'
-          >
-            <CustomImage
-              src='/images/story/three.webp'
-              alt='three'
-              className='h-full w-full object-cover'
-              unoptimized
-              width={923}
-              height={1080}
-            />
-          </div>
-          <div
-            ref={(el) => {
-              imageRefs.current[3] = el;
-            }}
-            className='absolute inset-0 will-change-transform'
-          >
-            <CustomImage
-              src='/images/story/four.webp'
-              alt='four'
-              className='h-full w-full object-cover'
-              unoptimized
-              width={923}
-              height={1080}
-            />
-          </div>
-          <div
-            ref={(el) => {
-              imageRefs.current[4] = el;
-            }}
-            className='absolute inset-0 will-change-transform'
-          >
-            <CustomImage
-              src='/images/story/fire.webp'
-              alt='five'
-              className='h-full w-full object-cover'
-              unoptimized
-              width={923}
-              height={1080}
-            />
-          </div>
-          <div
-            ref={(el) => {
-              imageRefs.current[5] = el;
-            }}
-            className='absolute inset-0 will-change-transform'
-          >
-            <CustomImage
-              src='/images/story/six.webp'
-              alt='six'
-              className='h-full w-full object-cover'
-              unoptimized
-              width={923}
-              height={1080}
-            />
-          </div>
-          <div
-            ref={(el) => {
-              imageRefs.current[6] = el;
-            }}
-            className='absolute inset-0 will-change-transform'
-          >
-            <CustomImage
-              src='/images/story/seven.webp'
-              alt='seven'
-              className='h-full w-full object-cover'
-              unoptimized
-              width={923}
-              height={1080}
-            />
-          </div>
-        </div>
-        <div className='mr-[52px] max-w-[859px] text-right'>
-          <p className='text-[48px] font-[600]'>Another things ^^</p>
-          <p className='text-[16px]'>
-            about Thanh Quy Nguyen (update on Jul 2025)
-          </p>
-          <div className='mt-[32px] text-[32px]'>
-            grew up by the <span>sea</span> and dream to stay passionate about{' '}
-            <span>deep talk</span> with friends a <span>chess lover </span>{' '}
-            who’s always down for 1 more game <span>fireworks with fami</span>
-            ly is my favorite moment
-            <span>photobooth with friends</span> is so cute and worth one of a
-            biggest fans of <span>Son Tung M-TP </span>
-            and would be a <span>producer</span> if money didn’t matter
-          </div>
-        </div>
-        <p className='absolute bottom-[42px] right-[52px] text-[16px] font-[400]'>
-          ALL RIGHTS RESERVED © 2025 TQNG MARUKO
-        </p>
-      </div>
-      <div
-        id='section4'
-        className='relative flex h-screen flex-col items-center justify-center'
-      >
-        <p className='text-[20px] font-[400]'>[ About awards and praise ]</p>
-        <p className='text-[64px] font-[600]'>Coming soon hihi</p>{' '}
-        <CustomImage
-          src='/images/story/bg2.webp'
-          alt='scroll'
-          width={1112.6}
-          height={571}
-        />
-        <CustomImage
-          src='/images/loading/tqn.gif'
-          alt='progress'
-          width={799}
-          height={464}
-          className='absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%]'
-        />
-        <SocialButtons
-          className='absolute bottom-[2rem] left-[3rem] max-w-[400px] flex-wrap'
-          socialRefs={socialRefs}
-        />
-        <div className='footer-content absolute bottom-[2rem] right-[3rem] text-[16px] font-[400] text-[#F4E4CA]'>
-          ALL RIGHTS RESERVED <br /> © 2025 TQNG MARUKO
-        </div>
-      </div>
-      <Footer />
+      )}
     </div>
   );
 };
