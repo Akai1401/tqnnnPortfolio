@@ -114,6 +114,12 @@ const MyStoryPage = () => {
               ease: 'power2.inOut',
               onComplete: () => {
                 isScrolling.current = false;
+                // Trigger section3 entrance animation
+                if ((window as any).animateSection3Entrance) {
+                  setTimeout(() => {
+                    (window as any).animateSection3Entrance();
+                  }, 100);
+                }
               },
             });
           }
@@ -279,6 +285,12 @@ const MyStoryPage = () => {
             ease: 'power2.inOut',
             onComplete: () => {
               isScrolling.current = false;
+              // Trigger section3 entrance animation
+              if ((window as any).animateSection3Entrance) {
+                setTimeout(() => {
+                  (window as any).animateSection3Entrance();
+                }, 100);
+              }
             },
           });
         } else {
@@ -607,6 +619,212 @@ const MyStoryPage = () => {
     };
   }, [welcomeState]);
 
+  // Section 3 entrance animations
+  useEffect(() => {
+    if (welcomeState !== PAGE_STATE.HERO) {
+      return;
+    }
+
+    // Set initial states for section3 elements
+    gsap.set('.section3-image-container', {
+      opacity: 0,
+      x: -50,
+      scale: 0.95,
+    });
+
+    gsap.set('.section3-title', {
+      opacity: 0,
+      y: 30,
+      x: 30,
+    });
+
+    gsap.set('.section3-subtitle', {
+      opacity: 0,
+      y: 20,
+      x: 20,
+    });
+
+    gsap.set('.section3-content', {
+      opacity: 0,
+      y: 40,
+      x: 40,
+    });
+
+    gsap.set('.section3-footer', {
+      opacity: 0,
+      y: 20,
+      x: 20,
+    });
+
+    // Function to animate section3 entrance
+    const animateSection3Entrance = () => {
+      const tl = gsap.timeline();
+
+      tl
+        // Image container slides in from left
+        .to('.section3-image-container', {
+          duration: 1.0,
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          ease: 'power2.out',
+        })
+        // Title appears with bounce
+        .to(
+          '.section3-title',
+          {
+            duration: 0.8,
+            opacity: 1,
+            y: 0,
+            x: 0,
+            ease: 'back.out(1.5)',
+          },
+          '-=0.6'
+        )
+        // Subtitle follows smoothly
+        .to(
+          '.section3-subtitle',
+          {
+            duration: 0.6,
+            opacity: 1,
+            y: 0,
+            x: 0,
+            ease: 'power2.out',
+          },
+          '-=0.4'
+        )
+        // Content text appears with stagger
+        .to(
+          '.section3-content',
+          {
+            duration: 0.8,
+            opacity: 1,
+            y: 0,
+            x: 0,
+            ease: 'power2.out',
+          },
+          '-=0.3'
+        )
+        // Footer appears last
+        .to(
+          '.section3-footer',
+          {
+            duration: 0.5,
+            opacity: 1,
+            y: 0,
+            x: 0,
+            ease: 'power2.out',
+          },
+          '-=0.2'
+        );
+    };
+
+    // Store the animation function for use in wheel handler
+    const section3EntranceRef = { current: animateSection3Entrance };
+
+    // Add to window for access in wheel handler
+    (window as any).animateSection3Entrance = animateSection3Entrance;
+
+    return () => {
+      // Clean up
+      delete (window as any).animateSection3Entrance;
+    };
+  }, [welcomeState]);
+
+  // Custom cursor hover effects for section2
+  useEffect(() => {
+    if (welcomeState !== PAGE_STATE.HERO) {
+      return;
+    }
+
+    const addCursorEffect = (selector: string, imageUrl: string) => {
+      const elements = document.querySelectorAll(selector);
+      elements.forEach((element) => {
+        const handleMouseEnter = () => {
+          document.body.style.cursor = `url(${imageUrl}) 16 16, auto`;
+        };
+        const handleMouseLeave = () => {
+          document.body.style.cursor = 'auto';
+        };
+
+        element.addEventListener('mouseenter', handleMouseEnter);
+        element.addEventListener('mouseleave', handleMouseLeave);
+
+        // Store handlers for cleanup
+        (element as any)._cursorHandlers = {
+          mouseenter: handleMouseEnter,
+          mouseleave: handleMouseLeave,
+        };
+      });
+    };
+
+    // Wait for elements to be rendered
+    const timer = setTimeout(() => {
+      // Test with a simple red dot cursor first
+
+      // Add cursor effects for each underlined text - using simple red dot for testing
+      addCursorEffect(
+        '.section2-experience-hover',
+        '/images/story/cursor/fire.png'
+      );
+      addCursorEffect('.section2-hanoi-hover', '/images/story/cursor/hn.png');
+      addCursorEffect(
+        '.section2-products-hover',
+        '/images/story/cursor/com.png'
+      );
+      addCursorEffect(
+        '.section2-inspired-hover',
+        '/images/story/cursor/love.png'
+      );
+      addCursorEffect(
+        '.section2-graphic-hover',
+        '/images/story/cursor/bag.png'
+      );
+      addCursorEffect(
+        '.section2-websites-hover',
+        '/images/story/cursor/sun.png'
+      );
+      addCursorEffect(
+        '.section2-curiosity-hover',
+        '/images/story/cursor/mouse.png'
+      );
+      addCursorEffect(
+        '.section2-longterm-hover',
+        '/images/story/cursor/time.png'
+      );
+    }, 500);
+
+    // Cleanup function
+    return () => {
+      clearTimeout(timer);
+      document.body.style.cursor = 'auto';
+
+      // Remove event listeners
+      const selectors = [
+        '.section2-experience-hover',
+        '.section2-hanoi-hover',
+        '.section2-products-hover',
+        '.section2-inspired-hover',
+        '.section2-graphic-hover',
+        '.section2-websites-hover',
+        '.section2-curiosity-hover',
+        '.section2-longterm-hover',
+      ];
+
+      selectors.forEach((selector) => {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach((element) => {
+          const handlers = (element as any)._cursorHandlers;
+          if (handlers) {
+            element.removeEventListener('mouseenter', handlers.mouseenter);
+            element.removeEventListener('mouseleave', handlers.mouseleave);
+            delete (element as any)._cursorHandlers;
+          }
+        });
+      });
+    };
+  }, [welcomeState]);
+
   return (
     <div
       id='section'
@@ -670,12 +888,12 @@ const MyStoryPage = () => {
               >
                 <p className='section2-text-1 w-full max-w-[93.94rem] pl-[2rem] pt-[3rem] text-[2.5rem] leading-[3.31rem] text-[#C3B6A2]'>
                   With over{' '}
-                  <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                  <span className='section2-experience-hover underline transition-all duration-300 hover:text-[#F4E4CA]'>
                     3 years of experience
                   </span>{' '}
                   in design and more than 1 year specializing in UI/UX design, I
                   am currently living and working in{' '}
-                  <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                  <span className='section2-hanoi-hover underline transition-all duration-300 hover:text-[#F4E4CA]'>
                     Hanoi
                   </span>{' '}
                   as a product designer.{' '}
@@ -683,7 +901,7 @@ const MyStoryPage = () => {
                 <div className='section2-text-1 absolute bottom-[2.19rem] right-[1.38rem] w-full max-w-[93.94rem] pl-[2rem] pt-[3rem] text-right text-[2.5rem] leading-[3.31rem] text-[#C3B6A2]'>
                   {`I'm`} passionate about creativity and dedicated to creating
                   meaningful value for the community through the{' '}
-                  <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                  <span className='section2-products-hover underline transition-all duration-300 hover:text-[#F4E4CA]'>
                     products I design
                   </span>
                   <p className='section2-caption-1 mt-[1rem] text-[1.25rem] opacity-70'>
@@ -708,13 +926,13 @@ const MyStoryPage = () => {
                   My design career began unexpectedly during an interview with
                   Phuong Vu, art director of Nirvana and founder of
                   Antiantiartat at a TeamX Hanoi event in 2022. I was deeply
-                  <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                  <span className='section2-inspired-hover underline transition-all duration-300 hover:text-[#F4E4CA]'>
                     {' '}
                     inspired by his stories
                   </span>{' '}
                   and the projects he was working on at the time. That moment
-                  sparked something in me, and in the early days, I chose to
-                  <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                  sparked something in me, and in the early days, I chose to{' '}
+                  <span className='section2-graphic-hover underline transition-all duration-300 hover:text-[#F4E4CA]'>
                     pursue the path of a graphic designer
                   </span>
                   <p className='section2-caption-2 mt-[1rem] text-[1.25rem] opacity-70'>
@@ -730,19 +948,20 @@ const MyStoryPage = () => {
               >
                 <div className='section2-text-3 absolute bottom-[2.19rem] right-[1.38rem] w-full pl-[2rem] pt-[3rem] text-right text-[36px] leading-[2.7rem] text-[#C3B6A2]'>
                   After about a year and a half, I realized that designing
-                  <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                  <span className='section2-websites-hover underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                    {' '}
                     websites and apps-crafting
                   </span>{' '}
                   user flows and creating meaningful experiences for
                   users-sparked a{' '}
-                  <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                  <span className='section2-curiosity-hover underline transition-all duration-300 hover:text-[#F4E4CA]'>
                     deep curiosity in me
                   </span>
                   . The process of improving user interfaces and shaping how
                   people interact with digital products made me feel more
                   connected to the design journey, and I knew it was something I
                   wanted to pursue{' '}
-                  <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                  <span className='section2-longterm-hover underline transition-all duration-300 hover:text-[#F4E4CA]'>
                     in the long term{' '}
                   </span>
                   <p className='section2-caption-3 mt-[1rem] text-[1.25rem] opacity-70'>
@@ -757,7 +976,7 @@ const MyStoryPage = () => {
             id='section3'
             className='relative flex h-screen items-center justify-between'
           >
-            <div className='relative h-full w-[923px] overflow-hidden'>
+            <div className='section3-image-container relative h-full w-[923px] overflow-hidden'>
               <div
                 ref={(el) => {
                   imageRefs.current[0] = el;
@@ -865,11 +1084,13 @@ const MyStoryPage = () => {
               </div>
             </div>
             <div className='mr-[52px] max-w-[859px] text-right'>
-              <p className='text-[48px] font-[600]'>Another things ^^</p>
-              <p className='text-[16px]'>
+              <p className='section3-title text-[48px] font-[600]'>
+                Another things ^^
+              </p>
+              <p className='section3-subtitle text-[16px]'>
                 about Thanh Quy Nguyen (update on Jul 2025)
               </p>
-              <div className='mt-[32px] text-[32px]'>
+              <div className='section3-content mt-[32px] text-[32px]'>
                 <p className='flex items-center justify-end gap-[0.5rem]'>
                   grew up by the{' '}
                   <span className='group flex items-center gap-[0.5rem] text-[#555047] transition-all duration-[500ms] hover:text-[#F4E4CA] hover:underline'>
@@ -1030,7 +1251,7 @@ const MyStoryPage = () => {
                 </p>
               </div>
             </div>
-            <p className='absolute bottom-[42px] right-[52px] text-[16px] font-[400]'>
+            <p className='section3-footer absolute bottom-[42px] right-[52px] text-[16px] font-[400]'>
               ALL RIGHTS RESERVED © 2025 TQNG MARUKO
             </p>
           </div>
