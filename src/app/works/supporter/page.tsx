@@ -437,7 +437,7 @@ const Supporter = () => {
                   title='More details'
                 />
               </div>{' '} */}
-              <p className='text-animate my-[64px] text-[20px] text-[#D1BA93]'>
+              <p className='text-animate mt-[16px] mb-[64px] text-[20px] text-[#D1BA93]'>
                 This project was centered around an e-commerce platform for
                 purchasing solar panels imported from the USA. The goal was to
                 modernize the existing website, making it more visually
