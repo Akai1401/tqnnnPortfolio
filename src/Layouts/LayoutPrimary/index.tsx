@@ -202,7 +202,9 @@ const LayoutPrimary = ({ children }: any) => {
               </div>
             </div>
 
-            {welcomeState !== PAGE_STATE.WELCOME && <Header />}
+            {welcomeState !== PAGE_STATE.WELCOME && pathname !== '/cv' && (
+              <Header />
+            )}
 
             <Menu />
             {

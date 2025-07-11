@@ -89,8 +89,12 @@ const Header = () => {
       if (!ticking.current) {
         requestAnimationFrame(() => {
           const currentScrollY = window.scrollY;
-          
-          if (currentScrollY > lastScrollY.current && currentScrollY > 100 && isHeaderVisible.current) {
+
+          if (
+            currentScrollY > lastScrollY.current &&
+            currentScrollY > 100 &&
+            isHeaderVisible.current
+          ) {
             // Scrolling down - hide header
             isHeaderVisible.current = false;
             gsap.to(headerRef.current, {
@@ -98,7 +102,10 @@ const Header = () => {
               duration: 0.3,
               ease: 'power2.inOut',
             });
-          } else if (currentScrollY < lastScrollY.current && !isHeaderVisible.current) {
+          } else if (
+            currentScrollY < lastScrollY.current &&
+            !isHeaderVisible.current
+          ) {
             // Scrolling up - show header
             isHeaderVisible.current = true;
             gsap.to(headerRef.current, {
@@ -107,7 +114,7 @@ const Header = () => {
               ease: 'power2.inOut',
             });
           }
-          
+
           lastScrollY.current = currentScrollY;
           ticking.current = false;
         });
@@ -140,7 +147,7 @@ const Header = () => {
   };
 
   return (
-    <div 
+    <div
       ref={headerRef}
       className='fixed left-0 right-0 top-0 z-[100] flex items-center justify-between px-[2rem] py-[1rem]'
     >

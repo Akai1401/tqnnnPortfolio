@@ -48,6 +48,34 @@ const LayoutClient = (props: any) => {
     // ----------------- broke -----------------
   }, [isMounted]);
 
+  // preload route
+  const router = useRouter();
+  useEffect(() => {
+    if (!isMounted) return;
+
+    const preload = async () => {
+      try {
+        // Preload high priority routes first
+        // await Promise.all([]);
+
+        // Then preload secondary routes
+        await Promise.all([
+          router.prefetch('/about'),
+          router.prefetch('/works'),
+          router.prefetch('/my-story'),
+          router.prefetch('/cv'),
+        ]);
+      } catch (error) {
+        console.warn('Failed to preload some routes:', error);
+      }
+    };
+
+    // Add small delay to avoid blocking initial render
+    const timeoutId = setTimeout(preload, 100);
+
+    return () => clearTimeout(timeoutId);
+  }, [isMounted, router]);
+
   if (width < 1024) {
     return (
       <div className='bg-[url("/images/loading/bg.jpg")] bg-cover bg-center bg-no-repeat'>

@@ -14,5 +14,5 @@ export const MENU_ITEMS = [
   { label: 'About', labelMenu: 'About me', href: '/about' },
   { label: 'Works', labelMenu: 'Works', href: '/works' },
   { label: 'My story', labelMenu: 'My story', href: '/my-story' },
-  { label: 'CV / Resume', labelMenu: 'CV / Resume', href: '/cv.pdf' },
+  { label: 'CV / Resume', labelMenu: 'CV / Resume', href: '/cv' },
 ];
