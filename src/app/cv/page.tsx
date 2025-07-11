@@ -67,16 +67,16 @@ const CVPage = () => {
         },
         '-=0.8'
       )
-      .from(
-        '.hero-subtitle',
-        {
-          duration: 0.8,
-          y: 50,
-          opacity: 0,
-          ease: 'elastic.out(1, 0.8)',
-        },
-        '-=0.5'
-      )
+    //   .from(
+    //     '.hero-subtitle',
+    //     {
+    //       duration: 0.8,
+    //       y: 50,
+    //       opacity: 0,
+    //       ease: 'elastic.out(1, 0.8)',
+    //     },
+    //     '-=0.5'
+    //   )
       .from(
         '.social-icon',
         {
@@ -88,17 +88,17 @@ const CVPage = () => {
         },
         '-=0.3'
       )
-      .from(
-        '.contact-info',
-        {
-          duration: 0.8,
-          x: 50,
-          opacity: 0,
-          delay: 0,
-          ease: 'elastic.out(1, 0.8)',
-        }
-        // '-=0.4'
-      );
+    //   .from(
+    //     '.contact-info',
+    //     {
+    //       duration: 0.8,
+    //       x: 50,
+    //       opacity: 0,
+    //       delay: 0,
+    //       ease: 'elastic.out(1, 0.8)',
+    //     },
+    //     '-=0.4'
+    //   );
     //   .from(
     //     '.divider-line',
     //     {
