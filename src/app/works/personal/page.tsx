@@ -253,9 +253,8 @@ const Personal = () => {
   }, [welcomeState]);
 
   const INFO_SOCIAL = {
-    WEBSITE: 'https://hrcwelive.com/',
-    FACEBOOK: 'https://www.facebook.com/hanoirockcity.welive/?locale=vi_VN',
-    TIKTOK: 'https://www.tiktok.com/@hanoirockcity?lang=vi-VN',
+    INSTAGRAM: 'https://www.instagram.com/tqqqqqqn/',
+    BEHANCE: 'https://www.behance.net/thanhquynguyen',
   };
 
   return (
@@ -276,7 +275,7 @@ const Personal = () => {
                   ref={titleRef}
                   className='text-[48px] font-[700] leading-[57.6px] text-[#F4E4CA]'
                 >
-                  Hanoi Rock City
+                  Personal Graphic Design
                 </h1>
               </div>
 
@@ -285,7 +284,7 @@ const Personal = () => {
                   ref={subtitleRef}
                   className='text-[40px] leading-[57.6px] text-[#F4E4CA]'
                 >
-                  A live music venue
+                  Early “homeworks” I embraced
                 </h2>
               </div>
 
@@ -294,10 +293,10 @@ const Personal = () => {
                 className='mt-[16px] text-[20px] font-[400] uppercase leading-[26px] text-[#D1BA93]'
               >
                 <div className='overflow-hidden'>
-                  <p>role: CREATIVE GRAPHIC DESIGNer</p>
+                  <p>role: CREATIVE GRAPHIC DESIGNer </p>
                 </div>
                 <div className='overflow-hidden'>
-                  <p>TIME: JAN 2024 - MAR 2025</p>
+                  <p>TIME: JUN 2023 - NOW</p>
                 </div>
               </div>
               {/* <div className='my-[48px] overflow-hidden'>
@@ -312,10 +311,10 @@ const Personal = () => {
                 ref={tagsRef}
                 className='mt-[48px] text-[18px] font-[400] leading-[24px] text-[rgba(244,228,201,0.70)]'
               >
-                <p className='overflow-hidden'># HanoiRockCity</p>
+                <p className='overflow-hidden'># My_homework</p>
                 <p className='overflow-hidden'># Graphic_design</p>
-                <p className='overflow-hidden'># a_live_music_venue</p>{' '}
-                <p className='overflow-hidden'># base_in_Hanoi</p>
+                <p className='overflow-hidden'># creative_n_productive</p>{' '}
+                <p className='overflow-hidden'># ilovedesign</p>
               </div>
             </div>
             {/* Ảnh bên phải */}
@@ -324,7 +323,7 @@ const Personal = () => {
               className='absolute right-[-13rem] top-0 z-10 h-screen w-[70%]'
             >
               <CustomImage
-                src='/images/works/rock/intro.webp'
+                src='/images/works/personal/intro.webp'
                 alt='Vault'
                 unoptimized
                 fill
@@ -336,17 +335,17 @@ const Personal = () => {
           <div className=''>
             <div className='bg-[url("/images/works/bg_all.webp")] bg-cover bg-bottom bg-no-repeat px-[44px] pt-[48px] text-center font-[400]'>
               <h1 className='text-animate text-[48px] text-[#F4E4CA]'>
-                <span className='font-[700]'>Hanoi Rock City</span> | A live
-                music venue
+                <span className='font-[700]'>Personal Graphic Design</span> |
+                Early “homeworks” I embraced
               </h1>
               <div className='text-animate text-[20px] font-[400] text-[#D1BA93]'>
                 <p className='mt-[16px] uppercase'>
                   role: CREATIVE GRAPHIC DESIGNer
                 </p>
-                <p className='uppercase'>Time: JAN 2024 - MAR 2025</p>
+                <p className='uppercase'>Time: JUN 2023 - NOW</p>
                 <p>
-                  # HanoiRockCity # Graphic_design # a_live_music_venue #
-                  base_in_Hanoi
+                  # My_homework # Graphic_design # creative_n_productive #
+                  ilovedesign
                 </p>
               </div>
               {/* <div className='text-animate'>
@@ -359,326 +358,352 @@ const Personal = () => {
               <div className='project-row mt-[64px] flex items-start justify-between'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/rock/1.webp'
+                    src='/images/works/personal/1.webp'
                     alt='Shin404'
-                    width={657}
-                    height={493}
+                    width={515}
+                    height={647}
                   />
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/rock/2.webp'
+                    src='/images/works/personal/2.webp'
                     alt='Shin404'
-                    width={493}
-                    height={493}
-                    unoptimized
+                    width={647}
+                    height={647}
                   />
                 </div>{' '}
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/rock/3.webp'
+                    src='/images/works/personal/3.webp'
                     alt='Shin404'
-                    width={657}
-                    height={493}
-                    unoptimized
+                    width={647}
+                    height={647}
                   />
                 </div>
               </div>
-              <div className='project-row mt-[16px] flex items-start justify-between'>
-                <div className='project-anim-wrapper overflow-hidden'>
-                  <CustomImage
-                    src='/images/works/rock/4.webp'
-                    alt='Shin404'
-                    width={1039}
-                    height={777}
-                  />
-                </div>
-                <div className='project-anim-wrapper overflow-hidden'>
-                  <CustomImage
-                    src='/images/works/rock/5.webp'
-                    alt='Shin404'
-                    width={775}
-                    height={777}
-                    unoptimized
-                  />
-                </div>
-              </div>
-              <p className='text-animate mt-[16px] text-center text-[20px] text-[#D1BA93]'>
-                HRC14 - All for One event by Hanoi Rock City, taking place in
-                January 2025, will feature numerous artists and attract
-                thousands of attendees over 05 nights of performances
+              <p className='text-animate py-[16px] text-center text-[20px] text-[#D1BA93]'>
+                I genuinely enjoy experimenting with warm tones and often
+                incorporate them into my designs
               </p>
+              <div className='project-row flex items-start justify-center'>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/personal/4.webp'
+                    alt='Shin404'
+                    width={915.5}
+                    height={915.5}
+                  />
+                </div>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/personal/5.webp'
+                    alt='Shin404'
+                    width={915.5}
+                    height={915.5}
+                  />
+                </div>
+              </div>
               <p className='text-animate py-[64px] text-center text-[24px] text-[#D1BA93]'>
-                Hanoi Rock City was born from the desire to create a space where
-                Vietnamese youth could immerse themselves in music and art. Over
-                more than a decade, it has grown into a vibrant community that
-                welcomes both locals and international friends, nestled in the
-                familiar corner of To Ngoc Van Street. Artists come to HRC to
-                give their all on the live stage, while audiences amplify the
-                sound of passion together. For me, becoming a designer in such a
-                creative space has been a journey of self-discovery, allowing me
-                to explore new facets of my design abilities. It’s the perfect
-                environment to showcase creativity and forge meaningful
-                connections with peers and professionals in the design and
-                creative industries.
+                Here, I never confined myself to any single design style. Each
+                project was an opportunity to experiment and uncover something
+                exciting in the vast, fertile landscape of design. It became a
+                journey of exploration, where every piece I worked on taught me
+                something new and sparked fresh ideas. I also had the chance to
+                learn and utilize incredible tools that expanded my creative
+                potential tools I wish I had discovered earlier. These
+                experiences have shaped me into a more versatile and open-minded
+                designer, ready to embrace the endless possibilities that design
+                offers.
               </p>
               <div className='project-row flex items-start justify-between'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/rock/6.webp'
+                    src='/images/works/personal/6.webp'
                     alt='Shin404'
-                    width={1192}
-                    height={624}
+                    width={602}
+                    height={753}
                   />
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/rock/7.webp'
+                    src='/images/works/personal/7.webp'
                     alt='Shin404'
-                    width={624}
-                    height={624}
+                    width={602}
+                    height={753}
+                  />
+                </div>{' '}
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/personal/8.webp'
+                    alt='Shin404'
+                    width={593}
+                    height={753}
+                  />
+                </div>
+              </div>
+              <p className='text-animate py-[16px] text-center text-[20px] text-[#D1BA93]'>
+                I also explore various styles, mixing elements, experimenting
+                with diverse color palettes, texture effects, and typography
+              </p>
+              <div className='project-row flex items-start justify-between'>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/personal/9.webp'
+                    alt='Shin404'
+                    width={1189}
+                    height={623}
+                  />
+                </div>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/personal/10.webp'
+                    alt='Shin404'
+                    width={623}
+                    height={623}
                   />
                 </div>
               </div>
             </div>
             <div className='px-[44px] text-center'>
-              <p className='text-animate mt-[16px] text-[16px] text-[#D1BA93]'>
-                Women of Hanoi Show on March 8, 2024, featuring performances by
-                Ddet, Mac Mai Suong, and Tu
+              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
+                Although not perfect, it has significantly helped me practice
+                and improve my design skills
               </p>
               <div className='mt-[64px]'>
                 <p className='text-animate text-left text-[48px] font-[600] text-[#F4E4CA]'>
-                  Hanoi Rock City: Where creativity meets community
+                  Exploring the foundations of creativity and growth
                 </p>
                 <div className='text-animate mt-[31px] flex items-start justify-end gap-[48px] text-left text-[20px] font-[400] text-[#D1BA93]'>
                   <p className='w-[483px]'>
-                    HRC is more than just a music venue, it is a vibrant hub for
-                    artistic expression and cultural exchange. Since its
-                    founding, HRC has been a beacon for Vietnam’s creative
-                    youth, providing a space where music, art, and community
-                    converge. This unique space has grown over the past decade
-                    into a melting pot of diverse talents, uniting local and
-                    international artists in a shared passion for creativity.
+                    This collection showcases my earliest design works, created
+                    during a time when I was both learning the fundamentals of
+                    design tools and refining my skills in layout, color
+                    coordination, and typography. Each piece represents a step
+                    in my journey of self-discovery as a designer, where I had
+                    the freedom to explore, experiment, and push my creative
+                    boundaries.
                   </p>
                   <p className='w-[483px]'>
-                    HRC was born from a desire to give Vietnam’s youth a stage
-                    to express themselves and connect with others. Over the
-                    years, it has hosted countless live performances,
-                    exhibitions, and workshops, making it a cornerstone of
-                    Hanoi’s creative landscape. For artists, HRC represents a
-                    place to experiment, to perform fearlessly, and to ignite
-                    inspiration within a supportive and energetic community.
+                    The process was as challenging as it was rewarding, offering
+                    valuable lessons in visual storytelling and problem-solving.
+                    Although I later decided not to pursue graphic design as a
+                    career path, these projects served as a critical stepping
+                    stone, helping me identify my strengths and shape my design
+                    perspective.
                   </p>
                   <p className='w-[483px]'>
-                    The beauty of HRC lies in its ability to bring people
-                    together. Musicians, designers, and art enthusiasts from all
-                    walks of life gather to share their work and experiences,
-                    creating a dynamic exchange of ideas. It’s not just a venue,
-                    it’s a movement that thrives on collaboration and the
-                    collective energy of its community.
+                    Most importantly, this experience paved the way for me to
+                    find my true passion in product design. It gave me the
+                    confidence and foundation to approach design with a
+                    user-centric mindset, bridging creativity with
+                    functionality. Looking back, I am grateful for this period
+                    of exploration that set me on the path to a fulfilling
+                    career in design.
                   </p>
                 </div>
               </div>{' '}
               <div className='project-row mt-[64px] flex items-start justify-between'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/rock/8.webp'
-                    alt='Shin404'
-                    width={907}
-                    height={907}
-                    unoptimized
-                  />
-                </div>
-                <div className='project-anim-wrapper overflow-hidden'>
-                  <CustomImage
-                    src='/images/works/rock/9.webp'
-                    alt='Shin404'
-                    width={907}
-                    height={907}
-                  />
-                </div>
-              </div>
-              <p className='text-animate my-[16px] text-[16px] text-[#D1BA93]'>
-                Rockin’ New Year event at HRC features an exciting lineup of
-                bands, including Atinybit, Abyxx, and the Meow Lac.
-              </p>
-              <div className='project-row flex items-start justify-between'>
-                <div className='project-anim-wrapper overflow-hidden'>
-                  <CustomImage
-                    src='/images/works/rock/10.webp'
-                    alt='Shin404'
-                    width={1192}
-                    height={624}
-                    unoptimized
-                  />
-                </div>
-                <div className='project-anim-wrapper overflow-hidden'>
-                  <CustomImage
-                    src='/images/works/rock/11.webp'
+                    src='/images/works/personal/11.webp'
                     alt='Shin404'
                     width={624}
-                    height={624}
+                    height={779}
+                  />
+                </div>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/personal/12.webp'
+                    alt='Shin404'
+                    width={550}
+                    height={779}
+                  />
+                </div>{' '}
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/personal/13.webp'
+                    alt='Shin404'
+                    width={623}
+                    height={779}
                   />
                 </div>
               </div>
+              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
+                I also challenged myself by designing movie posters like the
+                ones above
+              </p>
               <div className='project-row mt-[64px] flex items-start justify-between'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/rock/12.webp'
+                    src='/images/works/personal/14.webp'
                     alt='Shin404'
-                    width={624}
-                    height={624}
+                    width={1189}
+                    height={623}
+                  />
+                </div>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/personal/15.webp'
+                    alt='Shin404'
+                    width={623}
+                    height={623}
+                  />
+                </div>
+              </div>
+              <div className='project-row mt-[16px] flex items-start justify-between'>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/personal/16.webp'
+                    alt='Shin404'
+                    width={603}
+                    height={754}
                     unoptimized
                   />
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/rock/13.webp'
+                    src='/images/works/personal/17.webp'
                     alt='Shin404'
-                    width={1189}
-                    height={624}
+                    width={603}
+                    height={754}
+                  />
+                </div>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/personal/18.webp'
+                    alt='Shin404'
+                    width={591}
+                    height={754}
                   />
                 </div>
               </div>
-              <p className='text-animate mt-[16px] text-[16px] text-[#D1BA93]'>
+              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
                 The Beat the Heat event at HRC features an exciting lineup of
                 bands, including Splat, Furr Cough, and the Hanoing Jazz Band.
               </p>
               <div className='mt-[64px]'>
                 <p className='text-animate text-left text-[48px] font-[600] text-[#F4E4CA]'>
-                  Every project, a new adventure - A cherished chapter in my
-                  career
+                  Learning through hands-on experience: A journey of trial and
+                  growth
                 </p>
                 <div className='text-animate mt-[31px] flex items-start justify-end gap-[48px] text-left text-[20px] font-[400] text-[#D1BA93]'>
                   <p className='w-[578px]'>
-                    Each project at HRC has been a fresh experience, presenting
-                    a unique style and a distinct set of challenges. From
-                    designing vibrant visuals for live music events to creating
-                    cohesive branding for community gatherings, I’ve been pushed
-                    to expand my creative boundaries and adapt to different
-                    artistic directions. These experiences have not only refined
-                    my skills but also deepened my appreciation for the
-                    diversity and vibrancy of the creative field.
+                    Teaching myself design through creating these projects has
+                    been an incredibly effective and enjoyable process. By
+                    diving into actual design work, I found that I could better
+                    understand the principles of layout, color, and typography
+                    while also exploring my own creative style. Each project
+                    became a lesson, providing a hands-on way to develop my
+                    skills and grow as a designer.
                   </p>
                   <p className='w-[578px]'>
-                    I deeply value the opportunity to contribute, even in small
-                    ways, to the creative heartbeat of HRC. Every design I
-                    crafted and every idea I brought to life here holds a
-                    special place in my journey as a designer. While my
-                    contributions may have been modest, they represent an
-                    invaluable chapter in my career, filled with moments of
-                    growth, inspiration, and unforgettable memories.
+                    Although my designs were far from perfect and often filled
+                    with mistakes, each error taught me something valuable.
+                    These challenges pushed me to research more deeply,
+                    experiment boldly, and refine my approach. This process of
+                    trial and error not only sharpened my technical skills but
+                    also gave me insight into my preferences and strengths as a
+                    designer.
                   </p>
                 </div>
               </div>{' '}
               <div className='project-row mt-[64px] flex items-start justify-between'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/rock/14.webp'
+                    src='/images/works/personal/19.webp'
                     alt='Shin404'
-                    width={705}
-                    height={705}
+                    width={599}
+                    height={749}
                     unoptimized
                   />
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/rock/15.webp'
+                    src='/images/works/personal/20.webp'
                     alt='Shin404'
-                    width={397}
-                    height={705}
+                    width={599}
+                    height={749}
                   />
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/rock/16.webp'
+                    src='/images/works/personal/21.webp'
                     alt='Shin404'
-                    width={696}
-                    height={705}
+                    width={599}
+                    height={749}
                   />
                 </div>
               </div>
               <p className='text-animate my-[16px] text-[20px] text-[#D1BA93]'>
-                This is just the beginning of an exciting journey. With every
-                step forward, we strive to create a platform that not only
-                celebrates the joy of anime but also shapes the future of
-                animation appreciation in Vietnam and beyond.
+                More and more styles...
               </p>{' '}
               <div className='project-row mt-[16px] flex items-start justify-between'>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/rock/17.webp'
+                    src='/images/works/personal/22.webp'
                     alt='Shin404'
-                    width={637}
-                    height={610}
+                    width={459}
+                    height={574}
                     unoptimized
                   />
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/rock/18.webp'
+                    src='/images/works/personal/23.webp'
                     alt='Shin404'
-                    width={1178}
-                    height={610}
-                  />
-                </div>
-              </div>
-              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
-                This is just the beginning of an exciting journey. With every
-                step forward, we strive to create a platform that not only
-                celebrates the joy of anime but also shapes the future of
-                animation appreciation in Vietnam and beyond.
-              </p>
-              <div className='project-row mt-[16px] flex items-start justify-between'>
-                <div className='project-anim-wrapper overflow-hidden'>
-                  <CustomImage
-                    src='/images/works/rock/19.webp'
-                    alt='Shin404'
-                    width={1187}
-                    height={621}
+                    width={431}
+                    height={574}
                   />
                 </div>
                 <div className='project-anim-wrapper overflow-hidden'>
                   <CustomImage
-                    src='/images/works/rock/20.webp'
+                    src='/images/works/personal/24.webp'
                     alt='Shin404'
-                    width={621}
-                    height={621}
-                    unoptimized
+                    width={459}
+                    height={574}
+                  />
+                </div>
+                <div className='project-anim-wrapper overflow-hidden'>
+                  <CustomImage
+                    src='/images/works/personal/25.webp'
+                    alt='Shin404'
+                    width={459}
+                    height={574}
                   />
                 </div>
               </div>
-              <p className='text-animate mt-[64px] text-[20px] text-[#D1BA93]'>
-                I am profoundly thankful to anh Hoang Hiep (my teacher) and the
-                wonderful friends I’ve met at HRC. Their support, constructive
-                feedback, and those amazing designer dates have been
-                instrumental in shaping me, both as a professional and as a
-                person. These moments of collaboration and learning are
-                something I will always carry with me, and I am forever grateful
-                for the camaraderie and inspiration this community has given me.
+              <p className='text-animate mt-[64px] text-[24px] text-[#D1BA93]'>
+                This self-directed journey has been an essential stepping stone
+                in my design career. It helped me identify my passion for visual
+                storytelling and problem-solving while building the confidence
+                to pursue more ambitious projects. Though it’s just the
+                beginning, these experiences have solidified my belief that
+                learning by doing is the best path for me to grow and evolve as
+                a designer.
               </p>
-              <div className='relative mt-[64px]'>
-                <CustomImage
-                  src='/images/works/rock/intro.webp'
-                  alt='Shin404'
-                  width={1921}
-                  height={914}
-                />{' '}
-                <div className='absolute inset-0 bg-[rgba(0,0,0,0.40)] backdrop-blur-[20px]'></div>
-                <div className='absolute inset-0 flex flex-col items-center justify-center gap-[16px]'>
-                  <p className='text-animate text-[48px] text-[#F4E4CA]'>
-                    To know more about this project - visit this:
-                  </p>
-                  <div className='text-animate'>
-                    <ProjectSocialButtons
-                      socialRefs={socialRefs}
-                      socialData={INFO_SOCIAL}
-                    />
-                  </div>
-                  <p className='text-animate text-[20px] text-[#D1BA93]'>
-                    by Thanh Quy Nguyen with big love hihi
-                  </p>
+            </div>
+            <div className='relative mt-[64px]'>
+              <CustomImage
+                src='/images/works/personal/intro.webp'
+                alt='Shin404'
+                width={1921}
+                height={914}
+                className='w-full'
+              />{' '}
+              <div className='absolute inset-0 bg-[rgba(0,0,0,0.40)] backdrop-blur-[20px]'></div>
+              <div className='absolute inset-0 flex flex-col items-center justify-center gap-[16px]'>
+                <p className='text-animate text-[48px] text-[#F4E4CA]'>
+                  To know more about this project - visit this:
+                </p>
+                <div className='text-animate'>
+                  <ProjectSocialButtons
+                    socialRefs={socialRefs}
+                    socialData={INFO_SOCIAL}
+                  />
                 </div>
+                <p className='text-animate text-[20px] text-[#D1BA93]'>
+                  by Thanh Quy Nguyen with big love hihi
+                </p>
               </div>
             </div>
           </div>

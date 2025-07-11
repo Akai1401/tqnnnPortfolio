@@ -554,28 +554,28 @@ const Eterna = () => {
                 product. These designs aim to reflect the core identity of the
                 brand, highlighting its values and unique qualities.
               </p>{' '}
-              <div className='relative mt-[64px]'>
-                <CustomImage
-                  src='/images/works/eterna/intro2.webp'
-                  alt='Shin404'
-                  width={1921}
-                  height={914}
-                />{' '}
-                <div className='absolute inset-0 bg-[rgba(0,0,0,0.60)] backdrop-blur-[20px]'></div>
-                <div className='absolute inset-0 flex flex-col items-center justify-center gap-[16px]'>
-                  <p className='text-animate text-[48px] text-[#F4E4CA]'>
-                    To know more about this project - visit this:
-                  </p>
-                  <div className='text-animate'>
-                    <ProjectSocialButtons
-                      socialRefs={socialRefs}
-                      socialData={INFO_SOCIAL}
-                    />
-                  </div>
-                  <p className='text-animate text-[20px] text-[#D1BA93]'>
-                    by Thanh Quy Nguyen with big love hihi
-                  </p>
+            </div>
+            <div className='relative mt-[64px]'>
+              <CustomImage
+                src='/images/works/eterna/intro2.webp'
+                alt='Shin404'
+                width={1921}
+                height={914}
+              />{' '}
+              <div className='absolute inset-0 bg-[rgba(0,0,0,0.60)] backdrop-blur-[20px]'></div>
+              <div className='absolute inset-0 flex flex-col items-center justify-center gap-[16px]'>
+                <p className='text-animate text-[48px] text-[#F4E4CA]'>
+                  To know more about this project - visit this:
+                </p>
+                <div className='text-animate'>
+                  <ProjectSocialButtons
+                    socialRefs={socialRefs}
+                    socialData={INFO_SOCIAL}
+                  />
                 </div>
+                <p className='text-animate text-[20px] text-[#D1BA93]'>
+                  by Thanh Quy Nguyen with big love hihi
+                </p>
               </div>
             </div>
           </div>

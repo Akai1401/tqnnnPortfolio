@@ -427,16 +427,16 @@ const Supporter = () => {
                 that directly supports professionals in the aviation industry.
               </p>
               <p className='text-animate pt-[64px] text-center text-[48px] font-[600] text-[#F4E4CA]'>
-                2. Saint Gobain Web App
+                2. Saint Gobain Web
               </p>{' '}
-              <div className='mt-[16px] flex justify-center overflow-hidden'>
+              {/*  <div className='mt-[16px] flex justify-center overflow-hidden'>
                 <ButtonVisit
                   href={
                     'https://www.figma.com/proto/LdPhqDlhyDNboN7G2p0Mph/%F0%9F%94%B4--Un-Official--Aits-Mobile-Operations?page-id=269%3A1232&node-id=4213-5785&viewport=-1704%2C-250%2C0.21&t=4crO40qAAH6N7vRv-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=4213%3A5785&show-proto-sidebar=1'
                   }
                   title='More details'
                 />
-              </div>{' '}
+              </div>{' '} */}
               <p className='text-animate my-[64px] text-[20px] text-[#D1BA93]'>
                 This project was centered around an e-commerce platform for
                 purchasing solar panels imported from the USA. The goal was to
@@ -546,28 +546,28 @@ const Supporter = () => {
                 design elements and collaborate closely with a team that shared
                 a deep passion for art, music, and animation.
               </p>{' '}
-              <div className='relative mt-[64px]'>
-                <CustomImage
-                  src='/images/works/supporter/intro.webp'
-                  alt='Shin404'
-                  width={1921}
-                  height={914}
-                />{' '}
-                <div className='absolute inset-0 bg-[rgba(0,0,0,0.40)] backdrop-blur-[20px]'></div>
-                <div className='absolute inset-0 flex flex-col items-center justify-center gap-[16px]'>
-                  <p className='text-animate text-[48px] text-[#F4E4CA]'>
-                    To know more about this project - visit this:
-                  </p>
-                  <div className='text-animate'>
-                    <ProjectSocialButtons
-                      socialRefs={socialRefs}
-                      socialData={INFO_SOCIAL}
-                    />
-                  </div>
-                  <p className='text-animate text-[20px] text-[#F4E4CA]'>
-                    by Thanh Quy Nguyen with big love hihi
-                  </p>
+            </div>
+            <div className='relative mt-[64px]'>
+              <CustomImage
+                src='/images/works/supporter/intro.webp'
+                alt='Shin404'
+                width={1921}
+                height={914}
+              />{' '}
+              <div className='absolute inset-0 bg-[rgba(0,0,0,0.40)] backdrop-blur-[20px]'></div>
+              <div className='absolute inset-0 flex flex-col items-center justify-center gap-[16px]'>
+                <p className='text-animate text-[48px] text-[#F4E4CA]'>
+                  To know more about this project - visit this:
+                </p>
+                <div className='text-animate'>
+                  <ProjectSocialButtons
+                    socialRefs={socialRefs}
+                    socialData={INFO_SOCIAL}
+                  />
                 </div>
+                <p className='text-animate text-[20px] text-[#F4E4CA]'>
+                  by Thanh Quy Nguyen with big love hihi
+                </p>
               </div>
             </div>
           </div>
