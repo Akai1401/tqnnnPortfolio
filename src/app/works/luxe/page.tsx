@@ -397,7 +397,7 @@ const LuxePage = () => {
               </div>
             </div>
             <div className='px-[44px] text-center'>
-              <p className='text-animate my-[16px] text-[16px] text-[#D1BA93]'>
+              <p className='text-animate my-[16px] text-[20px] text-[#D1BA93]'>
                 A selection of images showcasing the website I worked on
               </p>
               <div className='project-row flex items-start justify-between'>
@@ -418,7 +418,7 @@ const LuxePage = () => {
                   />
                 </div>
               </div>
-              <p className='text-animate mt-[16px] text-[16px] text-[#D1BA93]'>
+              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
                 This is a fascinating field that challenges and allows me to
                 refine my skills
               </p>
@@ -434,7 +434,7 @@ const LuxePage = () => {
                   />
                 </div>
               </div>
-              <p className='text-animate mt-[16px] text-[16px] text-[#D1BA93]'>
+              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
                 This is also a fascinating field that brings me a wealth of
                 inspiration and creativity.
               </p>

@@ -443,7 +443,7 @@ const LogosPage = () => {
                   />
                 </div>
               </div>
-              <p className='text-animate mt-[16px] text-[16px] text-[#D1BA93]'>
+              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
                 A small part of a larger personal project I collaborated on with
                 a developer friend
               </p>

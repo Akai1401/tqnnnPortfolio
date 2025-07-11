@@ -421,7 +421,7 @@ const Shin404Page = () => {
               </div>
             </div>
             <div className='px-[44px] text-center'>
-              <p className='text-animate mt-[16px] text-[16px] text-[#D1BA93]'>
+              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
                 Some visuals related to the product my partner and I are
                 currently launching. We are continuously working hard to improve
                 its quality and deliver the best possible experience
@@ -438,7 +438,7 @@ const Shin404Page = () => {
                   />
                 </div>
               </div>
-              <p className='text-animate mt-[16px] text-[16px] text-[#D1BA93]'>
+              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
                 Apart from the main website, we also have an additional platform
                 to manage published content and monitor traffic for optimization
                 (update 27th Jun 2025).

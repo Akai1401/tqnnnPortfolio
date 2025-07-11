@@ -397,7 +397,7 @@ const VaultPage = () => {
               </div>
             </div>
             <div className='px-[44px] text-center'>
-              <p className='text-animate mt-[16px] text-[16px] text-[#D1BA93]'>
+              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
                 As with my previous projects, I continued to leverage my skills
                 in visual and UI design to develop this landing page project
               </p>
@@ -413,7 +413,7 @@ const VaultPage = () => {
                   />
                 </div>
               </div>
-              <p className='text-animate mt-[16px] text-[16px] text-[#D1BA93]'>
+              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
                 Apart from the main website, we also have an additional platform
                 to manage published content and monitor traffic for optimization
                 (update 27th Jun 2025).

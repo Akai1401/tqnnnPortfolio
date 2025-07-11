@@ -442,7 +442,7 @@ const HnRock = () => {
               </div>
             </div>
             <div className='px-[44px] text-center'>
-              <p className='text-animate mt-[16px] text-[16px] text-[#D1BA93]'>
+              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
                 Women of Hanoi Show on March 8, 2024, featuring performances by
                 Ddet, Mac Mai Suong, and Tu
               </p>
@@ -498,7 +498,7 @@ const HnRock = () => {
                   />
                 </div>
               </div>
-              <p className='text-animate my-[16px] text-[16px] text-[#D1BA93]'>
+              <p className='text-animate my-[16px] text-[20px] text-[#D1BA93]'>
                 Rockin’ New Year event at HRC features an exciting lineup of
                 bands, including Atinybit, Abyxx, and the Meow Lac.
               </p>
@@ -540,7 +540,7 @@ const HnRock = () => {
                   />
                 </div>
               </div>
-              <p className='text-animate mt-[16px] text-[16px] text-[#D1BA93]'>
+              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
                 The Beat the Heat event at HRC features an exciting lineup of
                 bands, including Splat, Furr Cough, and the Hanoing Jazz Band.
               </p>

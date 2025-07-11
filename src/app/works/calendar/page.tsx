@@ -396,7 +396,7 @@ const CalendarPage = () => {
               </div>
             </div>
             <div className='px-[44px] text-center'>
-              <p className='text-animate my-[16px] text-[16px] text-[#D1BA93]'>
+              <p className='text-animate my-[16px] text-[20px] text-[#D1BA93]'>
                 Here are a few visuals from the project I worked on...
               </p>
               <div className='project-row flex items-start justify-between'>
@@ -418,7 +418,7 @@ const CalendarPage = () => {
                   />
                 </div>
               </div>
-              <p className='text-animate mt-[16px] text-[16px] text-[#D1BA93]'>
+              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
                 And here are some additional visuals...
               </p>
               <div className='project-row'>
@@ -433,7 +433,7 @@ const CalendarPage = () => {
                   />
                 </div>
               </div>
-              <p className='text-animate mt-[16px] text-[16px] text-[#D1BA93]'>
+              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
                 This style was selected to reflect both the long-standing
                 history and youthful, dynamic spirit of FPT Software as a
                 leading tech company. The vibrant and creative approach also

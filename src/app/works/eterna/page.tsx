@@ -411,7 +411,7 @@ const Eterna = () => {
               </div>{' '}
             </div>
             <div className='px-[44px] text-center'>
-              <p className='text-animate mt-[16px] text-[16px] text-[#D1BA93]'>
+              <p className='text-animate mt-[16px] text-[20px] text-[#D1BA93]'>
                 Visual identity of Eterna Skin Clinic
               </p>{' '}
               <div className='mt-[64px]'>
