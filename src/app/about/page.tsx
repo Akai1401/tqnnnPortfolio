@@ -443,7 +443,7 @@ const AboutPage = () => {
                       2025)
                     </h3>
                     <p className='text-[16px] font-[400]'>
-                      • International Relationship
+                      • Bachelor of International Relations and Affairs
                     </p>{' '}
                     <p className='text-[16px] font-[400]'>
                       • GPA: 3,44 (Very Good)

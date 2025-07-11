@@ -133,9 +133,8 @@ const LayoutPrimary = ({ children }: any) => {
   return (
     <div className=''>
       {welcomeState !== PAGE_STATE.HERO && <WelcomeSection />}
-      {welcomeState === PAGE_STATE.HERO && pathname.includes('/works') && (
-        <ScrollToTop />
-      )}
+      {welcomeState === PAGE_STATE.HERO &&
+        (pathname.includes('/works') || pathname === '/cv') && <ScrollToTop />}
       {welcomeState !== PAGE_STATE.LOADING && (
         <>
           {/* {pathname === '/' && ( */}
@@ -170,7 +169,7 @@ const LayoutPrimary = ({ children }: any) => {
             {pathname === '/' && (
               <CustomImage
                 src='/images/home/tqn.webp'
-                className={`fixed right-0 top-0 ${!isShowMenu ? 'opacity-100' : 'opacity-0'} transition-all duration-[1000ms] ease-in-out`}
+                className={`fixed right-0 top-0 z-10 ${!isShowMenu ? 'opacity-100' : 'opacity-0'} transition-all duration-[1000ms] ease-in-out`}
                 alt='tqn'
                 width={453}
                 height={688}
