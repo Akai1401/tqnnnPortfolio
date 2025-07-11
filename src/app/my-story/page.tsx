@@ -3,18 +3,138 @@
 import CustomImage from '@/components/custom/CustomImage';
 import SocialButtons from '@/components/SocialButtons';
 import useScrollSmoother from '@/hook/useScrollSmoother';
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import { gsap } from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+
+gsap.registerPlugin(ScrollToPlugin);
 
 const MyStoryPage = () => {
   const socialRefs = useRef([]);
-  useScrollSmoother();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const horizontalContainerRef = useRef<HTMLDivElement>(null);
+  const isScrolling = useRef(false);
+  const currentPanelIndex = useRef(0);
+  const maxPanelIndex = 2; // 3 panels (0, 1, 2)
+  const [windowWidth, setWindowWidth] = useState(1920);
+
+  // useScrollSmoother();
+
+  useEffect(() => {
+    // Set initial window width
+    if (typeof window !== 'undefined') {
+      setWindowWidth(window.innerWidth);
+      
+      const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
+      
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      const currentSection =
+        window.scrollY < window.innerHeight ? 'section1' : 'section2';
+
+      // Prevent all scrolling in section2
+      if (currentSection === 'section2') {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      if (isScrolling.current) return;
+      
+      isScrolling.current = true;
+
+      if (currentSection === 'section1') {
+        if (e.deltaY > 0) {
+          e.preventDefault();
+          // Scroll down to section2
+          gsap.to(window, {
+            duration: 1.2,
+            scrollTo: '#section2',
+            ease: 'power2.inOut',
+            onComplete: () => {
+              isScrolling.current = false;
+            },
+          });
+        } else {
+          isScrolling.current = false;
+        }
+      } else if (currentSection === 'section2') {
+        const horizontalContainer = horizontalContainerRef.current;
+        const panelWidth = windowWidth - 104; // Subtract margin (52px * 2)
+        
+        if (e.deltaY > 0) {
+          // Scroll right (next panel)
+          if (currentPanelIndex.current < maxPanelIndex) {
+            currentPanelIndex.current++;
+            gsap.to(horizontalContainer, {
+              duration: 1,
+              x: -currentPanelIndex.current * panelWidth,
+              ease: 'power2.inOut',
+              onComplete: () => {
+                isScrolling.current = false;
+              },
+            });
+          } else {
+            // Stay at last panel
+            isScrolling.current = false;
+          }
+        } else {
+          // Scroll left (previous panel)
+          if (currentPanelIndex.current > 0) {
+            currentPanelIndex.current--;
+            gsap.to(horizontalContainer, {
+              duration: 1,
+              x: -currentPanelIndex.current * panelWidth,
+              ease: 'power2.inOut',
+              onComplete: () => {
+                isScrolling.current = false;
+              },
+            });
+          } else {
+            // Go back to section1
+            gsap.to(window, {
+              duration: 1.2,
+              scrollTo: '#section1',
+              ease: 'power2.inOut',
+              onComplete: () => {
+                isScrolling.current = false;
+              },
+            });
+          }
+        }
+      } else {
+        isScrolling.current = false;
+      }
+    };
+
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener('wheel', handleWheel, { passive: false });
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener('wheel', handleWheel);
+      }
+    };
+  }, [windowWidth]);
 
   return (
     <div
+      ref={containerRef}
       id='section'
       className='min-h-screen bg-[url("/images/home/bg.png")] bg-cover bg-fixed bg-center bg-no-repeat text-[#F4E4CA]'
     >
-      <div className='relative flex h-screen flex-col items-center justify-center'>
+      <div
+        id='section1'
+        className='relative flex h-screen flex-col items-center justify-center'
+      >
         <p className='text-[20px] font-[400]'>[ My story ]</p>
         <p className='text-[64px] font-[600]'>
           Guess who’s back? Still designing, still caffeinated
@@ -47,7 +167,92 @@ const MyStoryPage = () => {
           ALL RIGHTS RESERVED <br /> © 2025 TQNG MARUKO
         </div>
       </div>
-      <div className='relative flex h-screen flex-col items-center justify-center'></div>
+      <div
+        id='section2'
+        className='relative mx-[52px] h-screen overflow-hidden'
+      >
+        <div 
+          ref={horizontalContainerRef}
+          className='absolute left-0 top-1/2 flex -translate-y-1/2 items-start'
+          style={{ width: `${3 * (windowWidth - 104)}px` }}
+        >
+          <div
+            id='section2_1'
+            className='relative h-[calc(100vh-64px)] bg-[url("/images/story/1.webp")] bg-cover bg-center bg-no-repeat flex-shrink-0'
+            style={{ width: `${windowWidth - 104}px` }}
+          >
+            <p className='w-[1505px] pl-[32px] pt-[48px] text-[40px] leading-[53px] text-[#C3B6A2]'>
+              With over{' '}
+              <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                3 years of experience
+              </span>{' '}
+              in design and more than 1 year specializing in UI/UX design, I am
+              currently living and working in{' '}
+              <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                Hanoi
+              </span>{' '}
+              as a product designer.{' '}
+            </p>
+            <div className='absolute bottom-[35px] right-[22px] w-[1505px] pl-[32px] pt-[48px] text-right text-[40px] leading-[53px] text-[#C3B6A2]'>
+              {`I'm`} passionate about creativity and dedicated to creating
+              meaningful value for the community through the{' '}
+              <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                products I design
+              </span>
+              <p className='mt-[16px] text-[20px]'>
+                Sunrise in my coastal city through my lens | by Thanh Quy Nguyen
+              </p>
+            </div>
+          </div>
+          <div
+            id='section2_2'
+            className='relative h-[calc(100vh-64px)] bg-[url("/images/story/2.webp")] bg-cover bg-center bg-no-repeat flex-shrink-0'
+            style={{ width: `${windowWidth - 104}px` }}
+          >
+            <div className='absolute bottom-[35px] right-[22px] w-full pl-[32px] pt-[48px] text-right text-[40px] leading-[53px] text-[#C3B6A2]'>
+              My design career began unexpectedly during an interview with
+              Phuong Vu, art director of Nirvana and founder of Antiantiartat at
+              a TeamX Hanoi event in 2022. I was deeply inspired by his stories
+              and the projects he was working on at the time. That moment
+              sparked something in me, and in the early days, I chose to pursue
+              the path of a graphic designer
+              <p className='mt-[16px] text-[20px]'>
+                A photo with Phuong Vu and the TeamX Hanoi members at the
+                Antiantiart office
+              </p>
+            </div>
+          </div>
+          <div
+            id='section2_3'
+            className='relative h-[calc(100vh-64px)] bg-[url("/images/story/3.webp")] bg-cover bg-center bg-no-repeat flex-shrink-0'
+            style={{ width: `${windowWidth - 104}px` }}
+          >
+            <p className='w-full pl-[32px] pt-[48px] text-[40px] leading-[53px] text-[#C3B6A2]'>
+              With over{' '}
+              <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                3 years of experience
+              </span>{' '}
+              in design and more than 1 year specializing in UI/UX design, I am
+              currently living and working in{' '}
+              <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                Hanoi
+              </span>{' '}
+              as a product designer.{' '}
+            </p>
+            <div className='absolute bottom-[35px] right-[22px] w-[1505px] pl-[32px] pt-[48px] text-right text-[40px] leading-[53px] text-[#C3B6A2]'>
+              {`I'm`} passionate about creativity and dedicated to creating
+              meaningful value for the community through the{' '}
+              <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                products I design
+              </span>
+              <p className='mt-[16px] text-[20px]'>
+                Sunrise in my coastal city through my lens | by Thanh Quy Nguyen
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id='section3' className='h-screen'></div>
     </div>
   );
 };
