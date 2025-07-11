@@ -30,7 +30,7 @@ const MyStoryPage = () => {
     if (typeof window === 'undefined') return 0;
     const viewportWidth = window.innerWidth;
     const marginInPx = (6.5 * 16 * viewportWidth) / 1920; // Convert 6.5rem to px based on your scaling
-    return -(index * viewportWidth) + (index * marginInPx);
+    return -(index * viewportWidth) + index * marginInPx;
   };
 
   // useScrollSmoother();
@@ -308,11 +308,12 @@ const MyStoryPage = () => {
   }, [welcomeState]);
 
   return (
-    <div id='section' className='min-h-screen  bg-[url("/images/home/bg.png")] bg-cover bg-fixed bg-center bg-no-repeat text-[#F4E4CA]'>
+    <div
+      id='section'
+      className='min-h-screen bg-[url("/images/home/bg.png")] bg-cover bg-fixed bg-center bg-no-repeat text-[#F4E4CA]'
+    >
       {welcomeState === PAGE_STATE.HERO && (
-        <div
-          ref={containerRef}
-        >
+        <div ref={containerRef}>
           <div
             id='section1'
             className='relative flex h-screen flex-col items-center justify-center'
@@ -382,7 +383,7 @@ const MyStoryPage = () => {
                   <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
                     products I design
                   </span>
-                  <p className='mt-[1rem] text-[1.25rem]'>
+                  <p className='mt-[1rem] text-[1.25rem] opacity-70'>
                     Sunrise in my coastal city through my lens | by Thanh Quy
                     Nguyen
                   </p>
@@ -393,14 +394,26 @@ const MyStoryPage = () => {
                 className='relative h-[calc(100vh-4rem)] flex-shrink-0 bg-[url("/images/story/2.webp")] bg-cover bg-center bg-no-repeat'
                 style={{ width: 'calc(100vw - 6.5rem)' }}
               >
-                <div className='absolute bottom-[2.19rem] right-[1.38rem] w-full pl-[2rem] pt-[3rem] text-right text-[2.5rem] leading-[3.31rem] text-[#C3B6A2]'>
+                <CustomImage
+                  src='/images/story/pointer.webp'
+                  alt='scroll'
+                  className='absolute right-[41.5rem] top-[7rem] animate-bounce'
+                  width={78}
+                  height={64}
+                />
+                <div className='absolute bottom-[2.19rem] right-[1.38rem] w-full pl-[2rem] pt-[3rem] text-right text-[36px] leading-[2.7rem] text-[#C3B6A2]'>
                   My design career began unexpectedly during an interview with
                   Phuong Vu, art director of Nirvana and founder of
                   Antiantiartat at a TeamX Hanoi event in 2022. I was deeply
-                  inspired by his stories and the projects he was working on at
-                  the time. That moment sparked something in me, and in the
-                  early days, I chose to pursue the path of a graphic designer
-                  <p className='mt-[1rem] text-[1.25rem]'>
+                  <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                    inspired by his stories
+                  </span>{' '}
+                  and the projects he was working on at the time. That moment
+                  sparked something in me, and in the early days, I chose to
+                  <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                    pursue the path of a graphic designer
+                  </span>
+                  <p className='mt-[1rem] text-[1.25rem] opacity-70'>
                     A photo with Phuong Vu and the TeamX Hanoi members at the
                     Antiantiart office
                   </p>
@@ -411,29 +424,28 @@ const MyStoryPage = () => {
                 className='relative h-[calc(100vh-4rem)] flex-shrink-0 bg-[url("/images/story/3.webp")] bg-cover bg-center bg-no-repeat'
                 style={{ width: 'calc(100vw - 6.5rem)' }}
               >
-                <p className='w-full pl-[2rem] pt-[3rem] text-[2.5rem] leading-[3.31rem] text-[#C3B6A2]'>
-                  With over{' '}
+                <div className='absolute bottom-[2.19rem] right-[1.38rem] w-full pl-[2rem] pt-[3rem] text-right text-[36px] leading-[2.7rem] text-[#C3B6A2]'>
+                  After about a year and a half, I realized that designing
                   <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
-                    3 years of experience
+                    websites and apps-crafting
                   </span>{' '}
-                  in design and more than 1 year specializing in UI/UX design, I
-                  am currently living and working in{' '}
+                  user flows and creating meaningful experiences for
+                  users-sparked a{' '}
                   <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
-                    Hanoi
-                  </span>{' '}
-                  as a product designer.{' '}
-                </p>
-                <div className='absolute bottom-[2.19rem] right-[1.38rem] w-full max-w-[93.94rem] pl-[2rem] pt-[3rem] text-right text-[2.5rem] leading-[3.31rem] text-[#C3B6A2]'>
-                  {`I'm`} passionate about creativity and dedicated to creating
-                  meaningful value for the community through the{' '}
-                  <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
-                    products I design
+                    deep curiosity in me
                   </span>
-                  <p className='mt-[1rem] text-[1.25rem]'>
-                    Sunrise in my coastal city through my lens | by Thanh Quy
-                    Nguyen
+                  . The process of improving user interfaces and shaping how
+                  people interact with digital products made me feel more
+                  connected to the design journey, and I knew it was something I
+                  wanted to pursue{' '}
+                  <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                    in the long term{' '}
+                  </span>
+                  <p className='mt-[1rem] text-[1.25rem] opacity-70'>
+                    Image taken from the Shin404 project - One of the projects
+                    I’ve worked on.
                   </p>
-                </div>
+                </div>{' '}
               </div>
             </div>
           </div>

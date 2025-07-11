@@ -22,6 +22,7 @@ import useStore from '@/store';
 import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import useCustomRouter from '@/hook/useCustomRouter';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -67,16 +68,16 @@ const CVPage = () => {
         },
         '-=0.8'
       )
-    //   .from(
-    //     '.hero-subtitle',
-    //     {
-    //       duration: 0.8,
-    //       y: 50,
-    //       opacity: 0,
-    //       ease: 'elastic.out(1, 0.8)',
-    //     },
-    //     '-=0.5'
-    //   )
+      //   .from(
+      //     '.hero-subtitle',
+      //     {
+      //       duration: 0.8,
+      //       y: 50,
+      //       opacity: 0,
+      //       ease: 'elastic.out(1, 0.8)',
+      //     },
+      //     '-=0.5'
+      //   )
       .from(
         '.social-icon',
         {
@@ -87,7 +88,7 @@ const CVPage = () => {
           stagger: 0.1,
         },
         '-=0.3'
-      )
+      );
     //   .from(
     //     '.contact-info',
     //     {
@@ -259,6 +260,7 @@ const CVPage = () => {
       ease: 'power3.out',
     });
   };
+  const customRouter = useCustomRouter();
 
   return (
     <div
@@ -271,7 +273,12 @@ const CVPage = () => {
           <div className='flex items-end justify-between'>
             <div className=''>
               <div className='flex items-center gap-[17px]'>
-                <h1 className='hero-name text-[40px] font-[600px]'>
+                <h1
+                  onClick={() => {
+                    customRouter.push('/');
+                  }}
+                  className='hero-name cursor-pointer text-[40px] font-[600px]'
+                >
                   Thanh Quy Nguyen
                 </h1>
                 <CustomImage
