@@ -6,6 +6,7 @@ import useScrollSmoother from '@/hook/useScrollSmoother';
 import React, { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import Footer from '@/components/Footer';
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -46,7 +47,9 @@ const MyStoryPage = () => {
             ? 'section2'
             : window.scrollY < window.innerHeight * 3
               ? 'section3'
-              : 'section4';
+              : window.scrollY < window.innerHeight * 4
+                ? 'section4'
+                : 'footer';
 
       // Prevent all scrolling in section2 and section3
       if (currentSection === 'section2' || currentSection === 'section3') {
@@ -243,7 +246,7 @@ const MyStoryPage = () => {
           e.preventDefault();
           // Go back to section3 with last image
           currentImageIndex.current = maxImageIndex;
-          
+
           // Reset all images first
           imageRefs.current.forEach((ref, index) => {
             if (ref) {
@@ -255,7 +258,7 @@ const MyStoryPage = () => {
               });
             }
           });
-          
+
           // Then scroll to section3
           gsap.to(window, {
             duration: 1.2,
@@ -266,9 +269,11 @@ const MyStoryPage = () => {
             },
           });
         } else {
+          // Allow free scrolling down to footer
           isScrolling.current = false;
         }
       } else {
+        // In footer section, allow free scrolling
         isScrolling.current = false;
       }
     };
@@ -319,6 +324,7 @@ const MyStoryPage = () => {
           alt='scroll'
           width={1112.6}
           height={571}
+          unoptimized
         />
         <CustomImage
           src='/images/loading/tqn.gif'
@@ -584,6 +590,7 @@ const MyStoryPage = () => {
           ALL RIGHTS RESERVED <br /> © 2025 TQNG MARUKO
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
