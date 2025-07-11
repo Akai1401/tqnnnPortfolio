@@ -18,6 +18,10 @@ const MyStoryPage = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const horizontalContainerRef = useRef<HTMLDivElement>(null);
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const animatePanelTextsRef = useRef<((panelIndex: number) => void) | null>(
+    null
+  );
+  const section2InitializedRef = useRef(false);
   const isScrolling = useRef(false);
   const currentPanelIndex = useRef(0);
   const currentImageIndex = useRef(0);
@@ -72,6 +76,12 @@ const MyStoryPage = () => {
             ease: 'power2.inOut',
             onComplete: () => {
               isScrolling.current = false;
+              // Trigger initial section2 animation when first entering
+              if (animatePanelTextsRef.current) {
+                setTimeout(() => {
+                  animatePanelTextsRef.current!(0);
+                }, 50);
+              }
             },
           });
         } else {
@@ -85,11 +95,15 @@ const MyStoryPage = () => {
           if (currentPanelIndex.current < maxPanelIndex) {
             currentPanelIndex.current++;
             gsap.to(horizontalContainer, {
-              duration: 1,
+              duration: 1.0,
               x: getPanelOffset(currentPanelIndex.current),
               ease: 'power2.inOut',
               onComplete: () => {
                 isScrolling.current = false;
+                // Trigger text animation for the new panel
+                if (animatePanelTextsRef.current) {
+                  animatePanelTextsRef.current(currentPanelIndex.current);
+                }
               },
             });
           } else {
@@ -108,7 +122,7 @@ const MyStoryPage = () => {
           if (currentPanelIndex.current > 0) {
             currentPanelIndex.current--;
             gsap.to(horizontalContainer, {
-              duration: 1,
+              duration: 1.0,
               x: getPanelOffset(currentPanelIndex.current),
               ease: 'power2.inOut',
               onComplete: () => {
@@ -307,6 +321,292 @@ const MyStoryPage = () => {
     });
   }, [welcomeState]);
 
+  // Section 1 entrance animations
+  useEffect(() => {
+    if (welcomeState !== PAGE_STATE.HERO) {
+      return;
+    }
+
+    // Set initial states for all elements
+    gsap.set('.section1-title', {
+      opacity: 0,
+      y: 30,
+      scale: 0.9,
+    });
+
+    gsap.set('.section1-subtitle', {
+      opacity: 0,
+      y: 40,
+      scale: 0.9,
+    });
+
+    gsap.set('.section1-bg-image', {
+      opacity: 0,
+      scale: 0.8,
+      rotation: -2,
+    });
+
+    gsap.set('.section1-gif-image', {
+      opacity: 0,
+      scale: 0.7,
+      rotation: 5,
+    });
+
+    gsap.set('.section1-scroll-icon', {
+      opacity: 0,
+      x: 30,
+      rotation: 10,
+    });
+
+    gsap.set('.section1-social-buttons', {
+      opacity: 0,
+      y: 50,
+      x: -30,
+    });
+
+    gsap.set('.section1-footer', {
+      opacity: 0,
+      y: 30,
+      x: 30,
+    });
+
+    // Create entrance timeline
+    const tl = gsap.timeline({ delay: 0.2 });
+
+    tl
+      // Title appears first with bounce
+      .to('.section1-title', {
+        duration: 0.8,
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        ease: 'back.out(1.7)',
+      })
+      // Subtitle follows with smooth ease
+      .to(
+        '.section1-subtitle',
+        {
+          duration: 0.6,
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          ease: 'power2.out',
+        },
+        '-=0.5'
+      )
+      // Background image appears with rotation
+      .to(
+        '.section1-bg-image',
+        {
+          duration: 0.8,
+          opacity: 1,
+          scale: 1,
+          rotation: 0,
+          ease: 'power2.out',
+        },
+        '-=0.4'
+      )
+      // GIF image bounces in
+      .to(
+        '.section1-gif-image',
+        {
+          duration: 0.8,
+          opacity: 1,
+          scale: 1,
+          rotation: 0,
+          ease: 'back.out(1.5)',
+        },
+        '-=0.6'
+      )
+      // Scroll icon slides in from right with rotation
+      .to(
+        '.section1-scroll-icon',
+        {
+          duration: 0.5,
+          opacity: 1,
+          x: 0,
+          rotation: 0,
+          ease: 'power2.out',
+        },
+        '-=0.3'
+      )
+      // Social buttons and footer appear together
+      .to(
+        '.section1-social-buttons',
+        {
+          duration: 0.5,
+          opacity: 1,
+          y: 0,
+          x: 0,
+          ease: 'power2.out',
+        },
+        '-=0.2'
+      )
+      .to(
+        '.section1-footer',
+        {
+          duration: 0.5,
+          opacity: 1,
+          y: 0,
+          x: 0,
+          ease: 'power2.out',
+        },
+        '-=0.5'
+      );
+
+    return () => {
+      tl.kill();
+    };
+  }, [welcomeState]);
+
+  // Section 2 text animations
+  useEffect(() => {
+    if (welcomeState !== PAGE_STATE.HERO) {
+      return;
+    }
+
+    // Set initial states for section2 texts
+    gsap.set('.section2-text-1', {
+      opacity: 0,
+      y: 50,
+      scale: 0.95,
+    });
+
+    gsap.set('.section2-text-2', {
+      opacity: 0,
+      y: 50,
+      scale: 0.95,
+    });
+
+    gsap.set('.section2-text-3', {
+      opacity: 0,
+      y: 50,
+      scale: 0.95,
+    });
+
+    gsap.set('.section2-caption-1', {
+      opacity: 0,
+      y: 30,
+    });
+
+    gsap.set('.section2-caption-2', {
+      opacity: 0,
+      y: 30,
+    });
+
+    gsap.set('.section2-caption-3', {
+      opacity: 0,
+      y: 30,
+    });
+
+    gsap.set('.section2-pointer', {
+      opacity: 0,
+      scale: 0.5,
+      rotation: 15,
+    });
+
+    // Set initial states for section2 panels
+    gsap.set('.section2-panel', {
+      opacity: 0,
+      scale: 0.95,
+      y: 30,
+    });
+
+    // Function to animate panel texts when they come into view
+    const animatePanelTexts = (panelIndex: number) => {
+      const tl = gsap.timeline();
+
+      // First time entering section2 - animate the panel backgrounds
+      if (panelIndex === 0 && !section2InitializedRef.current) {
+        section2InitializedRef.current = true;
+        tl.to('.section2-panel', {
+          duration: 0.5,
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          ease: 'power2.out',
+          stagger: 0.1,
+        });
+      }
+
+      if (panelIndex === 0) {
+        const textDelay = section2InitializedRef.current ? 0 : 0.1;
+        tl.to('.section2-text-1', {
+          duration: 0.8,
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          ease: 'power2.out',
+          delay: textDelay,
+        }).to(
+          '.section2-caption-1',
+          {
+            duration: 0.5,
+            opacity: 1,
+            y: 0,
+            ease: 'power2.out',
+          },
+          '-=0.3'
+        );
+      } else if (panelIndex === 1) {
+        tl.to('.section2-pointer', {
+          duration: 0.5,
+          opacity: 1,
+          scale: 1,
+          rotation: 0,
+          ease: 'back.out(1.7)',
+        })
+          .to(
+            '.section2-text-2',
+            {
+              duration: 0.8,
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              ease: 'power2.out',
+            },
+            '-=0.3'
+          )
+          .to(
+            '.section2-caption-2',
+            {
+              duration: 0.5,
+              opacity: 1,
+              y: 0,
+              ease: 'power2.out',
+            },
+            '-=0.3'
+          );
+      } else if (panelIndex === 2) {
+        tl.to('.section2-text-3', {
+          duration: 0.8,
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          ease: 'power2.out',
+        }).to(
+          '.section2-caption-3',
+          {
+            duration: 0.5,
+            opacity: 1,
+            y: 0,
+            ease: 'power2.out',
+          },
+          '-=0.3'
+        );
+      }
+    };
+
+    // Store the animation function for use in wheel handler
+    animatePanelTextsRef.current = animatePanelTexts;
+
+    // Don't auto-animate on mount, wait for scroll trigger
+
+    return () => {
+      animatePanelTextsRef.current = null;
+    };
+  }, [welcomeState]);
+
   return (
     <div
       id='section'
@@ -318,8 +618,10 @@ const MyStoryPage = () => {
             id='section1'
             className='relative flex h-screen flex-col items-center justify-center'
           >
-            <p className='text-[20px] font-[400]'>[ My story ]</p>
-            <p className='text-[64px] font-[600]'>
+            <p className='section1-title text-[20px] font-[400]'>
+              [ My story ]
+            </p>
+            <p className='section1-subtitle text-[32px] font-[600]'>
               Guess who’s back? Still designing, still caffeinated
             </p>{' '}
             <CustomImage
@@ -328,26 +630,27 @@ const MyStoryPage = () => {
               width={1112.6}
               height={571}
               unoptimized
+              className='section1-bg-image'
             />
             <CustomImage
               src='/images/loading/tqn.gif'
               alt='progress'
               width={799}
               height={464}
-              className='absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%]'
+              className='section1-gif-image absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%]'
             />
             <CustomImage
               src='/images/story/scroll.webp'
               alt='scroll'
-              className='absolute right-[48.58px] top-[50%] -translate-y-[50%]'
+              className='section1-scroll-icon absolute right-[48.58px] top-[50%] -translate-y-[50%]'
               width={20.85}
               height={120}
             />
             <SocialButtons
-              className='absolute bottom-[2rem] left-[3rem] max-w-[400px] flex-wrap'
+              className='section1-social-buttons absolute bottom-[2rem] left-[3rem] max-w-[400px] flex-wrap'
               socialRefs={socialRefs}
             />
-            <div className='footer-content absolute bottom-[2rem] right-[3rem] text-[16px] font-[400] text-[#F4E4CA]'>
+            <div className='section1-footer footer-content absolute bottom-[2rem] right-[3rem] text-[16px] font-[400] text-[#F4E4CA]'>
               ALL RIGHTS RESERVED <br /> © 2025 TQNG MARUKO
             </div>
           </div>
@@ -362,10 +665,10 @@ const MyStoryPage = () => {
             >
               <div
                 id='section2_1'
-                className='relative h-[calc(100vh-4rem)] flex-shrink-0 bg-[url("/images/story/1.webp")] bg-cover bg-center bg-no-repeat'
+                className='section2-panel relative h-[calc(100vh-4rem)] flex-shrink-0 bg-[url("/images/story/1.webp")] bg-cover bg-center bg-no-repeat'
                 style={{ width: 'calc(100vw - 6.5rem)' }}
               >
-                <p className='w-full max-w-[93.94rem] pl-[2rem] pt-[3rem] text-[2.5rem] leading-[3.31rem] text-[#C3B6A2]'>
+                <p className='section2-text-1 w-full max-w-[93.94rem] pl-[2rem] pt-[3rem] text-[2.5rem] leading-[3.31rem] text-[#C3B6A2]'>
                   With over{' '}
                   <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
                     3 years of experience
@@ -377,13 +680,13 @@ const MyStoryPage = () => {
                   </span>{' '}
                   as a product designer.{' '}
                 </p>
-                <div className='absolute bottom-[2.19rem] right-[1.38rem] w-full max-w-[93.94rem] pl-[2rem] pt-[3rem] text-right text-[2.5rem] leading-[3.31rem] text-[#C3B6A2]'>
+                <div className='section2-text-1 absolute bottom-[2.19rem] right-[1.38rem] w-full max-w-[93.94rem] pl-[2rem] pt-[3rem] text-right text-[2.5rem] leading-[3.31rem] text-[#C3B6A2]'>
                   {`I'm`} passionate about creativity and dedicated to creating
                   meaningful value for the community through the{' '}
                   <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
                     products I design
                   </span>
-                  <p className='mt-[1rem] text-[1.25rem] opacity-70'>
+                  <p className='section2-caption-1 mt-[1rem] text-[1.25rem] opacity-70'>
                     Sunrise in my coastal city through my lens | by Thanh Quy
                     Nguyen
                   </p>
@@ -391,21 +694,22 @@ const MyStoryPage = () => {
               </div>
               <div
                 id='section2_2'
-                className='relative h-[calc(100vh-4rem)] flex-shrink-0 bg-[url("/images/story/2.webp")] bg-cover bg-center bg-no-repeat'
+                className='section2-panel relative h-[calc(100vh-4rem)] flex-shrink-0 bg-[url("/images/story/2.webp")] bg-cover bg-center bg-no-repeat'
                 style={{ width: 'calc(100vw - 6.5rem)' }}
               >
                 <CustomImage
                   src='/images/story/pointer.webp'
                   alt='scroll'
-                  className='absolute right-[41.5rem] top-[7rem] animate-bounce'
+                  className='section2-pointer absolute right-[41.5rem] top-[7rem] animate-bounce'
                   width={78}
                   height={64}
                 />
-                <div className='absolute bottom-[2.19rem] right-[1.38rem] w-full pl-[2rem] pt-[3rem] text-right text-[36px] leading-[2.7rem] text-[#C3B6A2]'>
+                <div className='section2-text-2 absolute bottom-[2.19rem] right-[1.38rem] w-full pl-[2rem] pt-[3rem] text-right text-[36px] leading-[2.7rem] text-[#C3B6A2]'>
                   My design career began unexpectedly during an interview with
                   Phuong Vu, art director of Nirvana and founder of
                   Antiantiartat at a TeamX Hanoi event in 2022. I was deeply
                   <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
+                    {' '}
                     inspired by his stories
                   </span>{' '}
                   and the projects he was working on at the time. That moment
@@ -413,7 +717,7 @@ const MyStoryPage = () => {
                   <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
                     pursue the path of a graphic designer
                   </span>
-                  <p className='mt-[1rem] text-[1.25rem] opacity-70'>
+                  <p className='section2-caption-2 mt-[1rem] text-[1.25rem] opacity-70'>
                     A photo with Phuong Vu and the TeamX Hanoi members at the
                     Antiantiart office
                   </p>
@@ -421,10 +725,10 @@ const MyStoryPage = () => {
               </div>
               <div
                 id='section2_3'
-                className='relative h-[calc(100vh-4rem)] flex-shrink-0 bg-[url("/images/story/3.webp")] bg-cover bg-center bg-no-repeat'
+                className='section2-panel relative h-[calc(100vh-4rem)] flex-shrink-0 bg-[url("/images/story/3.webp")] bg-cover bg-center bg-no-repeat'
                 style={{ width: 'calc(100vw - 6.5rem)' }}
               >
-                <div className='absolute bottom-[2.19rem] right-[1.38rem] w-full pl-[2rem] pt-[3rem] text-right text-[36px] leading-[2.7rem] text-[#C3B6A2]'>
+                <div className='section2-text-3 absolute bottom-[2.19rem] right-[1.38rem] w-full pl-[2rem] pt-[3rem] text-right text-[36px] leading-[2.7rem] text-[#C3B6A2]'>
                   After about a year and a half, I realized that designing
                   <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
                     websites and apps-crafting
@@ -441,7 +745,7 @@ const MyStoryPage = () => {
                   <span className='underline transition-all duration-300 hover:text-[#F4E4CA]'>
                     in the long term{' '}
                   </span>
-                  <p className='mt-[1rem] text-[1.25rem] opacity-70'>
+                  <p className='section2-caption-3 mt-[1rem] text-[1.25rem] opacity-70'>
                     Image taken from the Shin404 project - One of the projects
                     I’ve worked on.
                   </p>
@@ -566,14 +870,164 @@ const MyStoryPage = () => {
                 about Thanh Quy Nguyen (update on Jul 2025)
               </p>
               <div className='mt-[32px] text-[32px]'>
-                grew up by the <span>sea</span> and dream to stay passionate
-                about <span>deep talk</span> with friends a{' '}
-                <span>chess lover </span> who’s always down for 1 more game{' '}
-                <span>fireworks with fami</span>
-                ly is my favorite moment
-                <span>photobooth with friends</span> is so cute and worth one of
-                a biggest fans of <span>Son Tung M-TP </span>
-                and would be a <span>producer</span> if money didn’t matter
+                <p className='flex items-center justify-end gap-[0.5rem]'>
+                  grew up by the{' '}
+                  <span className='group flex items-center gap-[0.5rem] text-[#555047] transition-all duration-[500ms] hover:text-[#F4E4CA] hover:underline'>
+                    sea
+                    <div className='relative h-[61.8px] w-[37px]'>
+                      <CustomImage
+                        src='/images/story/iconColor/1.webp'
+                        alt='seven'
+                        width={37}
+                        height={61.8}
+                        className='absolute inset-0 z-10 opacity-0 transition-all duration-[500ms] group-hover:opacity-100'
+                      />
+                      <CustomImage
+                        src='/images/story/iconNoColor/1.webp'
+                        alt='seven'
+                        width={37}
+                        height={61.8}
+                        className='absolute inset-0'
+                      />
+                    </div>
+                  </span>{' '}
+                  and dream to stay
+                </p>
+                <p className='flex items-center justify-end gap-[0.5rem]'>
+                  passionate about{' '}
+                  <span className='group flex items-center gap-[0.5rem] text-[#555047] transition-all duration-[500ms] hover:text-[#F4E4CA] hover:underline'>
+                    deep talk
+                    <div className='relative h-[32px] w-[42.11px]'>
+                      <CustomImage
+                        src='/images/story/iconColor/2.webp'
+                        alt='seven'
+                        width={42.11}
+                        height={32}
+                        className='absolute inset-0 z-10 opacity-0 transition-all duration-[500ms] group-hover:opacity-100'
+                      />
+                      <CustomImage
+                        src='/images/story/iconNoColor/2.webp'
+                        alt='seven'
+                        width={42.11}
+                        height={32}
+                        className='absolute inset-0'
+                      />
+                    </div>
+                  </span>{' '}
+                  with friends
+                </p>{' '}
+                <p className='flex items-center justify-end gap-[0.5rem]'>
+                  a{' '}
+                  <span className='group flex items-center gap-[0.5rem] text-[#555047] transition-all duration-[500ms] hover:text-[#F4E4CA] hover:underline'>
+                    chess lover{' '}
+                    <div className='relative h-[41.16px] w-[32px]'>
+                      <CustomImage
+                        src='/images/story/iconColor/3.webp'
+                        alt='seven'
+                        width={23}
+                        height={41.16}
+                        className='absolute inset-0 z-10 opacity-0 transition-all duration-[500ms] group-hover:opacity-100'
+                      />
+                      <CustomImage
+                        src='/images/story/iconNoColor/3.webp'
+                        alt='seven'
+                        width={23}
+                        height={41.16}
+                        className='absolute inset-0'
+                      />
+                    </div>
+                  </span>{' '}
+                  who’s always down for 1 more game
+                </p>{' '}
+                <p className='flex items-center justify-end gap-[0.5rem]'>
+                  <span className='group flex items-center gap-[0.5rem] text-[#555047] transition-all duration-[500ms] hover:text-[#F4E4CA] hover:underline'>
+                    fireworks with family
+                    <div className='relative h-[37px] w-[34px]'>
+                      <CustomImage
+                        src='/images/story/iconColor/4.webp'
+                        alt='seven'
+                        width={34}
+                        height={37}
+                        className='absolute inset-0 z-10 opacity-0 transition-all duration-[500ms] group-hover:opacity-100'
+                      />
+                      <CustomImage
+                        src='/images/story/iconNoColor/4.webp'
+                        alt='seven'
+                        width={34}
+                        height={37}
+                        className='absolute inset-0'
+                      />
+                    </div>
+                  </span>
+                  is my favorite moment
+                </p>
+                <p className='flex items-center justify-end gap-[0.5rem]'>
+                  <span className='group flex items-center gap-[0.5rem] text-[#555047] transition-all duration-[500ms] hover:text-[#F4E4CA] hover:underline'>
+                    photobooth with friends{' '}
+                    <div className='relative h-[33px] w-[37px]'>
+                      <CustomImage
+                        src='/images/story/iconColor/5.webp'
+                        alt='seven'
+                        width={37}
+                        height={33}
+                        className='absolute inset-0 z-10 opacity-0 transition-all duration-[500ms] group-hover:opacity-100'
+                      />
+                      <CustomImage
+                        src='/images/story/iconNoColor/5.webp'
+                        alt='seven'
+                        width={37}
+                        height={33}
+                        className='absolute inset-0'
+                      />
+                    </div>
+                  </span>{' '}
+                  is so cute and worth{' '}
+                </p>{' '}
+                <p className='flex items-center justify-end gap-[0.5rem]'>
+                  one of a biggest fans of{' '}
+                  <span className='group flex items-center gap-[0.5rem] text-[#555047] transition-all duration-[500ms] hover:text-[#F4E4CA] hover:underline'>
+                    Son Tung M-TP{' '}
+                    <div className='relative h-[43px] w-[20px]'>
+                      <CustomImage
+                        src='/images/story/iconColor/6.webp'
+                        alt='seven'
+                        width={20}
+                        height={43}
+                        className='absolute inset-0 z-10 opacity-0 transition-all duration-[500ms] group-hover:opacity-100'
+                      />
+                      <CustomImage
+                        src='/images/story/iconNoColor/6.webp'
+                        alt='seven'
+                        width={20}
+                        height={43}
+                        className='absolute inset-0'
+                      />
+                    </div>
+                  </span>
+                </p>
+                <p className='flex items-center justify-end gap-[0.5rem]'>
+                  and would be a{' '}
+                  <span className='group flex items-center gap-[0.5rem] text-[#555047] transition-all duration-[500ms] hover:text-[#F4E4CA] hover:underline'>
+                    producer{' '}
+                    <div className='relative h-[41px] w-[39px]'>
+                      <CustomImage
+                        src='/images/story/iconColor/7.webp'
+                        alt='seven'
+                        width={39}
+                        height={41}
+                        className='absolute inset-0 z-10 opacity-0 transition-all duration-[500ms] group-hover:opacity-100'
+                      />
+                      <CustomImage
+                        src='/images/story/iconNoColor/7.webp'
+                        alt='seven'
+                        width={39}
+                        height={41}
+                        className='absolute inset-0'
+                      />
+                    </div>
+                  </span>{' '}
+                  if money didn’t matter{' '}
+                </p>
               </div>
             </div>
             <p className='absolute bottom-[42px] right-[52px] text-[16px] font-[400]'>
@@ -587,7 +1041,7 @@ const MyStoryPage = () => {
             <p className='text-[20px] font-[400]'>
               [ About awards and praise ]
             </p>
-            <p className='text-[64px] font-[600]'>Coming soon hihi</p>{' '}
+            <p className='text-[32px] font-[600]'>Coming soon hihi</p>{' '}
             <CustomImage
               src='/images/story/bg2.webp'
               alt='scroll'
