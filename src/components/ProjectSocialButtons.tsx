@@ -47,6 +47,8 @@ const ProjectSocialButtons = ({
               {key === 'YOUTUBE' && 'Youtube'}
               {key === 'VIEW_LANDING_PAGE' && 'View Landing Page'}
               {key === 'VIEW_FULL_CALENDAR' && 'View Full Calendar'}
+              {key === 'VIEW_MORE_PROJECT' && 'View More Project'}
+              {key === 'BEHANCE' && 'Behance'}
             </span>
             <IconArrow
               className='relative z-10 transition-all duration-300 group-hover:rotate-45'

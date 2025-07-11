@@ -19,5 +19,8 @@ export const INFO = {
     LUXE: 'https://www.figma.com/proto/5UFcvVNw5cX5yOUTuoiP9h/LuxeTimber-%7C-Wood-Interior-PJ--Copy-?page-id=2030%3A1908&node-id=2030-1909&viewport=297%2C273%2C0.11&t=J2JYstmr5uM66jPQ-1&scaling=scale-down-width&content-scaling=fixed&starting-point-node-id=2030%3A1909',
     CALENDAR:
       'https://drive.google.com/file/d/1AEbVls7xhddnYZzeffD3PwBEvwy3GxBa/view',
+    LOGOS: 'https://www.behance.net/thanhquynguyen',
+    ETERNA:
+      'https://www.behance.net/gallery/214166055/UIUX-Eternic-Skin-Clinic-Website-Design',
   },
 };
