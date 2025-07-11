@@ -44,7 +44,9 @@ const MyStoryPage = () => {
           ? 'section1'
           : window.scrollY < window.innerHeight * 2
             ? 'section2'
-            : 'section3';
+            : window.scrollY < window.innerHeight * 3
+              ? 'section3'
+              : 'section4';
 
       // Prevent all scrolling in section2 and section3
       if (currentSection === 'section2' || currentSection === 'section3') {
@@ -128,7 +130,7 @@ const MyStoryPage = () => {
           if (currentImageIndex.current < maxImageIndex) {
             const currentImage = imageRefs.current[currentImageIndex.current];
             const nextImage = imageRefs.current[currentImageIndex.current + 1];
-            
+
             if (currentImage && nextImage) {
               // Animate current image out with dramatic effect
               gsap.to(currentImage, {
@@ -139,7 +141,7 @@ const MyStoryPage = () => {
                 filter: 'blur(8px)',
                 ease: 'power2.inOut',
               });
-              
+
               // Set next image initial state
               gsap.set(nextImage, {
                 opacity: 0,
@@ -147,7 +149,7 @@ const MyStoryPage = () => {
                 rotation: 5,
                 filter: 'blur(8px)',
               });
-              
+
               // Animate next image in
               gsap.to(nextImage, {
                 duration: 0.8,
@@ -161,18 +163,25 @@ const MyStoryPage = () => {
                 },
               });
             }
-            
+
             currentImageIndex.current++;
           } else {
-            // At last image, stay there
-            isScrolling.current = false;
+            // At last image, go to section4
+            gsap.to(window, {
+              duration: 1.2,
+              scrollTo: '#section4',
+              ease: 'power2.inOut',
+              onComplete: () => {
+                isScrolling.current = false;
+              },
+            });
           }
         } else {
           // Show previous image with cool transition
           if (currentImageIndex.current > 0) {
             const currentImage = imageRefs.current[currentImageIndex.current];
             const prevImage = imageRefs.current[currentImageIndex.current - 1];
-            
+
             if (currentImage && prevImage) {
               // Animate current image out with dramatic effect
               gsap.to(currentImage, {
@@ -183,7 +192,7 @@ const MyStoryPage = () => {
                 filter: 'blur(8px)',
                 ease: 'power2.inOut',
               });
-              
+
               // Set previous image initial state
               gsap.set(prevImage, {
                 opacity: 0,
@@ -191,7 +200,7 @@ const MyStoryPage = () => {
                 rotation: -5,
                 filter: 'blur(8px)',
               });
-              
+
               // Animate previous image in
               gsap.to(prevImage, {
                 duration: 0.8,
@@ -205,7 +214,7 @@ const MyStoryPage = () => {
                 },
               });
             }
-            
+
             currentImageIndex.current--;
           } else {
             // At first image, go back to section2 last panel
@@ -229,6 +238,36 @@ const MyStoryPage = () => {
             });
           }
         }
+      } else if (currentSection === 'section4') {
+        if (e.deltaY < 0) {
+          e.preventDefault();
+          // Go back to section3 with last image
+          currentImageIndex.current = maxImageIndex;
+          
+          // Reset all images first
+          imageRefs.current.forEach((ref, index) => {
+            if (ref) {
+              gsap.set(ref, {
+                opacity: index === maxImageIndex ? 1 : 0,
+                scale: 1,
+                rotation: 0,
+                filter: 'blur(0px)',
+              });
+            }
+          });
+          
+          // Then scroll to section3
+          gsap.to(window, {
+            duration: 1.2,
+            scrollTo: '#section3',
+            ease: 'power2.inOut',
+            onComplete: () => {
+              isScrolling.current = false;
+            },
+          });
+        } else {
+          isScrolling.current = false;
+        }
       } else {
         isScrolling.current = false;
       }
@@ -251,7 +290,7 @@ const MyStoryPage = () => {
     // Show only first image initially with proper setup
     imageRefs.current.forEach((ref, index) => {
       if (ref) {
-        gsap.set(ref, { 
+        gsap.set(ref, {
           opacity: index === 0 ? 1 : 0,
           scale: 1,
           rotation: 0,
@@ -394,7 +433,9 @@ const MyStoryPage = () => {
       >
         <div className='relative h-full w-[923px] overflow-hidden'>
           <div
-            ref={(el) => { imageRefs.current[0] = el; }}
+            ref={(el) => {
+              imageRefs.current[0] = el;
+            }}
             className='absolute inset-0 will-change-transform'
           >
             <CustomImage
@@ -407,7 +448,9 @@ const MyStoryPage = () => {
             />
           </div>
           <div
-            ref={(el) => { imageRefs.current[1] = el; }}
+            ref={(el) => {
+              imageRefs.current[1] = el;
+            }}
             className='absolute inset-0 will-change-transform'
           >
             <CustomImage
@@ -420,7 +463,9 @@ const MyStoryPage = () => {
             />
           </div>
           <div
-            ref={(el) => { imageRefs.current[2] = el; }}
+            ref={(el) => {
+              imageRefs.current[2] = el;
+            }}
             className='absolute inset-0 will-change-transform'
           >
             <CustomImage
@@ -433,7 +478,9 @@ const MyStoryPage = () => {
             />
           </div>
           <div
-            ref={(el) => { imageRefs.current[3] = el; }}
+            ref={(el) => {
+              imageRefs.current[3] = el;
+            }}
             className='absolute inset-0 will-change-transform'
           >
             <CustomImage
@@ -446,7 +493,9 @@ const MyStoryPage = () => {
             />
           </div>
           <div
-            ref={(el) => { imageRefs.current[4] = el; }}
+            ref={(el) => {
+              imageRefs.current[4] = el;
+            }}
             className='absolute inset-0 will-change-transform'
           >
             <CustomImage
@@ -459,7 +508,9 @@ const MyStoryPage = () => {
             />
           </div>
           <div
-            ref={(el) => { imageRefs.current[5] = el; }}
+            ref={(el) => {
+              imageRefs.current[5] = el;
+            }}
             className='absolute inset-0 will-change-transform'
           >
             <CustomImage
@@ -472,7 +523,9 @@ const MyStoryPage = () => {
             />
           </div>
           <div
-            ref={(el) => { imageRefs.current[6] = el; }}
+            ref={(el) => {
+              imageRefs.current[6] = el;
+            }}
             className='absolute inset-0 will-change-transform'
           >
             <CustomImage
@@ -503,6 +556,33 @@ const MyStoryPage = () => {
         <p className='absolute bottom-[42px] right-[52px] text-[16px] font-[400]'>
           ALL RIGHTS RESERVED © 2025 TQNG MARUKO
         </p>
+      </div>
+      <div
+        id='section4'
+        className='relative flex h-screen flex-col items-center justify-center'
+      >
+        <p className='text-[20px] font-[400]'>[ About awards and praise ]</p>
+        <p className='text-[64px] font-[600]'>Coming soon hihi</p>{' '}
+        <CustomImage
+          src='/images/story/bg2.webp'
+          alt='scroll'
+          width={1112.6}
+          height={571}
+        />
+        <CustomImage
+          src='/images/loading/tqn.gif'
+          alt='progress'
+          width={799}
+          height={464}
+          className='absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%]'
+        />
+        <SocialButtons
+          className='absolute bottom-[2rem] left-[3rem] max-w-[400px] flex-wrap'
+          socialRefs={socialRefs}
+        />
+        <div className='footer-content absolute bottom-[2rem] right-[3rem] text-[16px] font-[400] text-[#F4E4CA]'>
+          ALL RIGHTS RESERVED <br /> © 2025 TQNG MARUKO
+        </div>
       </div>
     </div>
   );
