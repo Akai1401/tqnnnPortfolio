@@ -13,9 +13,12 @@ const MyStoryPage = () => {
   const socialRefs = useRef([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const horizontalContainerRef = useRef<HTMLDivElement>(null);
+  const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
   const isScrolling = useRef(false);
   const currentPanelIndex = useRef(0);
+  const currentImageIndex = useRef(0);
   const maxPanelIndex = 2; // 3 panels (0, 1, 2)
+  const maxImageIndex = 6; // 7 images (0-6: one, two, three, four, five, six, seven)
   const [windowWidth, setWindowWidth] = useState(1920);
 
   // useScrollSmoother();
@@ -24,11 +27,11 @@ const MyStoryPage = () => {
     // Set initial window width
     if (typeof window !== 'undefined') {
       setWindowWidth(window.innerWidth);
-      
+
       const handleResize = () => {
         setWindowWidth(window.innerWidth);
       };
-      
+
       window.addEventListener('resize', handleResize);
       return () => window.removeEventListener('resize', handleResize);
     }
@@ -37,16 +40,20 @@ const MyStoryPage = () => {
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       const currentSection =
-        window.scrollY < window.innerHeight ? 'section1' : 'section2';
+        window.scrollY < window.innerHeight
+          ? 'section1'
+          : window.scrollY < window.innerHeight * 2
+            ? 'section2'
+            : 'section3';
 
-      // Prevent all scrolling in section2
-      if (currentSection === 'section2') {
+      // Prevent all scrolling in section2 and section3
+      if (currentSection === 'section2' || currentSection === 'section3') {
         e.preventDefault();
         e.stopPropagation();
       }
 
       if (isScrolling.current) return;
-      
+
       isScrolling.current = true;
 
       if (currentSection === 'section1') {
@@ -67,7 +74,7 @@ const MyStoryPage = () => {
       } else if (currentSection === 'section2') {
         const horizontalContainer = horizontalContainerRef.current;
         const panelWidth = windowWidth - 104; // Subtract margin (52px * 2)
-        
+
         if (e.deltaY > 0) {
           // Scroll right (next panel)
           if (currentPanelIndex.current < maxPanelIndex) {
@@ -81,8 +88,15 @@ const MyStoryPage = () => {
               },
             });
           } else {
-            // Stay at last panel
-            isScrolling.current = false;
+            // At last panel, go to section3
+            gsap.to(window, {
+              duration: 1.2,
+              scrollTo: '#section3',
+              ease: 'power2.inOut',
+              onComplete: () => {
+                isScrolling.current = false;
+              },
+            });
           }
         } else {
           // Scroll left (previous panel)
@@ -108,6 +122,113 @@ const MyStoryPage = () => {
             });
           }
         }
+      } else if (currentSection === 'section3') {
+        if (e.deltaY > 0) {
+          // Show next image with cool transition
+          if (currentImageIndex.current < maxImageIndex) {
+            const currentImage = imageRefs.current[currentImageIndex.current];
+            const nextImage = imageRefs.current[currentImageIndex.current + 1];
+            
+            if (currentImage && nextImage) {
+              // Animate current image out with dramatic effect
+              gsap.to(currentImage, {
+                duration: 0.8,
+                opacity: 0,
+                scale: 0.8,
+                rotation: -5,
+                filter: 'blur(8px)',
+                ease: 'power2.inOut',
+              });
+              
+              // Set next image initial state
+              gsap.set(nextImage, {
+                opacity: 0,
+                scale: 1.2,
+                rotation: 5,
+                filter: 'blur(8px)',
+              });
+              
+              // Animate next image in
+              gsap.to(nextImage, {
+                duration: 0.8,
+                opacity: 1,
+                scale: 1,
+                rotation: 0,
+                filter: 'blur(0px)',
+                ease: 'power2.out',
+                onComplete: () => {
+                  isScrolling.current = false;
+                },
+              });
+            }
+            
+            currentImageIndex.current++;
+          } else {
+            // At last image, stay there
+            isScrolling.current = false;
+          }
+        } else {
+          // Show previous image with cool transition
+          if (currentImageIndex.current > 0) {
+            const currentImage = imageRefs.current[currentImageIndex.current];
+            const prevImage = imageRefs.current[currentImageIndex.current - 1];
+            
+            if (currentImage && prevImage) {
+              // Animate current image out with dramatic effect
+              gsap.to(currentImage, {
+                duration: 0.8,
+                opacity: 0,
+                scale: 1.2,
+                rotation: 5,
+                filter: 'blur(8px)',
+                ease: 'power2.inOut',
+              });
+              
+              // Set previous image initial state
+              gsap.set(prevImage, {
+                opacity: 0,
+                scale: 0.8,
+                rotation: -5,
+                filter: 'blur(8px)',
+              });
+              
+              // Animate previous image in
+              gsap.to(prevImage, {
+                duration: 0.8,
+                opacity: 1,
+                scale: 1,
+                rotation: 0,
+                filter: 'blur(0px)',
+                ease: 'power2.out',
+                onComplete: () => {
+                  isScrolling.current = false;
+                },
+              });
+            }
+            
+            currentImageIndex.current--;
+          } else {
+            // At first image, go back to section2 last panel
+            currentPanelIndex.current = maxPanelIndex;
+            const horizontalContainer = horizontalContainerRef.current;
+            const panelWidth = windowWidth - 104;
+
+            // Set the horizontal container to the last panel position immediately
+            gsap.set(horizontalContainer, {
+              x: -currentPanelIndex.current * panelWidth,
+            });
+
+            // Then scroll to section2
+            gsap.to(window, {
+              duration: 1.2,
+              scrollTo: '#section2',
+              ease: 'power2.inOut',
+              onComplete: () => {
+                isScrolling.current = false;
+              },
+            });
+          }
+        }
       } else {
         isScrolling.current = false;
       }
@@ -124,6 +245,21 @@ const MyStoryPage = () => {
       }
     };
   }, [windowWidth]);
+
+  // Initialize images visibility on mount
+  useEffect(() => {
+    // Show only first image initially with proper setup
+    imageRefs.current.forEach((ref, index) => {
+      if (ref) {
+        gsap.set(ref, { 
+          opacity: index === 0 ? 1 : 0,
+          scale: 1,
+          rotation: 0,
+          filter: 'blur(0px)',
+        });
+      }
+    });
+  }, []);
 
   return (
     <div
@@ -171,14 +307,14 @@ const MyStoryPage = () => {
         id='section2'
         className='relative mx-[52px] h-screen overflow-hidden'
       >
-        <div 
+        <div
           ref={horizontalContainerRef}
           className='absolute left-0 top-1/2 flex -translate-y-1/2 items-start'
           style={{ width: `${3 * (windowWidth - 104)}px` }}
         >
           <div
             id='section2_1'
-            className='relative h-[calc(100vh-64px)] bg-[url("/images/story/1.webp")] bg-cover bg-center bg-no-repeat flex-shrink-0'
+            className='relative h-[calc(100vh-64px)] flex-shrink-0 bg-[url("/images/story/1.webp")] bg-cover bg-center bg-no-repeat'
             style={{ width: `${windowWidth - 104}px` }}
           >
             <p className='w-[1505px] pl-[32px] pt-[48px] text-[40px] leading-[53px] text-[#C3B6A2]'>
@@ -206,7 +342,7 @@ const MyStoryPage = () => {
           </div>
           <div
             id='section2_2'
-            className='relative h-[calc(100vh-64px)] bg-[url("/images/story/2.webp")] bg-cover bg-center bg-no-repeat flex-shrink-0'
+            className='relative h-[calc(100vh-64px)] flex-shrink-0 bg-[url("/images/story/2.webp")] bg-cover bg-center bg-no-repeat'
             style={{ width: `${windowWidth - 104}px` }}
           >
             <div className='absolute bottom-[35px] right-[22px] w-full pl-[32px] pt-[48px] text-right text-[40px] leading-[53px] text-[#C3B6A2]'>
@@ -224,7 +360,7 @@ const MyStoryPage = () => {
           </div>
           <div
             id='section2_3'
-            className='relative h-[calc(100vh-64px)] bg-[url("/images/story/3.webp")] bg-cover bg-center bg-no-repeat flex-shrink-0'
+            className='relative h-[calc(100vh-64px)] flex-shrink-0 bg-[url("/images/story/3.webp")] bg-cover bg-center bg-no-repeat'
             style={{ width: `${windowWidth - 104}px` }}
           >
             <p className='w-full pl-[32px] pt-[48px] text-[40px] leading-[53px] text-[#C3B6A2]'>
@@ -252,7 +388,122 @@ const MyStoryPage = () => {
           </div>
         </div>
       </div>
-      <div id='section3' className='h-screen'></div>
+      <div
+        id='section3'
+        className='relative flex h-screen items-center justify-between'
+      >
+        <div className='relative h-full w-[923px] overflow-hidden'>
+          <div
+            ref={(el) => { imageRefs.current[0] = el; }}
+            className='absolute inset-0 will-change-transform'
+          >
+            <CustomImage
+              src='/images/story/one.webp'
+              alt='one'
+              className='h-full w-full object-cover'
+              unoptimized
+              width={923}
+              height={1080}
+            />
+          </div>
+          <div
+            ref={(el) => { imageRefs.current[1] = el; }}
+            className='absolute inset-0 will-change-transform'
+          >
+            <CustomImage
+              src='/images/story/two.webp'
+              alt='two'
+              className='h-full w-full object-cover'
+              unoptimized
+              width={923}
+              height={1080}
+            />
+          </div>
+          <div
+            ref={(el) => { imageRefs.current[2] = el; }}
+            className='absolute inset-0 will-change-transform'
+          >
+            <CustomImage
+              src='/images/story/three.webp'
+              alt='three'
+              className='h-full w-full object-cover'
+              unoptimized
+              width={923}
+              height={1080}
+            />
+          </div>
+          <div
+            ref={(el) => { imageRefs.current[3] = el; }}
+            className='absolute inset-0 will-change-transform'
+          >
+            <CustomImage
+              src='/images/story/four.webp'
+              alt='four'
+              className='h-full w-full object-cover'
+              unoptimized
+              width={923}
+              height={1080}
+            />
+          </div>
+          <div
+            ref={(el) => { imageRefs.current[4] = el; }}
+            className='absolute inset-0 will-change-transform'
+          >
+            <CustomImage
+              src='/images/story/fire.webp'
+              alt='five'
+              className='h-full w-full object-cover'
+              unoptimized
+              width={923}
+              height={1080}
+            />
+          </div>
+          <div
+            ref={(el) => { imageRefs.current[5] = el; }}
+            className='absolute inset-0 will-change-transform'
+          >
+            <CustomImage
+              src='/images/story/six.webp'
+              alt='six'
+              className='h-full w-full object-cover'
+              unoptimized
+              width={923}
+              height={1080}
+            />
+          </div>
+          <div
+            ref={(el) => { imageRefs.current[6] = el; }}
+            className='absolute inset-0 will-change-transform'
+          >
+            <CustomImage
+              src='/images/story/seven.webp'
+              alt='seven'
+              className='h-full w-full object-cover'
+              unoptimized
+              width={923}
+              height={1080}
+            />
+          </div>
+        </div>
+        <div className='mr-[52px] max-w-[859px] text-right'>
+          <p className='text-[48px] font-[600]'>Another things ^^</p>
+          <p className='text-[16px]'>
+            about Thanh Quy Nguyen (update on Jul 2025)
+          </p>
+          <div className='mt-[32px] text-[32px]'>
+            grew up by the <span>sea</span> and dream to stay passionate about{' '}
+            <span>deep talk</span> with friends a <span>chess lover </span>{' '}
+            who’s always down for 1 more game <span>fireworks with fami</span>
+            ly is my favorite moment
+            <span>photobooth with friends</span> is so cute and worth one of a
+            biggest fans of <span>Son Tung M-TP </span>
+            and would be a <span>producer</span> if money didn’t matter
+          </div>
+        </div>
+        <p className='absolute bottom-[42px] right-[52px] text-[16px] font-[400]'>
+          ALL RIGHTS RESERVED © 2025 TQNG MARUKO
+        </p>
+      </div>
     </div>
   );
 };
