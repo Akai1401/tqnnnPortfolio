@@ -195,22 +195,22 @@ const CVPage = () => {
         duration: 1.5,
         opacity: 0,
         ease: 'power2.out',
-        onStart: () => {
-          // Typewriter effect
-          const textContent = text.textContent;
-          text.textContent = '';
-          text.style.opacity = '1';
+        // onStart: () => {
+        //   // Typewriter effect
+        //   const textContent = text.textContent;
+        //   text.textContent = '';
+        //   text.style.opacity = '1';
 
-          let i = 0;
-          const typeWriter = () => {
-            if (i < textContent.length) {
-              text.textContent += textContent.charAt(i);
-              i++;
-              setTimeout(typeWriter, 20);
-            }
-          };
-          typeWriter();
-        },
+        //   let i = 0;
+        //   const typeWriter = () => {
+        //     if (i < textContent.length) {
+        //       text.textContent += textContent.charAt(i);
+        //       i++;
+        //       setTimeout(typeWriter, 20);
+        //     }
+        //   };
+        //   typeWriter();
+        // },
       });
     });
 

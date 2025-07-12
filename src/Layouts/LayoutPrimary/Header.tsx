@@ -85,6 +85,8 @@ const Header = () => {
   }, [path]);
 
   useEffect(() => {
+    if (path === '/my-story') return;
+
     const handleScroll = () => {
       if (!ticking.current) {
         requestAnimationFrame(() => {
@@ -127,7 +129,7 @@ const Header = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [path]);
 
   useEffect(() => {
     const timer = setInterval(() => {

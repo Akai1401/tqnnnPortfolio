@@ -878,7 +878,7 @@ const MyStoryPage = () => {
           >
             <div
               ref={horizontalContainerRef}
-              className='absolute left-0 top-1/2 flex -translate-y-1/2 items-start'
+              className='absolute left-0 bottom-0 flex items-start'
               style={{ width: 'calc(300vw - 19.5rem)' }}
             >
               <div
@@ -974,7 +974,7 @@ const MyStoryPage = () => {
           </div>
           <div
             id='section3'
-            className='relative flex h-screen items-center justify-between'
+            className='relative flex h-screen items-start justify-between '
           >
             <div className='section3-image-container relative h-full w-[923px] overflow-hidden'>
               <div
@@ -1031,7 +1031,7 @@ const MyStoryPage = () => {
                 <CustomImage
                   src='/images/story/four.webp'
                   alt='four'
-                  className='h-full w-full object-cover'
+                  className='h-full w-full object-cover object-top'
                   unoptimized
                   width={923}
                   height={1080}
@@ -1083,7 +1083,7 @@ const MyStoryPage = () => {
                 />
               </div>
             </div>
-            <div className='mr-[52px] max-w-[859px] text-right'>
+            <div className='mr-[52px] max-w-[859px] text-right mt-[7rem]'>
               <p className='section3-title text-[48px] font-[600]'>
                 Another things ^^
               </p>
@@ -1264,10 +1264,11 @@ const MyStoryPage = () => {
             </p>
             <p className='text-[32px] font-[600]'>Coming soon hihi</p>{' '}
             <CustomImage
-              src='/images/story/bg2.webp'
+              src='/images/story/bg3.webp'
+              className='mr-[-8rem] mt-[-3rem]'
               alt='scroll'
-              width={1112.6}
-              height={571}
+              width={1017}
+              height={601}
             />
             <CustomImage
               src='/images/loading/tqn.gif'
