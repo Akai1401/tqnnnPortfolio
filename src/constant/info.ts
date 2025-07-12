@@ -1,6 +1,6 @@
 export const INFO = {
   APP: {
-    NAME: 'Quý nè hihi | Portfolio 2025',
+    NAME: 'thanh quy nguyen | portfolio 2025',
     DOMAIN: '',
     DESC: '',
     LOGO_URL: '/images/logo.png',
