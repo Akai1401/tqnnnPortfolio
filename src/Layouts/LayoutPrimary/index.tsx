@@ -134,7 +134,9 @@ const LayoutPrimary = ({ children }: any) => {
     <div className=''>
       {welcomeState !== PAGE_STATE.HERO && <WelcomeSection />}
       {welcomeState === PAGE_STATE.HERO &&
-        (pathname.includes('/works') || pathname === '/cv') && <ScrollToTop />}
+        (pathname.includes('/works') ||
+          pathname === '/cv' ||
+          pathname === '/my-story') && <ScrollToTop />}
       {welcomeState !== PAGE_STATE.LOADING && (
         <>
           {/* {pathname === '/' && ( */}
